@@ -40,7 +40,7 @@
 
 <section id="projects" class="view">
   <div class="section-head">
-    <div><h2>Project Register</h2><p>Loaded from the supplied workbook. Use the form to add/update projects locally.</p></div>
+    <div><h2>Project Register</h2><p>Live data from the NBRO Google Sheets database. New and edited projects are saved through the Google Apps Script API.</p></div>
     <button class="primary" id="newProjectBtn">+ New project</button>
   </div>
   <div class="filters">
@@ -54,7 +54,7 @@
 
 <section id="wip" class="view">
   <div class="section-head">
-    <div><h2>Monthly WIP Update</h2><p>Enter incremental physical progress and financial WIP. Data is stored in your browser until a Google Apps Script endpoint is connected.</p></div>
+    <div><h2>Monthly WIP Update</h2><p>Enter the reporting month physical progress and financial WIP. Updates are saved directly to the NBRO Google Sheets database.</p></div>
     <button class="primary" id="saveWipBtn">Save update</button>
   </div>
   <div class="panel">
@@ -64,7 +64,7 @@
 </section>
 
 <section id="finance" class="view">
-  <div class="section-head"><div><h2>Financial overview</h2><p>Derived from project estimates and monthly financial WIP. Transaction-level finance can be added in the next phase.</p></div></div>
+  <div class="section-head"><div><h2>Financial overview</h2><p>Derived from live project estimates and monthly financial WIP. Transaction-level finance is available through the API for the next phase.</p></div></div>
   <div class="cards" id="financeKpis"></div>
   <div class="panel"><h2>Projects with financial exposure</h2><div class="table-wrap"><table id="financeTable"></table></div></div>
 </section>

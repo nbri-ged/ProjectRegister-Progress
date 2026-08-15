@@ -59,3 +59,9 @@ The supplied public Google Sheet can then remain the management-facing data sour
 ## Important
 
 Do not expose sensitive financial information in a public GitHub repository. If this is deployed publicly, move the actual project/financial data behind authentication or keep the repository private.
+
+## Live Google Sheets API
+
+The frontend is configured to use the NBRO Google Apps Script Web App as its live backend. It loads `PROJECTS`, `MONTHLY_WIP`, and `FINANCIAL_TRANSACTIONS` through the API and no longer uses browser `localStorage` as the master database.
+
+Before publishing sensitive project/financial information publicly, add authentication/access control to the Apps Script deployment.
