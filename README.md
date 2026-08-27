@@ -1,67 +1,60 @@
-# NBRO Project Register & Financial Dashboard
+# NBRI • Geotechnical Engineering Division (GED)
+## Project Registry & Progress Dashboard
 
-GitHub Pages-ready prototype built from the supplied `Project Register.xlsx`.
+An executive-grade, real-time Project Registry and Monthly Financial Management system for the **National Building Research Institute (NBRI) — Geotechnical Engineering Division**.
 
-## Included data
+---
 
-- 51 project records from **Project Registry**
-- Working groups, engineers and status lookups
-- Best-effort monthly WIP extraction from the **24-Month WIP Matrix**
-- Reporting month initialized to **June 2026**, matching the workbook dashboard
+## 🚀 Key Features
 
-## Run locally
+1. **Executive Dashboard**:
+   - Live 6-indicator financial performance cards:
+     1. Money Received (Rs.)
+     2. Outstanding (Rs.)
+     3. Interdivisional (Rs.)
+     4. Working Progress (Rs.)
+     5. Income (Rs.)
+     6. Profit & Margin (Rs. & %) — **< 5% highlighted in bold RED**
+   - Multi-month progress vs. expenditure and profit trend comparison bars.
+2. **Zero-Horizontal-Scroll Project Progress Matrix**:
+   - Modern, responsive card layout matching NBRI's exact spreadsheet register:
+     - No | Description | Client | Estimate (w/o tax) | Advance received | Prev. Cumulative | Monthly Progress (Rs.) | Physical WIP % | Total Cumulative
+   - Instant fuzzy search across projects.
+   - Live cascading totals to the Division Financial Summary.
+3. **Dual-Sync Database Pipeline (GitHub + Google Sheets)**:
+   - **Step 1**: Directly commits updated database JSON to data/project-data.json on your GitHub repository.
+   - **Step 2**: Simultaneously synchronizes records with live Google Sheets via Google Apps Script.
+4. **Interactive Kanban & Table Views**:
+   - Drag-and-drop project lifecycle columns (In Progress, Pending, On Hold, Completed).
+   - In-line status dropdown editing.
+5. **Command Palette (Ctrl + K) & Dark / Light Theme Engine**.
 
-Because the app loads JSON with `fetch()`, use a small local web server rather than opening `index.html` directly.
+---
 
-```bash
+## 💻 How to Run Locally
+
+`ash
 python -m http.server 8000
-```
+`
+Open http://localhost:8000 in your web browser.
 
-Then open `http://localhost:8000`.
+---
 
-## Deploy to GitHub Pages
+## 🌐 Deploy to GitHub Pages
 
-1. Create a GitHub repository, for example `nbro-project-register`.
-2. Upload all files in this folder.
-3. In GitHub: **Settings → Pages → Deploy from branch → main / root**.
-4. Open the generated GitHub Pages URL.
+1. Upload all repository files to GitHub (e.g. https://github.com/<your-user>/ProjectRegister).
+2. In GitHub repository settings: **Settings → Pages → Source: Deploy from a branch (main / root)**.
+3. Your live application will be instantly accessible at https://<your-user>.github.io/ProjectRegister/.
 
-No build system is required.
+---
 
-## Current data-entry model
+## ⚙️ Direct GitHub Database Setup
 
-The first version is deliberately simple:
-
-- Existing workbook data is loaded from `data/project-data.json`.
-- New/edit project records are saved to browser `localStorage`.
-- Monthly WIP entries are also saved locally.
-- Export JSON provides a backup of the edited data.
-
-This is useful as a working prototype, but **localStorage is not a multi-user database**.
-
-## Recommended next step: Google Sheets backend
-
-Connect the same screens to a Google Apps Script Web App:
-
-```text
-Web UI
-  ↓
-Google Apps Script Web App
-  ↓
-Google Sheets
-  ├── PROJECTS
-  ├── MONTHLY_WIP
-  └── FINANCIAL_TRANSACTIONS
-```
-
-The supplied public Google Sheet can then remain the management-facing data source while users enter data through the web interface.
-
-## Important
-
-Do not expose sensitive financial information in a public GitHub repository. If this is deployed publicly, move the actual project/financial data behind authentication or keep the repository private.
-
-## Live Google Sheets API
-
-The frontend is configured to use the NBRO Google Apps Script Web App as its live backend. It loads `PROJECTS`, `MONTHLY_WIP`, and `FINANCIAL_TRANSACTIONS` through the API and no longer uses browser `localStorage` as the master database.
-
-Before publishing sensitive project/financial information publicly, add authentication/access control to the Apps Script deployment.
+1. In the topbar, click **⚙️ GitHub Sync**.
+2. Enter:
+   - **GitHub Personal Access Token (PAT)** (Fine-Grained or Classic with 
+epo:write permission).
+   - **Repository Owner** & **Repository Name** (ProjectRegister).
+   - **Branch** (main).
+3. Click **🧪 Test Connection**, then **Save GitHub Settings**.
+4. All future edits will automatically commit to GitHub first, then sync with Google Sheets!

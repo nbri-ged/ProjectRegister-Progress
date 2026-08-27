@@ -1,93 +1,348 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NBRO Project Register & Financial Dashboard</title>
+<title>NBRI - Geotechnical Engineering Division | Project Registry & Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<!-- Chart.js for High-Performance Modern Interactive Visualizations -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
+
 <header class="topbar">
-  <div>
-    <div class="eyebrow">NBRO • Project Monitoring</div>
-    <h1>Project Register & Financial Dashboard</h1>
+  <div class="branding">
+    <div class="eyebrow">NBRI • National Building Research Institute — Geotechnical Engineering Division (GED)</div>
+    <h1>Project Registry & Progress Dashboard</h1>
   </div>
   <div class="top-actions">
-    <label>Reporting month <input id="reportMonth" type="month" value="2026-06"></label>
+    <button class="cmd-hint" id="cmdPaletteTrigger" title="Press Ctrl+K to search anything">
+      <span>🔍 Quick search</span> <kbd>Ctrl K</kbd>
+    </button>
+    <label class="month-label">Reporting month <input id="reportMonth" type="month" value="2026-06"></label>
+    <button class="theme-toggle-btn" id="themeToggle" title="Toggle dark/light theme">🌙</button>
     <button class="ghost" id="exportBtn">Export JSON</button>
   </div>
 </header>
 
 <nav class="tabs">
-  <button class="tab active" data-view="dashboard">Dashboard</button>
-  <button class="tab" data-view="projects">Projects</button>
-  <button class="tab" data-view="wip">Monthly WIP</button>
-  <button class="tab" data-view="finance">Finance</button>
+  <button class="tab active" data-view="dashboard">📊 Dashboard</button>
+  <button class="tab" data-view="projects">📁 Projects</button>
+  <button class="tab" data-view="wip">📈 Monthly WIP</button>
+  <button class="tab" data-view="finance">💰 Financial Overview</button>
 </nav>
 
 <main>
+<!-- DASHBOARD VIEW -->
 <section id="dashboard" class="view active">
-  <div class="cards" id="kpis"></div>
-  <div class="grid two">
-    <article class="panel"><h2>Project status</h2><div id="statusChart"></div></article>
-    <article class="panel"><h2>Working group workload</h2><div id="groupChart"></div></article>
+  <!-- Top Executive Filter & Period Header -->
+  <div class="section-head" style="margin-bottom:16px;">
+    <div>
+      <h2 style="font-size:20px;margin:0;">Executive Financial & Project Performance Dashboard</h2>
+      <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">Year-to-date monthly financial trajectories, cash flow analysis, and project completion metrics.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text-primary);">
+        <span>Fiscal Year:</span>
+        <select id="dashYearSelect" style="padding:6px 12px;font-size:13px;font-weight:700;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+        </select>
+      </label>
+      <span class="badge in-progress" id="dashPeriodBadge" style="font-size:12px;padding:5px 12px;">Jan – Jun 2026</span>
+    </div>
   </div>
+
+  <!-- 6 Key Financial Indicator KPI Cards (Exact User Order) -->
+  <div class="cards" id="financeIndicatorKpis" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 22px;"></div>
+
+  <!-- TOP CHART ROW: WIP Overview (Combo) + Cash Flow Breakdown -->
+  <div class="grid two" style="margin-bottom:22px;">
+    <!-- Chart 1: Monthly Financial WIP & Cumulative Overview -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📈 Monthly Financial WIP & Cumulative Overview</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Monthly billing progress vs. cumulative rising trend across selected fiscal year.</p>
+        </div>
+      </div>
+      <div style="position:relative;height:290px;width:100%;">
+        <canvas id="chartWipOverview"></canvas>
+      </div>
+    </article>
+
+    <!-- Chart 2: Cash Flow & Claims Breakdown -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">💵 Monthly Cash Flow & Claims Breakdown</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Money Received vs. Expenditure vs. Outstanding Claims per month.</p>
+        </div>
+      </div>
+      <div style="position:relative;height:290px;width:100%;">
+        <canvas id="chartCashflow"></canvas>
+      </div>
+    </article>
+  </div>
+
+  <!-- BOTTOM CHART ROW: Working Group Distribution + Profit Margin % Trend -->
+  <div class="grid two" style="margin-bottom:22px;">
+    <!-- Chart 3: Working Group Portfolio Share -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">🍩 Working Group Portfolio Distribution</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Project allocation & financial weight by engineering discipline.</p>
+        </div>
+      </div>
+      <div style="position:relative;height:290px;width:100%;">
+        <canvas id="chartGroupDistribution"></canvas>
+      </div>
+    </article>
+
+    <!-- Chart 4: Profit Margin % Trend & 5% Safety Threshold -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📉 Monthly Profit Margin % & 5% Red Alert Threshold</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Division margin performance with critical &lt; 5% safety benchmark.</p>
+        </div>
+      </div>
+      <div style="position:relative;height:290px;width:100%;">
+        <canvas id="chartProfitTrend"></canvas>
+      </div>
+    </article>
+  </div>
+
+  <!-- Key Metrics & Executive Alerts -->
   <div class="grid two">
-    <article class="panel"><h2>Physical vs financial progress</h2><div id="progressChart"></div></article>
-    <article class="panel"><h2>Project alerts</h2><div id="alerts"></div></article>
+    <article class="panel">
+      <h2>Project Portfolio Status</h2>
+      <div id="statusChart"></div>
+    </article>
+    <article class="panel">
+      <h2>Executive Alerts & Action Items</h2>
+      <div id="alerts"></div>
+    </article>
   </div>
 </section>
 
+<!-- PROJECTS VIEW -->
 <section id="projects" class="view">
   <div class="section-head">
-    <div><h2>Project Register</h2><p>Live data from the NBRO Google Sheets database. New and edited projects are saved through the Google Apps Script API.</p></div>
-    <button class="primary" id="newProjectBtn">+ New project</button>
+    <div>
+      <h2>Project Register</h2>
+      <p>Live synchronized records with NBRO Google Sheets. Direct inline editing & drag-and-drop Kanban supported.</p>
+    </div>
+    <div class="head-actions">
+      <div class="view-switcher">
+        <button class="view-toggle-btn active" id="viewModeTable" data-mode="table">📋 Table</button>
+        <button class="view-toggle-btn" id="viewModeKanban" data-mode="kanban">📌 Kanban</button>
+      </div>
+      <button class="primary" id="newProjectBtn">+ New project</button>
+    </div>
   </div>
+
   <div class="filters">
-    <input id="search" placeholder="Search code, client, description…">
+    <input id="search" placeholder="Search code, client, description, engineer…">
     <select id="statusFilter"><option value="">All statuses</option></select>
     <select id="groupFilter"><option value="">All working groups</option></select>
     <select id="engineerFilter"><option value="">All engineers</option></select>
   </div>
-  <div class="table-wrap"><table id="projectTable"></table></div>
+
+  <!-- TABLE CONTAINER -->
+  <div id="projectTableWrap" class="table-wrap">
+    <table id="projectTable"></table>
+  </div>
+
+  <!-- KANBAN CONTAINER -->
+  <div id="kanbanWrap" style="display:none;">
+    <div class="kanban-board" id="kanbanBoard"></div>
+  </div>
 </section>
 
+<!-- MONTHLY WIP & FINANCE ENTRY VIEW -->
 <section id="wip" class="view">
-  <div class="section-head">
-    <div><h2>Monthly WIP Update</h2><p>Enter the reporting month physical progress and financial WIP. Updates are saved directly to the NBRO Google Sheets database.</p></div>
-    <button class="primary" id="saveWipBtn">Save update</button>
-  </div>
-  <div class="panel">
-    <div class="form-row"><label>Month <input id="wipMonth" type="month" value="2026-06"></label></div>
-    <div class="table-wrap"><table id="wipTable"></table></div>
-  </div>
+  <!-- TOP PANEL: OVERALL DIVISION MONTHLY FINANCIAL SUMMARY (1 Entry / Month) -->
+  <article class="panel" style="margin-bottom: 22px; border-left: 4px solid var(--primary);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:16px;">
+      <div>
+        <h2 style="margin:0;font-size:18px;">🏛️ Overall Division Monthly Financial Summary</h2>
+        <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">Single monthly entry for the entire division. Working Progress is auto-summed from the project matrix below.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <label class="month-label" style="margin:0;font-weight:700;color:var(--text-primary);">
+          Month: <input id="wipMonth" type="month" value="2026-06" style="background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border-color);padding:6px 10px;border-radius:6px;">
+        </label>
+        <button class="primary" id="saveFinanceSummaryBtn" style="padding:7px 14px;font-size:13px;">💾 Save Division Financials</button>
+      </div>
+    </div>
+
+    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 16px;">
+      <label>
+        <span>Expenditure (Rs.)</span>
+        <input id="summaryExp" type="number" step="0.01" placeholder="0.00" style="color:var(--danger);font-weight:600;" oninput="recalcFinanceSummary()">
+      </label>
+      <label>
+        <span>Money Received (Rs.)</span>
+        <input id="summaryMr" type="number" step="0.01" placeholder="0.00" style="color:var(--primary);font-weight:600;" oninput="recalcFinanceSummary()">
+      </label>
+      <label>
+        <span>Outstanding (Rs.)</span>
+        <input id="summaryOut" type="number" step="0.01" placeholder="0.00" style="color:#d97706;font-weight:600;" oninput="recalcFinanceSummary()">
+      </label>
+      <label>
+        <span>Interdivisional (Rs.)</span>
+        <input id="summaryInter" type="number" step="0.01" placeholder="0.00" style="color:#7c3aed;font-weight:600;" oninput="recalcFinanceSummary()">
+      </label>
+    </div>
+
+    <!-- Calculated Row for Division Financials -->
+    <div style="background:var(--bg-surface-subtle);padding:14px 16px;border-radius:var(--radius-md);border:1px solid var(--border-color-subtle);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;">
+        <div>Working Progress: <b id="summaryWpDisplay" style="color:#0284c7;font-size:15px;">Rs. 0.00</b></div>
+        <div>Income: <b id="summaryIncDisplay" style="color:#059669;font-size:15px;">Rs. 0.00</b></div>
+        <div>Profit: <b id="summaryProfitDisplay" style="color:#10b981;font-size:15px;">Rs. 0.00</b></div>
+      </div>
+      <div>
+        <span id="summaryProfitBadge" class="badge completed" style="font-size:13px;padding:5px 12px;font-weight:700;">0.0% Profit Margin</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- BOTTOM PANEL: PROJECT-BY-PROJECT PROGRESS MATRIX (WITH CARDS & TABLE VIEW SWITCHER) -->
+  <article class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="margin:0;font-size:18px;">📁 Project Progress Matrix (<span id="matrixMonthLabel">Selected Month</span>)</h2>
+        <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">Enter monthly billing and progress percentage. Working Progress live-cascades to division totals above.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <!-- Matrix View Mode Toggle -->
+        <div class="view-switcher">
+          <button type="button" class="view-toggle-btn active" id="matrixViewCards">🗂️ Cards</button>
+          <button type="button" class="view-toggle-btn" id="matrixViewTable">📋 Table</button>
+        </div>
+        <input id="matrixSearch" placeholder="🔍 Search projects..." style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);width:180px;font-size:13px;">
+        <button class="primary" id="saveWipBtn">💾 Save Project Progress Matrix</button>
+      </div>
+    </div>
+
+    <!-- 1. MODERN ZERO-SCROLL CARDS VIEW -->
+    <div class="matrix-container" id="matrixCardList"></div>
+
+    <!-- 2. SPREADSHEET TABLE VIEW -->
+    <div id="matrixTableWrap" class="table-wrap" style="display:none;margin-top:14px;">
+      <table id="wipTable"></table>
+    </div>
+  </article>
 </section>
 
+<!-- FINANCE VIEW -->
 <section id="finance" class="view">
-  <div class="section-head"><div><h2>Financial overview</h2><p>Derived from live project estimates and monthly financial WIP. Transaction-level finance is available through the API for the next phase.</p></div></div>
+  <div class="section-head">
+    <div>
+      <h2>Financial Exposure & Billing</h2>
+      <p>Derived from project initial estimates and monthly WIP valuations.</p>
+    </div>
+  </div>
   <div class="cards" id="financeKpis"></div>
-  <div class="panel"><h2>Projects with financial exposure</h2><div class="table-wrap"><table id="financeTable"></table></div></div>
+  <div class="panel">
+    <h2>Ranked Projects by Financial Exposure</h2>
+    <div class="table-wrap">
+      <table id="financeTable"></table>
+    </div>
+  </div>
 </section>
 </main>
 
+<!-- PROJECT MODAL DIALOG -->
 <dialog id="projectDialog">
-  <form method="dialog" id="projectForm">
-    <div class="dialog-head"><h2 id="dialogTitle">New project</h2><button class="icon" value="cancel">×</button></div>
+  <form id="projectForm">
+    <div class="dialog-head">
+      <h2 id="dialogTitle">New project</h2>
+      <button type="button" class="icon" onclick="$('projectDialog').close()" title="Close without saving">✕</button>
+    </div>
     <input type="hidden" id="editIndex">
     <div class="form-grid">
-      <label>Project code<input id="fCode" required></label>
-      <label>Client<input id="fClient"></label>
-      <label class="wide">Description<textarea id="fDesc"></textarea></label>
-      <label>Working group<select id="fGroup"></select></label>
-      <label>Responsible engineer<select id="fEngineer"></select></label>
-      <label>Initial estimate (LKR)<input id="fEstimate" type="number" step="0.01"></label>
-      <label>Advance amount (LKR)<input id="fAdvance" type="number" step="0.01"></label>
-      <label>Status<select id="fStatus"></select></label>
-      <label class="wide">Remarks<textarea id="fRemarks"></textarea></label>
+      <label>Project code <input id="fCode" required placeholder="e.g. 28598.M"></label>
+      <label>Client <input id="fClient" placeholder="e.g. RDA, UDA, Prison HQ"></label>
+      <label class="wide">Description <textarea id="fDesc" placeholder="Project scope, investigation or design details..."></textarea></label>
+      <label>Working group <select id="fGroup"></select></label>
+      <label>Responsible engineer <select id="fEngineer"></select></label>
+      <label>Initial estimate (LKR) <input id="fEstimate" type="number" step="0.01" placeholder="0.00"></label>
+      <label>Advance amount (LKR) <input id="fAdvance" type="number" step="0.01" placeholder="0.00"></label>
+      <label>Status <select id="fStatus"></select></label>
+      <label class="wide">Remarks <textarea id="fRemarks" placeholder="Site updates, constraints, notes..."></textarea></label>
     </div>
-    <div class="dialog-actions"><button value="cancel" class="ghost">Cancel</button><button id="saveProjectBtn" class="primary" value="default">Save project</button></div>
+    <div class="dialog-actions">
+      <button type="button" class="ghost" onclick="$('projectDialog').close()">Cancel</button>
+      <button id="saveProjectBtn" type="submit" class="primary">Save project</button>
+    </div>
   </form>
 </dialog>
+
+<!-- GITHUB SETTINGS DIALOG -->
+<dialog id="ghDialog">
+  <form id="ghForm">
+    <div class="dialog-head">
+      <h2>⚙️ GitHub Database Sync Settings</h2>
+      <button type="button" class="icon" onclick="$('ghDialog').close()" title="Close without saving">✕</button>
+    </div>
+    <p style="color:var(--text-secondary);font-size:13px;margin:0 0 16px;">
+      Directly commits all updates to <code>data/project-data.json</code> in your GitHub repository before updating Google Sheets.
+    </p>
+    <div class="form-grid">
+      <label class="wide">
+        GitHub Personal Access Token (Fine-Grained or Classic with <code>repo:write</code>)
+        <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_xxxx" required>
+        <span style="font-size:11px;color:var(--text-muted);margin-top:2px;">Token is stored only in your browser's localStorage.</span>
+      </label>
+      <label>
+        Repository Owner / Username
+        <input id="ghOwner" placeholder="e.g. your-github-username" required>
+      </label>
+      <label>
+        Repository Name
+        <input id="ghRepo" placeholder="e.g. ProjectRegister" required>
+      </label>
+      <label>
+        Branch
+        <input id="ghBranch" value="main" placeholder="main">
+      </label>
+      <label>
+        Database File Path
+        <input id="ghPath" value="data/project-data.json" placeholder="data/project-data.json">
+      </label>
+    </div>
+    <div id="ghTestStatus" style="margin-top:12px;font-size:12px;display:none;"></div>
+    <div class="dialog-actions">
+      <button type="button" id="ghTestBtn" class="ghost">🧪 Test Connection</button>
+      <button type="button" class="ghost" onclick="$('ghDialog').close()">Cancel</button>
+      <button id="ghSaveBtn" type="submit" class="primary">Save GitHub Settings</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- COMMAND PALETTE MODAL -->
+<div id="cmdPaletteBackdrop" class="cmd-palette-backdrop">
+  <div class="cmd-palette">
+    <div class="cmd-search-wrap">
+      <span style="font-size:18px;">🔍</span>
+      <input id="cmdSearchInput" class="cmd-search-input" placeholder="Type a project code, client, engineer, or action..." autocomplete="off">
+      <kbd style="font-size:11px;background:var(--bg-surface-subtle);border:1px solid var(--border-color);padding:2px 6px;border-radius:4px;color:var(--text-muted);">ESC to close</kbd>
+    </div>
+    <div id="cmdResults" class="cmd-results"></div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast"></div>
+
 <script src="app.js"></script>
 </body>
 </html>
