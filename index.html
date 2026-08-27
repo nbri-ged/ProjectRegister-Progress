@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NBRI - Geotechnical Engineering Division | Project Registry & Progress</title>
+<title>National Building Research Institute (NBRI) - Geotechnical Engineering Division | Project Registry & Progress</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2.7.0">
 <!-- Chart.js for High-Performance Modern Interactive Visualizations -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
@@ -15,7 +15,7 @@
 
 <header class="topbar">
   <div class="branding">
-    <div class="eyebrow">NBRI • National Building Research Institute — Geotechnical Engineering Division (GED)</div>
+    <div class="eyebrow">National Building Research Institute  ( NBRI ) — Geotechnical Engineering Division (GED)</div>
     <h1>Project Registry & Progress Dashboard</h1>
   </div>
   <div class="top-actions">
@@ -23,6 +23,16 @@
       <span>🔍 Quick search</span> <kbd>Ctrl K</kbd>
     </button>
     <label class="month-label">Reporting month <input id="reportMonth" type="month" value="2026-06"></label>
+    <!-- Google Sheets Connection Status Pill -->
+    <div id="sheetsStatusPill" class="sheets-status-pill sheets-status-connecting" title="Google Sheets connection status">
+      <span class="sheets-status-dot" id="sheetsStatusDot"></span>
+      <span class="sheets-status-label" id="sheetsStatusLabel">Connecting…</span>
+    </div>
+    <!-- GitHub Sync Settings Button -->
+    <button class="ghost" id="ghSettingsBtn" title="Configure GitHub Auto-Backup Sync" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;font-size:12px;">
+      <span id="ghStatusDot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#9ca3af;"></span>
+      <span>⚙️ GitHub Sync</span>
+    </button>
     <button class="theme-toggle-btn" id="themeToggle" title="Toggle dark/light theme">🌙</button>
     <button class="ghost" id="exportBtn">Export JSON</button>
   </div>
@@ -56,6 +66,9 @@
       <span class="badge in-progress" id="dashPeriodBadge" style="font-size:12px;padding:5px 12px;">Jan – Jun 2026</span>
     </div>
   </div>
+
+  <!-- Portfolio Snapshot Banner -->
+  <div id="portfolioSummaryBar" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding:12px 18px;background:var(--bg-surface-subtle);border-radius:var(--radius-md);border:1px solid var(--border-color);align-items:center;justify-content:space-between;"></div>
 
   <!-- 6 Key Financial Indicator KPI Cards (Exact User Order) -->
   <div class="cards" id="financeIndicatorKpis" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 22px;"></div>
@@ -148,10 +161,10 @@
   </div>
 
   <div class="filters">
-    <input id="search" placeholder="Search code, client, description, engineer…">
+    <input id="search" placeholder="Search code, client, description, scientist…">
     <select id="statusFilter"><option value="">All statuses</option></select>
     <select id="groupFilter"><option value="">All working groups</option></select>
-    <select id="engineerFilter"><option value="">All engineers</option></select>
+    <select id="engineerFilter"><option value="">All scientists</option></select>
   </div>
 
   <!-- TABLE CONTAINER -->
@@ -214,30 +227,55 @@
     </div>
   </article>
 
-  <!-- BOTTOM PANEL: PROJECT-BY-PROJECT PROGRESS MATRIX (WITH CARDS & TABLE VIEW SWITCHER) -->
-  <article class="panel">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+  <!-- BOTTOM PANEL: PROJECT-BY-PROJECT PROGRESS MATRIX (WITH ZERO-SCROLL CARDS & TABLE VIEW) -->
+  <article class="panel" style="padding: 20px 24px;">
+    <!-- Modern Sticky Toolbar -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--border-color);padding-bottom:16px;">
       <div>
-        <h2 style="margin:0;font-size:18px;">📁 Project Progress Matrix (<span id="matrixMonthLabel">Selected Month</span>)</h2>
-        <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">Enter monthly billing and progress percentage. Working Progress live-cascades to division totals above.</p>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-        <!-- Matrix View Mode Toggle -->
-        <div class="view-switcher">
-          <button type="button" class="view-toggle-btn active" id="matrixViewCards">🗂️ Cards</button>
-          <button type="button" class="view-toggle-btn" id="matrixViewTable">📋 Table</button>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <h2 style="margin:0;font-size:18px;font-weight:800;">📁 Project Progress Matrix</h2>
+          <span class="badge in-progress" id="matrixMonthBadge" style="font-size:12px;padding:3px 10px;">2026-06</span>
+          <span class="badge" id="matrixCountBadge" style="font-size:12px;padding:3px 10px;background:var(--bg-surface-subtle);color:var(--text-secondary);border:1px solid var(--border-color);">58 Active</span>
         </div>
-        <input id="matrixSearch" placeholder="🔍 Search projects..." style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);width:180px;font-size:13px;">
-        <button class="primary" id="saveWipBtn">💾 Save Project Progress Matrix</button>
+        <p style="margin:4px 0 0;color:var(--text-secondary);font-size:12px;">Zero horizontal-scroll interface. Enter monthly billing progress and physical % — updates cascade live to division totals.</p>
+      </div>
+
+      <!-- Quick Filter, Sort & Action Controls -->
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input id="matrixSearch" placeholder="🔍 Search code, client, scope, scientist…" style="padding:7px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);width:210px;font-size:13px;">
+        <select id="matrixScientistFilter" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;">
+          <option value="">All scientists</option>
+        </select>
+        <select id="matrixGroupFilter" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;">
+          <option value="">All working groups</option>
+        </select>
+        <select id="matrixWipFilter" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;">
+          <option value="">All active projects</option>
+          <option value="with_wip">Has progress this month (Rs. > 0)</option>
+          <option value="zero_wip">Zero progress this month (Rs. 0)</option>
+        </select>
+        <select id="matrixSortSelect" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;font-weight:600;">
+          <option value="code_asc">Sort: Project Code (A-Z)</option>
+          <option value="scientist_asc">Sort: Scientist (A-Z)</option>
+          <option value="group_asc">Sort: Working Group</option>
+          <option value="est_desc">Sort: Estimate (Highest)</option>
+          <option value="wip_desc">Sort: Month Progress (Highest)</option>
+        </select>
+        <!-- View Mode Switcher -->
+        <div class="view-switcher">
+          <button type="button" class="view-toggle-btn active" id="matrixViewCards" title="Zero-scroll modern card matrix">🗂️ Cards</button>
+          <button type="button" class="view-toggle-btn" id="matrixViewTable" title="Spreadsheet table view">📋 Table</button>
+        </div>
+        <button class="primary" id="saveWipBtn" style="font-weight:700;padding:8px 16px;">💾 Save Progress Matrix</button>
       </div>
     </div>
 
     <!-- 1. MODERN ZERO-SCROLL CARDS VIEW -->
     <div class="matrix-container" id="matrixCardList"></div>
 
-    <!-- 2. SPREADSHEET TABLE VIEW -->
-    <div id="matrixTableWrap" class="table-wrap" style="display:none;margin-top:14px;">
-      <table id="wipTable"></table>
+    <!-- 2. SPREADSHEET TABLE VIEW (RESPONSIVE) -->
+    <div id="matrixTableWrap" class="table-wrap" style="display:none;margin-top:14px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-color);">
+      <table id="wipTable" style="width:100%;border-collapse:collapse;"></table>
     </div>
   </article>
 </section>
@@ -273,9 +311,9 @@
       <label>Client <input id="fClient" placeholder="e.g. RDA, UDA, Prison HQ"></label>
       <label class="wide">Description <textarea id="fDesc" placeholder="Project scope, investigation or design details..."></textarea></label>
       <label>Working group <select id="fGroup"></select></label>
-      <label>Responsible engineer <select id="fEngineer"></select></label>
-      <label>Initial estimate (LKR) <input id="fEstimate" type="number" step="0.01" placeholder="0.00"></label>
-      <label>Advance amount (LKR) <input id="fAdvance" type="number" step="0.01" placeholder="0.00"></label>
+      <label>Responsible scientist <select id="fEngineer"></select></label>
+      <label>Initial estimate (Rs.) <input id="fEstimate" type="number" step="0.01" placeholder="0.00"></label>
+      <label>Advance amount (Rs.) <input id="fAdvance" type="number" step="0.01" placeholder="0.00"></label>
       <label>Status <select id="fStatus"></select></label>
       <label class="wide">Remarks <textarea id="fRemarks" placeholder="Site updates, constraints, notes..."></textarea></label>
     </div>
@@ -333,7 +371,7 @@
   <div class="cmd-palette">
     <div class="cmd-search-wrap">
       <span style="font-size:18px;">🔍</span>
-      <input id="cmdSearchInput" class="cmd-search-input" placeholder="Type a project code, client, engineer, or action..." autocomplete="off">
+      <input id="cmdSearchInput" class="cmd-search-input" placeholder="Type a project code, client, scientist, or action..." autocomplete="off">
       <kbd style="font-size:11px;background:var(--bg-surface-subtle);border:1px solid var(--border-color);padding:2px 6px;border-radius:4px;color:var(--text-muted);">ESC to close</kbd>
     </div>
     <div id="cmdResults" class="cmd-results"></div>
@@ -343,6 +381,6 @@
 <!-- TOAST NOTIFICATION -->
 <div id="toast"></div>
 
-<script src="app.js"></script>
+<script src="app.js?v=2.7.0"></script>
 </body>
 </html>

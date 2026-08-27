@@ -1,7 +1,7 @@
-# NBRI • Geotechnical Engineering Division (GED)
+# National Building Research Institute  ( NBRI ) — Geotechnical Engineering Division (GED)
 ## Project Registry & Progress Dashboard
 
-An executive-grade, real-time Project Registry and Monthly Financial Management system for the **National Building Research Institute (NBRI) — Geotechnical Engineering Division**.
+An executive-grade, real-time Project Registry and Monthly Financial Management system for the **National Building Research Institute  ( NBRI ) — Geotechnical Engineering Division (GED)**.
 
 ---
 

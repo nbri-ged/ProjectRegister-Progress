@@ -1,0 +1,21 @@
+﻿<!doctype html><html lang="en"><head><meta charset="utf-8"><title>NBRI Debug</title>
+<style>body{font-family:monospace;padding:20px;background:#0f172a;color:#e2e8f0}.ok{color:#10b981}.err{color:#ef4444}.info{color:#60a5fa}pre{background:#1e293b;padding:10px;border-radius:6px;margin:6px 0;white-space:pre-wrap;word-break:break-all}</style>
+</head><body>
+<h1 style="color:#fbbf24">NBRI Live Debug Console</h1>
+<p style="color:#94a3b8">Open browser DevTools (F12) Console too for full error details.</p>
+<div id="log"></div>
+<script>
+const GAS="https://script.google.com/macros/s/AKfycbxxbM1pNLKYYWdDtdHPBg8ycXfrHCx_Qwr4we1KiogjBt9Wg6ukI9XRG8YJH3TnFMoAJQ/exec";
+const log=document.getElementById("log");
+function out(msg,cls){const el=document.createElement("pre");el.className=cls||"info";el.textContent=new Date().toLocaleTimeString()+"  "+msg;log.appendChild(el);}
+async function run(){
+  out("1. Testing action=all ...");
+  try{const r=await fetch(GAS+"?action=all",{cache:"no-store",redirect:"follow"});out("   status: "+r.status,r.ok?"ok":"err");const d=await r.json();out("   keys: "+JSON.stringify(Object.keys(d)),"ok");out("   projects: "+(Array.isArray(d.projects)?d.projects.length:"MISSING - no projects key!"),"ok");out("   wip: "+(Array.isArray(d.wip)?d.wip.length:"MISSING"),"ok");}catch(e){out("   FETCH FAILED: "+e,"err");}
+  out("2. Testing action=projects ...");
+  try{const r=await fetch(GAS+"?action=projects",{cache:"no-store",redirect:"follow"});out("   status: "+r.status,r.ok?"ok":"err");const d=await r.json();out("   data.length: "+(d.data||[]).length,"ok");}catch(e){out("   FETCH FAILED: "+e,"err");}
+  out("3. Testing local fallback: data/project-data.json ...");
+  try{const r=await fetch("data/project-data.json");out("   status: "+r.status,r.ok?"ok":"err");const d=await r.json();out("   projects: "+(d.projects||[]).length,"ok");}catch(e){out("   FETCH FAILED: "+e,"err");}
+  out("Done. If all show FETCH FAILED, check your browser blocks mixed content or CORS.","ok");
+}
+run();
+</script></body></html>

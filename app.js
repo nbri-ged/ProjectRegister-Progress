@@ -14,15 +14,34 @@ const state = {
   cmdFilteredItems: []
 };
 
-const $ = id => document.getElementById(id);
-const money = n => new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 2 }).format(Number(n) || 0);
-const moneyShort = n => new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(Number(n) || 0);
+const $ = id => document.getElementById(id) || {
+  value: "",
+  innerHTML: "",
+  textContent: "",
+  style: {},
+  classList: { add: () => {}, remove: () => {}, toggle: () => {} },
+  addEventListener: () => {},
+  appendChild: () => {},
+  getContext: () => null,
+  showModal: () => {},
+  close: () => {}
+};
+
+const money = n => {
+  const num = Number(n) || 0;
+  return "Rs. " + num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+const moneyShort = n => {
+  const num = Number(n) || 0;
+  return "Rs. " + num.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+};
 const pct = n => Math.max(0, Math.min(100, (Number(n) || 0) * 100));
 const safe = v => v == null ? "" : String(v);
 
 function projectCode(p) { return safe(p["Project Code"] ?? p.projectCode ?? p["No"] ?? p.no); }
 function projectId(p) { return safe(p["Project ID"] ?? p.projectId ?? p.id) || projectCode(p); }
 function status(p) { return safe(p["Current Status"] ?? p.Status ?? p.status) || "In Progress"; }
+function scientist(p) { return safe(p["Responsible Scientist"] ?? p["Responsible Engineer"] ?? p.responsibleScientist ?? p.responsibleEngineer ?? p["Scientist"] ?? p.scientist) || ""; }
 function reportingMonth(r) { return safe(r["Reporting Month"] ?? r.month ?? r["Month"]) || state.month; }
 function norm(c) { return String(c ?? "").trim().toLowerCase().replace(/\s+/g, ""); }
 
@@ -174,76 +193,139 @@ function deriveLookups() {
   const foundStatuses = unique("Current Status", "Status", "status");
   state.lookups.statuses = foundStatuses.length ? foundStatuses : ["In Progress", "Completed", "Pending", "On Hold"];
   state.lookups.workingGroups = unique("Working Group");
-  state.lookups.engineers = unique("Responsible Engineer");
+  state.lookups.engineers = unique("Responsible Scientist", "Responsible Engineer", "Scientist", "Engineer");
 }
 
 async function init() {
   initTheme();
+  setSheetsStatus("connecting", "Connecting…");
+
+  const showStep = (msg) => {
+    const lbl = $("sheetsStatusLabel");
+    if (lbl) lbl.textContent = msg;
+    console.log("[NBRI]", msg);
+  };
+
   try {
-    let res = null;
+    let projects = [], wip = [], financeSummary = [], finance = [], lookups = {}, reportingMonth = state.month;
+
+    // Step 1: Try fast single-fetch bootstrap (new GAS)
+    showStep("Loading data…");
+    let bootstrapOk = false;
     try {
-      // Step 1: Try fast combined bootstrap fetch
-      res = await apiGet("all");
+      const res = await apiGet("all");
+      if (Array.isArray(res.projects) && res.projects.length > 0) {
+        projects        = res.projects;
+        wip             = Array.isArray(res.wip)             ? res.wip             : [];
+        financeSummary  = Array.isArray(res.financeSummary)  ? res.financeSummary  : [];
+        finance         = Array.isArray(res.finance)         ? res.finance         : [];
+        lookups         = res.lookups || {};
+        reportingMonth  = res.reportingMonth || state.month;
+        bootstrapOk = true;
+        showStep("Data loaded");
+      }
     } catch (e) {
-      console.warn("Combined bootstrap fetch notice:", e);
+      console.warn("[NBRI] bootstrap fetch skipped:", e.message);
     }
 
-    if (!res || (!res.projects && !res.data)) {
-      // Step 2: Fallback to sequential individual fetches (prevents Google single-thread lock dropped connections)
-      const projectsRes = await apiGet("projects");
-      const wipRes = await apiGet("wip").catch(() => ({ data: [] }));
-      const finSumRes = await apiGet("financeSummary").catch(() => ({ data: [] }));
-      const financeRes = await apiGet("finance").catch(() => ({ data: [] }));
+    // Step 2: Fall back to sequential fetches if bootstrap didn't return real data
+    if (!bootstrapOk) {
+      showStep("Fetching projects…");
+      const pRes = await apiGet("projects");
+      projects       = Array.isArray(pRes.data) ? pRes.data : [];
+      lookups        = pRes.lookups || {};
+      reportingMonth = pRes.reportingMonth || state.month;
 
-      res = {
-        projects: projectsRes.data || [],
-        wip: wipRes.data || [],
-        financeSummary: finSumRes.data || [],
-        finance: financeRes.data || [],
-        lookups: projectsRes.lookups || {},
-        reportingMonth: projectsRes.reportingMonth || state.month
-      };
+      showStep(`${projects.length} projects · loading WIP…`);
+      const wRes = await apiGet("wip").catch(() => ({ data: [] }));
+      wip = Array.isArray(wRes.data) ? wRes.data : [];
+
+      showStep(`WIP loaded · loading finance…`);
+      const fsRes = await apiGet("financeSummary").catch(() => ({ data: [] }));
+      financeSummary = Array.isArray(fsRes.data) ? fsRes.data : [];
+
+      const fRes = await apiGet("finance").catch(() => ({ data: [] }));
+      finance = Array.isArray(fRes.data) ? fRes.data : [];
     }
 
-    state.projects = Array.isArray(res.projects) ? res.projects : (Array.isArray(res.data) ? res.data : []);
-    state.wip = Array.isArray(res.wip) ? res.wip : [];
-    state.financeSummary = Array.isArray(res.financeSummary) ? res.financeSummary : [];
-    state.finance = Array.isArray(res.finance) ? res.finance : [];
-    state.lookups = res.lookups || {};
-    state.month = res.reportingMonth || state.month;
+    if (projects.length === 0) throw new Error("No project data returned from Google Sheets.");
+
+    state.projects       = projects;
+    state.wip            = wip;
+    state.financeSummary = financeSummary;
+    state.finance        = finance;
+    state.lookups        = lookups;
+    state.month          = reportingMonth;
+
     deriveLookups();
     $("reportMonth").value = state.month;
-    $("wipMonth").value = state.month;
+    $("wipMonth").value    = state.month;
     fillFilters();
     renderAll();
-    setApiStatus("Live database connected", true);
+    setSheetsStatus("live", `🟢 Sheets Live (${state.projects.length} Projects)`);
+    setApiStatus(`Live database connected (${state.projects.length} Projects)`, true);
+
   } catch (err) {
-    console.warn("Live API connection failed, attempting local data fallback:", err);
+    console.warn("[NBRI] Live API failed:", err.message);
+    setSheetsStatus("offline", "Trying local…");
+
     try {
       const res = await fetch("data/project-data.json");
       if (res.ok) {
-        const localData = await res.json();
-        state.projects = localData.projects || [];
-        state.wip = localData.wip || [];
+        const localData    = await res.json();
+        state.projects     = localData.projects || [];
+        state.wip          = localData.wip || [];
         state.financeSummary = localData.financeSummary || [];
-        state.month = localData.reportingMonth || state.month;
+        state.month        = localData.reportingMonth || state.month;
         deriveLookups();
         $("reportMonth").value = state.month;
-        $("wipMonth").value = state.month;
+        $("wipMonth").value    = state.month;
         fillFilters();
         renderAll();
         setApiStatus("Offline demo data (Google Sheets disconnected)", false);
         return;
       }
     } catch (fallbackErr) {
-      console.error(fallbackErr);
+      console.error("[NBRI] Local fallback also failed:", fallbackErr);
     }
+
+    setSheetsStatus("error", "Failed");
     setApiStatus("API connection failed", false);
-    alert("Could not load the live NBRI database.\n\n" + err.message);
+    const errDiv = document.createElement("div");
+    errDiv.style.cssText = "position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:99999;background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:14px 24px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;max-width:480px;";
+    errDiv.innerHTML = `⚠️ Could not load NBRI data.<br><small style="font-weight:400">${err.message}</small><br><button onclick="location.reload()" style="margin-top:8px;padding:4px 14px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;">Retry</button>`;
+    document.body.appendChild(errDiv);
   }
 }
 
+function setSheetsStatus(state, label) {
+  // state: 'connecting' | 'live' | 'offline' | 'error'
+  const pill = $("sheetsStatusPill");
+  const dot  = $("sheetsStatusDot");
+  const lbl  = $("sheetsStatusLabel");
+  if (!pill) return;
+
+  // Remove all state classes
+  pill.classList.remove("sheets-status-connecting", "sheets-status-live", "sheets-status-offline", "sheets-status-error");
+  pill.classList.add(`sheets-status-${state}`);
+  if (lbl) lbl.textContent = label;
+
+  const titles = {
+    connecting: "Attempting to connect to Google Sheets…",
+    live:       "Live — Google Sheets connected",
+    offline:    "Offline — Using cached local data",
+    error:      "Error — Cannot reach Google Sheets"
+  };
+  pill.title = titles[state] || label;
+}
+
 function setApiStatus(message, good) {
+  // Update the topbar pill
+  if (good === true)        setSheetsStatus("live",    "Sheets Live");
+  else if (good === false)  setSheetsStatus("offline", "Offline");
+  else                      setSheetsStatus("error",   "Error");
+
+  // Keep bottom-right legacy indicator
   let el = $("apiStatus");
   if (!el) {
     el = document.createElement("div");
@@ -252,15 +334,22 @@ function setApiStatus(message, good) {
     document.body.appendChild(el);
   }
   el.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${good ? '#10b981' : '#ef4444'};"></span> ${message}`;
+  setTimeout(() => { if (el) el.style.display = "none"; }, 5000);
 }
 
 function fillFilters() {
-  for (const [id, arr, label] of [["statusFilter", state.lookups.statuses || [], "All statuses"], ["groupFilter", state.lookups.workingGroups || [], "All working groups"], ["engineerFilter", state.lookups.engineers || [], "All engineers"]]) {
-    $(id).innerHTML = `<option value="">${label}</option>` + arr.map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  for (const [id, arr, label] of [["statusFilter", state.lookups.statuses || [], "All statuses"], ["groupFilter", state.lookups.workingGroups || [], "All working groups"], ["engineerFilter", state.lookups.engineers || [], "All scientists"]]) {
+    if ($(id)) $(id).innerHTML = `<option value="">${label}</option>` + arr.map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
   }
-  $("fGroup").innerHTML = (state.lookups.workingGroups || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
-  $("fEngineer").innerHTML = '<option value=""></option>' + (state.lookups.engineers || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
-  $("fStatus").innerHTML = (state.lookups.statuses || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  if ($("matrixScientistFilter")) {
+    $("matrixScientistFilter").innerHTML = `<option value="">All scientists</option>` + (state.lookups.engineers || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  }
+  if ($("matrixGroupFilter")) {
+    $("matrixGroupFilter").innerHTML = `<option value="">All working groups</option>` + (state.lookups.workingGroups || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  }
+  if ($("fGroup")) $("fGroup").innerHTML = (state.lookups.workingGroups || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  if ($("fEngineer")) $("fEngineer").innerHTML = '<option value=""></option>' + (state.lookups.engineers || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
+  if ($("fStatus")) $("fStatus").innerHTML = (state.lookups.statuses || []).map(x => `<option value="${safe(x)}">${safe(x)}</option>`).join("");
 }
 
 function getFilteredProjects() {
@@ -272,7 +361,7 @@ function getFilteredProjects() {
     const textMatch = !q || Object.values(p).join(" ").toLowerCase().includes(q);
     const statusMatch = !sf || status(p) === sf;
     const groupMatch = !gf || p["Working Group"] === gf;
-    const engineerMatch = !ef || p["Responsible Engineer"] === ef;
+    const engineerMatch = !ef || scientist(p) === ef;
     return textMatch && statusMatch && groupMatch && engineerMatch;
   });
 }
@@ -299,13 +388,17 @@ function renderPortfolioStatus() {
 }
 
 function renderAll() {
-  renderProfitabilitySection();
-  renderPortfolioStatus();
-  renderAlerts();
-  renderProjects();
-  renderKanban();
-  renderWip();
-  renderFinance();
+  const safe_call = (fn, name) => {
+    try { fn(); }
+    catch(e) { console.error("[NBRI] render error in", name, ":", e.message, e); }
+  };
+  safe_call(renderProfitabilitySection, "renderProfitabilitySection");
+  safe_call(renderPortfolioStatus,      "renderPortfolioStatus");
+  safe_call(renderAlerts,               "renderAlerts");
+  safe_call(renderProjects,             "renderProjects");
+  safe_call(renderKanban,               "renderKanban");
+  safe_call(renderWip,                  "renderWip");
+  safe_call(renderFinance,              "renderFinance");
 }
 
 /* 6 KEY FINANCIAL INDICATORS & PROFITABILITY DASHBOARD */
@@ -316,6 +409,47 @@ function renderProfitabilitySection() {
 
   const monthLabel = $("profitMonthLabel");
   if (monthLabel) monthLabel.textContent = m;
+
+  // Render Portfolio Snapshot Banner
+  const snapEl = $("portfolioSummaryBar");
+  if (snapEl) {
+    const totalEst = state.projects.reduce((sum, p) => sum + estimateValue(p), 0);
+    const activeCount = state.projects.filter(p => status(p) !== "Completed").length;
+    const completedCount = state.projects.filter(p => status(p) === "Completed").length;
+    const scientistCount = (state.lookups.engineers || []).length;
+    const groupCount = (state.lookups.workingGroups || []).length;
+
+    snapEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:20px;">📁</span>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Registered Projects</div>
+          <div style="font-size:16px;font-weight:800;color:var(--text-primary);"><b>${state.projects.length}</b> <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">(${activeCount} Active · ${completedCount} Completed)</span></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:20px;">💰</span>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Total Portfolio Value</div>
+          <div style="font-size:16px;font-weight:800;color:var(--primary-color);">${money(totalEst)}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:20px;">🔬</span>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Scientists Assigned</div>
+          <div style="font-size:16px;font-weight:800;color:var(--text-primary);"><b>${scientistCount}</b> <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">Scientists</span></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:20px;">🏢</span>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Working Groups</div>
+          <div style="font-size:16px;font-weight:800;color:var(--text-primary);"><b>${groupCount}</b> <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">Groups</span></div>
+        </div>
+      </div>
+    `;
+  }
 
   // Render 6 Key Financial Indicator KPI Cards (Exact User Sequence)
   const kpiEl = $("financeIndicatorKpis");
@@ -350,62 +484,51 @@ const chartInstances = { wip: null, cashflow: null, group: null, profit: null };
 function formatRupeeMillions(value) {
   const abs = Math.abs(value);
   if (abs >= 1_000_000) {
-    return (value / 1_000_000).toFixed(1) + "M";
+    return "Rs. " + (value / 1_000_000).toFixed(1) + "M";
   } else if (abs >= 1_000) {
-    return (value / 1_000).toFixed(0) + "K";
+    return "Rs. " + (value / 1_000).toFixed(0) + "K";
   }
-  return String(value);
+  return "Rs. " + value.toLocaleString();
 }
 
-function getAvailableYears() {
-  const years = new Set();
-  const currentY = (state.month || "2026-06").slice(0, 4);
-  years.add(currentY);
-  years.add("2025");
-  years.add("2024");
+function getMonthsForYear(year) {
+  const allMonths = [
+    { key: `${year}-01`, label: "Jan" },
+    { key: `${year}-02`, label: "Feb" },
+    { key: `${year}-03`, label: "Mar" },
+    { key: `${year}-04`, label: "Apr" },
+    { key: `${year}-05`, label: "May" },
+    { key: `${year}-06`, label: "Jun" },
+    { key: `${year}-07`, label: "Jul" },
+    { key: `${year}-08`, label: "Aug" },
+    { key: `${year}-09`, label: "Sep" },
+    { key: `${year}-10`, label: "Oct" },
+    { key: `${year}-11`, label: "Nov" },
+    { key: `${year}-12`, label: "Dec" }
+  ];
 
-  state.financeSummary.forEach(x => {
-    const ym = reportingMonth(x);
-    if (ym && ym.length >= 4) years.add(ym.slice(0, 4));
-  });
-  state.wip.forEach(x => {
-    const ym = reportingMonth(x);
-    if (ym && ym.length >= 4) years.add(ym.slice(0, 4));
-  });
+  const currentYear = new Date().getFullYear().toString();
+  const currentMonthNum = new Date().getMonth() + 1; // 1-12
 
-  return Array.from(years).sort().reverse();
+  if (year === currentYear) {
+    return allMonths.slice(0, currentMonthNum);
+  } else if (year < currentYear) {
+    return allMonths;
+  } else {
+    return allMonths.slice(0, 6);
+  }
 }
 
 function populateYearSelect() {
   const sel = $("dashYearSelect");
   if (!sel) return;
-  const currentVal = sel.value || (state.month || "2026-06").slice(0, 4);
-  const years = getAvailableYears();
 
-  sel.innerHTML = years.map(y => `<option value="${y}" ${y === currentVal ? 'selected' : ''}>${y}</option>`).join("");
-}
+  const yearsInWip = state.wip.map(w => (reportingMonth(w) || "").split("-")[0]).filter(Boolean);
+  const yearsInProjects = state.projects.map(p => (safe(p["Date"] || p["Start Date"] || "")).split("-")[0]).filter(y => y.length === 4);
+  const availableYears = [...new Set(["2026", "2025", "2024", ...yearsInWip, ...yearsInProjects])].sort().reverse();
 
-function getMonthsForYear(year) {
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const currentReportingMonth = state.month || "2026-06";
-  const currentReportingYear = currentReportingMonth.slice(0, 4);
-  const activeMonthNum = Number(currentReportingMonth.slice(5, 7)) || 6;
-
-  let maxMonth = 12;
-  // If current reporting year is selected, show up to the active reporting month
-  if (year === currentReportingYear) {
-    maxMonth = activeMonthNum;
-  }
-
-  const result = [];
-  for (let i = 1; i <= maxMonth; i++) {
-    const mStr = i < 10 ? `0${i}` : `${i}`;
-    result.push({
-      key: `${year}-${mStr}`,
-      label: monthNames[i - 1]
-    });
-  }
-  return result;
+  const currVal = sel.value || "2026";
+  sel.innerHTML = availableYears.map(y => `<option value="${y}" ${y === currVal ? 'selected' : ''}>${y}</option>`).join("");
 }
 
 function renderExecutiveCharts(targetYear) {
@@ -414,7 +537,9 @@ function renderExecutiveCharts(targetYear) {
     return;
   }
 
-  const year = targetYear || $("dashYearSelect")?.value || (state.month || "2026-06").slice(0, 4);
+  const yearSelect = $("dashYearSelect");
+  const year = targetYear || (yearSelect ? yearSelect.value : "2026") || "2026";
+
   const months = getMonthsForYear(year);
   const monthKeys = months.map(m => m.key);
   const monthLabels = months.map(m => m.label);
@@ -446,17 +571,14 @@ function renderExecutiveCharts(targetYear) {
     if (!wp) {
       // Sum project level WIP if division summary has no override
       wp = state.projects.reduce((sum, p) => {
-        const row = getWipRow(projectCode(p), mKey);
-        return sum + (Number(row["Monthly Progress"]) || Number(row["Working Progress"]) || Number(row["Monthly Financial WIP"]) || 0);
+        const r = getWipRow(projectCode(p), mKey);
+        return sum + workingProgressValue(r);
       }, 0);
     }
-
     const exp = fin.expenditure || 0;
     const mr = fin.moneyReceived || 0;
     const out = fin.outstanding || 0;
-    const inc = wp > 0 ? wp : (mr + out);
-    const prof = inc - exp - (fin.interdivisional || 0);
-    const profPct = inc > 0 ? (prof / inc) * 100 : (fin.profitPct || 0);
+    const profitPct = fin.profitPct || 0;
 
     runningCumulative += wp;
 
@@ -465,8 +587,8 @@ function renderExecutiveCharts(targetYear) {
     cumData.push(runningCumulative);
     mrData.push(mr);
     outData.push(out);
-    profitPctData.push(Number(profPct.toFixed(1)));
-    profitPointColors.push(profPct < 5 ? "#ef4444" : "#10b981");
+    profitPctData.push(profitPct);
+    profitPointColors.push(profitPct < 5 ? "#ef4444" : "#10b981");
   });
 
   /* ----------------------------------------------------
@@ -482,29 +604,30 @@ function renderExecutiveCharts(targetYear) {
         datasets: [
           {
             type: "line",
-            label: "Cumulative Progress (Rs.)",
+            label: "Cumulative Financial Progress",
             data: cumData,
             borderColor: "#f59e0b",
-            backgroundColor: "#f59e0b",
+            backgroundColor: "rgba(245, 158, 11, 0.15)",
             borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: "#f59e0b",
             tension: 0.3,
-            fill: false,
             yAxisID: "y"
           },
           {
             type: "bar",
-            label: "Monthly WIP (Rs.)",
+            label: "Monthly Financial WIP",
             data: wipData,
             backgroundColor: "#0284c7",
-            borderRadius: 4,
+            borderRadius: 6,
             yAxisID: "y"
           },
           {
             type: "bar",
-            label: "Monthly Expenditure (Rs.)",
+            label: "Monthly Expenditure",
             data: expData,
             backgroundColor: "#ef4444",
-            borderRadius: 4,
+            borderRadius: 6,
             yAxisID: "y"
           }
         ]
@@ -517,7 +640,7 @@ function renderExecutiveCharts(targetYear) {
           legend: { labels: { color: textColor, font: { size: 11, weight: "600" } } },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: Rs. ${ctx.parsed.y.toLocaleString("en-US", { minimumFractionDigits: 2 })}`
+              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`
             }
           }
         },
@@ -526,9 +649,10 @@ function renderExecutiveCharts(targetYear) {
           y: {
             ticks: {
               color: textColor,
-              callback: (v) => "Rs. " + formatRupeeMillions(v)
+              callback: (v) => formatRupeeMillions(v)
             },
-            grid: { color: gridColor }
+            grid: { color: gridColor },
+            suggestedMin: 0
           }
         }
       }
@@ -536,7 +660,7 @@ function renderExecutiveCharts(targetYear) {
   }
 
   /* ----------------------------------------------------
-     CHART 2: Monthly Cash Flow & Claims Breakdown
+     CHART 2: Cash Flow & Claims Breakdown (Grouped Bar)
      ---------------------------------------------------- */
   const ctxCashflow = $("chartCashflow")?.getContext("2d");
   if (ctxCashflow) {
@@ -550,19 +674,19 @@ function renderExecutiveCharts(targetYear) {
             label: "Money Received",
             data: mrData,
             backgroundColor: "#10b981",
-            borderRadius: 4
+            borderRadius: 5
           },
           {
             label: "Expenditure",
             data: expData,
-            backgroundColor: "#f43f5e",
-            borderRadius: 4
+            backgroundColor: "#ef4444",
+            borderRadius: 5
           },
           {
             label: "Outstanding Claims",
             data: outData,
             backgroundColor: "#f97316",
-            borderRadius: 4
+            borderRadius: 5
           }
         ]
       },
@@ -574,7 +698,7 @@ function renderExecutiveCharts(targetYear) {
           legend: { labels: { color: textColor, font: { size: 11, weight: "600" } } },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: Rs. ${ctx.parsed.y.toLocaleString("en-US", { minimumFractionDigits: 2 })}`
+              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`
             }
           }
         },
@@ -583,9 +707,10 @@ function renderExecutiveCharts(targetYear) {
           y: {
             ticks: {
               color: textColor,
-              callback: (v) => "Rs. " + formatRupeeMillions(v)
+              callback: (v) => formatRupeeMillions(v)
             },
-            grid: { color: gridColor }
+            grid: { color: gridColor },
+            suggestedMin: 0
           }
         }
       }
@@ -597,28 +722,27 @@ function renderExecutiveCharts(targetYear) {
      ---------------------------------------------------- */
   const ctxGroup = $("chartGroupDistribution")?.getContext("2d");
   if (ctxGroup) {
-    if (chartInstances.group) chartInstances.group.destroy();
-
-    const groupMap = {};
+    const groupTotals = {};
     state.projects.forEach(p => {
-      const g = p["Working Group"] || "General / Other";
-      const est = estimateValue(p) || (Number(p["Initial Estimate"]) || 0);
-      groupMap[g] = (groupMap[g] || 0) + (est || 1);
+      const g = p["Working Group"] || "Unassigned";
+      const est = estimateValue(p);
+      groupTotals[g] = (groupTotals[g] || 0) + (est > 0 ? est : 1);
     });
 
-    const gLabels = Object.keys(groupMap);
-    const gValues = Object.values(groupMap);
-    const colors = ["#2563eb", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4", "#64748b"];
+    const groupLabels = Object.keys(groupTotals);
+    const groupValues = Object.values(groupTotals);
+    const donutColors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4", "#64748b"];
 
+    if (chartInstances.group) chartInstances.group.destroy();
     chartInstances.group = new Chart(ctxGroup, {
       type: "doughnut",
       data: {
-        labels: gLabels,
+        labels: groupLabels,
         datasets: [
           {
-            data: gValues,
-            backgroundColor: colors.slice(0, gLabels.length),
-            borderWidth: isDark ? 2 : 1,
+            data: groupValues,
+            backgroundColor: donutColors.slice(0, groupLabels.length),
+            borderWidth: 2,
             borderColor: isDark ? "#1e293b" : "#ffffff"
           }
         ]
@@ -627,14 +751,13 @@ function renderExecutiveCharts(targetYear) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "right", labels: { color: textColor, font: { size: 11 } } },
+          legend: { position: "right", labels: { color: textColor, font: { size: 11, weight: "600" } } },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.label}: Rs. ${formatRupeeMillions(ctx.parsed)} (${((ctx.parsed / (gValues.reduce((a, b) => a + b, 0) || 1)) * 100).toFixed(0)}%)`
+              label: (ctx) => ` ${ctx.label}: ${formatRupeeMillions(ctx.parsed)} (${((ctx.parsed / groupValues.reduce((a,b)=>a+b, 0))*100).toFixed(1)}%)`
             }
           }
-        },
-        cutout: "65%"
+        }
       }
     });
   }
@@ -733,145 +856,61 @@ function renderProjects() {
         <th>Client</th>
         <th>Description</th>
         <th>Working Group</th>
-        <th>Engineer</th>
+        <th>Scientist</th>
         <th>Status</th>
-        <th>Estimate (LKR)</th>
-        <th>Progress</th>
+        <th>Estimate (Rs.)</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      ${rows.map(p => {
-        const c = cumulative(projectCode(p));
-        const st = status(p);
-        const pId = projectId(p);
-        const badgeClass = st === "Completed" ? "completed" : (st === "In Progress" ? "in-progress" : "pending");
-
-        return `<tr>
-          <td class="code">${safe(projectCode(p))}</td>
+      ${rows.map(p => `
+        <tr data-id="${safe(projectId(p))}">
+          <td class="code"><b>${safe(projectCode(p))}</b></td>
           <td><b>${safe(p["Client"])}</b></td>
-          <td style="max-width:280px;font-size:12px;color:var(--text-secondary);">${safe(p["Description"])}</td>
+          <td style="font-size:12px;max-width:320px;">${safe(p["Description"])}</td>
           <td><span class="badge">${safe(p["Working Group"])}</span></td>
-          <td><span class="engineer-tag">👤 ${safe(p["Responsible Engineer"])}</span></td>
+          <td>${safe(scientist(p)) || 'Unassigned'}</td>
           <td>
-            <select class="inline-select badge ${badgeClass}" onchange="updateProjectStatusInline('${pId.replace(/'/g, "\\'")}', this.value)">
-              ${statuses.map(s => `<option value="${safe(s)}" ${s === st ? 'selected' : ''}>${safe(s)}</option>`).join("")}
+            <select class="inline-select" onchange="updateProjectStatusInline('${safe(projectId(p))}', this.value)">
+              ${statuses.map(s => `<option value="${safe(s)}" ${s === status(p) ? 'selected' : ''}>${safe(s)}</option>`).join("")}
             </select>
           </td>
-          <td><b>${money(p["Initial Estimate"])}</b></td>
+          <td><b>${money(p["Initial Estimate"] ?? p["Estimate (Without Tax)"])}</b></td>
           <td>
-            <div class="bar"><span style="width:${pct(c.physical)}%"></span></div>
-            <span class="mini">${pct(c.physical).toFixed(0)}%</span>
+            <button class="ghost" style="padding:4px 8px;font-size:11px;" onclick="editProject('${safe(projectId(p))}')">Edit</button>
           </td>
-          <td>
-            <button class="ghost" style="padding:4px 10px;font-size:12px;" onclick="editProject('${pId.replace(/'/g, "\\'")}')">Edit</button>
-          </td>
-        </tr>`;
-      }).join("")}
+        </tr>
+      `).join("")}
     </tbody>
   `;
 }
 
-/* INLINE STATUS UPDATE */
 async function updateProjectStatusInline(id, newStatus) {
-  const p = state.projects.find(x => projectId(x) === String(id) || projectCode(x) === String(id));
+  const p = state.projects.find(x => projectId(x) === id || projectCode(x) === id);
   if (!p) return;
+  const old = p["Current Status"] || p["Status"];
   p["Current Status"] = newStatus;
   p["Status"] = newStatus;
-  renderAll();
   showToast(`Updated ${projectCode(p)} status to ${newStatus}`);
 
   try {
-    await apiPost("updateProject", { project: p });
+    await apiPost("updateProject", {
+      projectId: projectId(p),
+      projectCode: projectCode(p),
+      status: newStatus
+    });
+    // Background GitHub commit
+    commitToGitHub(`Update status of ${projectCode(p)} to ${newStatus}`).catch(console.warn);
   } catch (err) {
-    console.error("Status update error:", err);
-    showToast("Failed to sync status with Google Sheets: " + err.message, true);
+    p["Current Status"] = old;
+    p["Status"] = old;
+    renderProjects();
+    renderKanban();
+    showToast("Failed to save status update to Google Sheets", true);
   }
 }
 
-/* KANBAN BOARD VIEW */
-function renderKanban() {
-  const board = $("kanbanBoard");
-  if (!board) return;
-
-  const columns = ["In Progress", "Pending", "On Hold", "Completed"];
-  const filtered = getFilteredProjects();
-
-  board.innerHTML = columns.map(colName => {
-    const colProjects = filtered.filter(p => {
-      const s = status(p);
-      if (colName === "In Progress") return s === "In Progress" || s === "Ongoing";
-      if (colName === "Pending") return s === "Pending" || s === "Initiation" || s === "Not Started";
-      if (colName === "On Hold") return s === "On Hold" || s === "Delayed";
-      if (colName === "Completed") return s === "Completed" || s === "Done";
-      return s === colName;
-    });
-
-    return `
-      <div class="kanban-col" data-status="${colName}" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, '${colName}')">
-        <div class="kanban-header">
-          <div class="kanban-title">
-            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${colName === 'Completed' ? 'var(--success)' : (colName === 'In Progress' ? 'var(--primary)' : 'var(--warning)')};"></span>
-            ${colName}
-          </div>
-          <span class="kanban-count">${colProjects.length}</span>
-        </div>
-        <div class="kanban-cards">
-          ${colProjects.map(p => {
-            const c = cumulative(projectCode(p));
-            const pId = projectId(p);
-            return `
-              <div class="kanban-card" draggable="true" ondragstart="handleDragStart(event, '${pId.replace(/'/g, "\\'")}')" onclick="editProject('${pId.replace(/'/g, "\\'")}')">
-                <div class="kanban-card-head">
-                  <span class="code">${safe(projectCode(p))}</span>
-                  <span class="badge" style="font-size:10px;">${safe(p["Working Group"])}</span>
-                </div>
-                <div class="kanban-card-title">${safe(p["Description"]) || safe(p["Client"])}</div>
-                <div class="mini" style="margin-bottom:6px;">Client: <b>${safe(p["Client"])}</b></div>
-                <div class="bar" style="height:6px;margin:6px 0;"><span style="width:${pct(c.physical)}%"></span></div>
-                <div class="kanban-card-meta">
-                  <span class="engineer-tag">👤 ${safe(p["Responsible Engineer"])}</span>
-                  <b>${money(p["Initial Estimate"])}</b>
-                </div>
-              </div>
-            `;
-          }).join("")}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-/* DRAG AND DROP HANDLERS */
-let draggedProjectId = null;
-
-function handleDragStart(e, id) {
-  draggedProjectId = id;
-  e.dataTransfer.setData("text/plain", id);
-  e.target.classList.add("dragging");
-}
-
-function handleDragOver(e) {
-  e.preventDefault();
-  const col = e.currentTarget;
-  col.style.borderColor = "var(--primary)";
-}
-
-function handleDragLeave(e) {
-  const col = e.currentTarget;
-  col.style.borderColor = "var(--border-color)";
-}
-
-async function handleDrop(e, targetStatus) {
-  e.preventDefault();
-  const col = e.currentTarget;
-  col.style.borderColor = "var(--border-color)";
-  if (!draggedProjectId) return;
-  await updateProjectStatusInline(draggedProjectId, targetStatus);
-  draggedProjectId = null;
-}
-
-/* VIEW SWITCHER */
+/* KANBAN BOARD VIEW WITH HTML5 DRAG & DROP */
 function setViewMode(mode) {
   state.viewMode = mode;
   $("viewModeTable").classList.toggle("active", mode === "table");
@@ -882,14 +921,80 @@ function setViewMode(mode) {
   else renderProjects();
 }
 
-/* MONTHLY DIVISION FINANCIAL SUMMARY & PROJECT MATRIX */
+function renderKanban() {
+  const board = $("kanbanBoard");
+  if (!board) return;
+  const statuses = state.lookups.statuses || ["In Progress", "Completed", "Pending", "On Hold"];
+  const filtered = getFilteredProjects();
+
+  board.innerHTML = statuses.map(s => {
+    const projs = filtered.filter(p => status(p) === s);
+    return `
+      <div class="kanban-column" data-status="${safe(s)}" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, '${safe(s)}')">
+        <div class="kanban-column-header">
+          <div class="kanban-title">
+            <span>${safe(s)}</span>
+            <span class="kanban-count">${projs.length}</span>
+          </div>
+        </div>
+        <div class="kanban-cards">
+          ${projs.map(p => `
+            <div class="kanban-card" draggable="true" ondragstart="handleDragStart(event, '${safe(projectId(p))}')" onclick="editProject('${safe(projectId(p))}')">
+              <div class="kanban-card-code">${safe(projectCode(p))}</div>
+              <div class="kanban-card-client">${safe(p["Client"])}</div>
+              <div class="kanban-card-desc">${safe(p["Description"])}</div>
+              <div class="kanban-card-footer">
+                <span class="badge" style="font-size:10px;padding:2px 6px;">${safe(p["Working Group"])}</span>
+                <span style="font-size:11px;color:var(--text-muted);">🔬 ${safe(scientist(p)) || 'Unassigned'}</span>
+                <b style="font-size:11px;color:var(--text-primary);">${money(p["Initial Estimate"] ?? p["Estimate (Without Tax)"])}</b>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+let draggedProjectId = null;
+function handleDragStart(e, id) {
+  draggedProjectId = id;
+  e.dataTransfer.setData("text/plain", id);
+  e.dataTransfer.effectAllowed = "move";
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  e.currentTarget.classList.add("drag-over");
+}
+
+function handleDragLeave(e) {
+  e.currentTarget.classList.remove("drag-over");
+}
+
+function handleDrop(e, targetStatus) {
+  e.preventDefault();
+  e.currentTarget.classList.remove("drag-over");
+  if (!draggedProjectId) return;
+
+  const p = state.projects.find(x => projectId(x) === draggedProjectId || projectCode(x) === draggedProjectId);
+  if (p && (p["Current Status"] !== targetStatus && p["Status"] !== targetStatus)) {
+    updateProjectStatusInline(draggedProjectId, targetStatus);
+    renderKanban();
+  }
+  draggedProjectId = null;
+}
+
+/* MONTHLY WIP & PROGRESS MATRIX (CARDS VS TABLE VIEW) */
 function recalcFinanceSummary() {
+  const m = $("wipMonth").value;
   const exp = Number($("summaryExp").value) || 0;
   const mr = Number($("summaryMr").value) || 0;
   const out = Number($("summaryOut").value) || 0;
   const inter = Number($("summaryInter").value) || 0;
 
-  // Sum all project monthly progress inputs currently in the matrix
+  // Sum all working progress inputs currently displayed
   let totalWp = 0;
   document.querySelectorAll("[data-wip-wp]").forEach(el => {
     totalWp += Number(el.value) || 0;
@@ -958,8 +1063,7 @@ function setMatrixViewMode(mode) {
 
 function renderWip() {
   const m = $("wipMonth").value;
-  const matrixLabel = $("matrixMonthLabel");
-  if (matrixLabel) matrixLabel.textContent = m;
+  if ($("matrixMonthBadge")) $("matrixMonthBadge").textContent = m;
 
   // Populate Division Summary Inputs
   const divFin = getDivisionFinance(m);
@@ -977,20 +1081,63 @@ function renderWip() {
   if (tableWrap) tableWrap.style.display = mode === "table" ? "block" : "none";
 
   const query = ($("matrixSearch")?.value || "").toLowerCase().trim();
-  const active = state.projects.filter(p => status(p) !== "Completed").filter(p => {
-    if (!query) return true;
-    const txt = `${projectCode(p)} ${p["Client"]} ${p["Description"]} ${p["Responsible Engineer"]}`.toLowerCase();
-    return txt.includes(query);
+  const scientistFilter = $("matrixScientistFilter")?.value || "";
+  const groupFilter = $("matrixGroupFilter")?.value || "";
+  const wipFilter = $("matrixWipFilter")?.value || "";
+  const sortMode = $("matrixSortSelect")?.value || "code_asc";
+
+  let active = state.projects.filter(p => status(p) !== "Completed").filter(p => {
+    // 1. Text Search Filter (includes code, client, description, and scientist)
+    if (query) {
+      const txt = `${projectCode(p)} ${p["Client"]} ${p["Description"]} ${scientist(p)}`.toLowerCase();
+      if (!txt.includes(query)) return false;
+    }
+    // 2. Scientist Filter
+    if (scientistFilter && scientist(p) !== scientistFilter) return false;
+
+    // 3. Working Group Filter
+    if (groupFilter && p["Working Group"] !== groupFilter) return false;
+
+    // 4. WIP Status Filter
+    if (wipFilter) {
+      const w = currentWip(projectCode(p), m);
+      if (wipFilter === "with_wip" && !(w.financial > 0)) return false;
+      if (wipFilter === "zero_wip" && w.financial > 0) return false;
+    }
+    return true;
   });
 
+  // Sort Active Projects
+  active.sort((a, b) => {
+    if (sortMode === "scientist_asc") {
+      const sA = scientist(a) || "zzz", sB = scientist(b) || "zzz";
+      return sA.localeCompare(sB) || projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' });
+    } else if (sortMode === "group_asc") {
+      const gA = a["Working Group"] || "zzz", gB = b["Working Group"] || "zzz";
+      return gA.localeCompare(gB) || projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' });
+    } else if (sortMode === "est_desc") {
+      return estimateValue(b) - estimateValue(a);
+    } else if (sortMode === "wip_desc") {
+      const wA = currentWip(projectCode(a), m).financial || 0;
+      const wB = currentWip(projectCode(b), m).financial || 0;
+      return wB - wA;
+    }
+    return projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' });
+  });
+
+  // Update Active Count Badge
+  if ($("matrixCountBadge")) {
+    $("matrixCountBadge").textContent = `${active.length} Active Projects`;
+  }
+
   if (!active.length) {
-    container.innerHTML = `<div style="padding:32px;text-align:center;color:var(--text-muted);background:var(--bg-surface-subtle);border-radius:var(--radius-md);">No active projects found matching your search.</div>`;
-    $("wipTable").innerHTML = `<tbody><tr><td colspan="10" style="padding:32px;text-align:center;color:var(--text-muted);">No active projects found matching your search.</td></tr></tbody>`;
+    container.innerHTML = `<div style="padding:36px;text-align:center;color:var(--text-muted);background:var(--bg-surface-subtle);border-radius:var(--radius-md);font-size:13px;border:1px dashed var(--border-color);">No active projects found matching your filter criteria.</div>`;
+    $("wipTable").innerHTML = `<tbody><tr><td colspan="10" style="padding:32px;text-align:center;color:var(--text-muted);">No active projects found matching your filter criteria.</td></tr></tbody>`;
     recalcFinanceSummary();
     return;
   }
 
-  // 1. Render Cards View
+  // 1. Render Ultra-Modern Zero-Scroll Cards View
   container.innerHTML = active.map(p => {
     const code = projectCode(p);
     const key = projectId(p) || code;
@@ -1002,61 +1149,76 @@ function renderWip() {
     const estPct = estNoTax > 0 ? ((totCum / estNoTax) * 100).toFixed(0) : 0;
 
     return `
-      <div class="matrix-row-card">
-        <!-- 1. PROJECT IDENTIFICATION -->
-        <div class="matrix-info-block">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
-            <span class="code-badge">📌 ${safe(code)}</span>
-            <span class="badge" style="font-size:10px;padding:2px 7px;">${safe(p["Working Group"] || "NBRO")}</span>
+      <div class="matrix-card-modern">
+        <!-- HEADER ROW: Project ID, Discipline, Scientist, Client & Truncated Scope -->
+        <div class="matrix-card-header">
+          <div class="matrix-card-meta">
+            <span class="matrix-code-chip">📌 ${safe(code)}</span>
+            <span class="matrix-group-chip">${safe(p["Working Group"] || "GED")}</span>
+            <span class="matrix-eng-chip">🔬 ${safe(scientist(p)) || 'Unassigned'}</span>
+            <span class="badge in-progress" style="font-size:10px;padding:2px 7px;">${safe(status(p))}</span>
           </div>
-          <div class="client-name">${safe(p["Client"])}</div>
-          <div class="desc-text" title="${safe(p["Description"])}">${safe(p["Description"]) || 'Geotechnical / Engineering Scope'}</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">👤 Eng. <b>${safe(p["Responsible Engineer"]) || 'Unassigned'}</b></div>
-        </div>
-
-        <!-- 2. BASELINE FINANCIALS (COMPACT GRID) -->
-        <div class="matrix-metric-box">
-          <div class="matrix-metric-item" data-wip-est="${safe(key)}" data-val="${estNoTax}">
-            <span class="lbl">Estimate (w/o tax):</span>
-            <span class="val">${estNoTax ? money(estNoTax) : '-'}</span>
-          </div>
-          <div class="matrix-metric-item">
-            <span class="lbl">Advance (w/o tax):</span>
-            <input data-wip-adv="${safe(key)}" type="number" step="0.01" value="${adv || ''}" style="width:105px;padding:3px 7px;font-size:12px;font-weight:600;border:1px solid var(--border-color);border-radius:4px;background:var(--bg-surface);color:var(--text-primary);text-align:right;" placeholder="0.00">
-          </div>
-          <div class="matrix-metric-item">
-            <span class="lbl">Prev. Cumulative:</span>
-            <span class="val" data-wip-prev="${safe(key)}" data-val="${prevCum}">${prevCum ? money(prevCum) : 'Rs. 0.00'}</span>
+          <div class="matrix-card-title">
+            <span class="matrix-client-name">${safe(p["Client"])}</span>
+            <span class="matrix-desc-text" title="${safe(p["Description"])}">• ${safe(p["Description"]) || 'Geotechnical scope & engineering assessment'}</span>
           </div>
         </div>
 
-        <!-- 3. MONTHLY PROGRESS INPUTS -->
-        <div class="matrix-input-group">
-          <label>
-            <span style="color:#0284c7;font-weight:700;">Selected Month Progress (Rs.)</span>
-            <input data-wip-wp="${safe(key)}" type="number" step="0.01" min="0" value="${w.financial || ''}" style="font-weight:700;color:#0284c7;font-size:14px;background:var(--primary-subtle);border-color:rgba(37,99,235,0.3);" placeholder="0.00" oninput="recalcProjectRow('${safe(key)}')">
-          </label>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <label style="flex:1;">
-              <span>Physical WIP %</span>
-              <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${(w.physical * 100) || ''}" placeholder="0%" oninput="updateProgressBar('${safe(key)}')">
-            </label>
-            <div class="bar" style="height:8px;flex:1.2;margin-top:16px;">
-              <span id="pbar_${safe(key)}" style="width:${pct(w.physical)}%;"></span>
+        <!-- 3-COLUMN FLUID GRID: Zero Horizontal Scrolling Required -->
+        <div class="matrix-card-grid">
+          <!-- Column 1: Financial Baselines -->
+          <div class="matrix-sub-panel" data-wip-est="${safe(key)}" data-val="${estNoTax}">
+            <div class="matrix-panel-tag">1. Financial Baselines</div>
+            <div class="matrix-metric-row">
+              <span class="lbl">Estimate (w/o tax):</span>
+              <span class="val">${estNoTax ? money(estNoTax) : '-'}</span>
+            </div>
+            <div class="matrix-metric-row">
+              <span class="lbl">Advance (w/o tax):</span>
+              <input data-wip-adv="${safe(key)}" type="number" step="0.01" value="${adv || ''}" placeholder="0.00">
+            </div>
+            <div class="matrix-metric-row">
+              <span class="lbl">Prev. Cumulative:</span>
+              <span class="val" data-wip-prev="${safe(key)}" data-val="${prevCum}">${prevCum ? money(prevCum) : 'Rs. 0.00'}</span>
             </div>
           </div>
-        </div>
 
-        <!-- 4. TOTAL CUMULATIVE & REMARKS -->
-        <div class="matrix-total-block">
-          <div class="matrix-total-badge">
-            <div>
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);">Total Cumulative</div>
-              <div class="total-val" data-wip-total="${safe(key)}">${money(totCum)}</div>
+          <!-- Column 2: Selected Month Progress (Highlighted Cyan) -->
+          <div class="matrix-sub-panel highlight">
+            <div class="matrix-panel-tag cyan">2. Selected Month Progress</div>
+            <div class="matrix-input-item">
+              <label>Monthly Progress (Rs.)</label>
+              <div class="matrix-currency-wrap">
+                <span class="prefix">Rs.</span>
+                <input data-wip-wp="${safe(key)}" type="number" step="0.01" min="0" value="${w.financial || ''}" placeholder="0.00" oninput="recalcProjectRow('${safe(key)}')">
+              </div>
             </div>
-            <span class="badge in-progress" id="estBadge_${safe(key)}" style="font-size:11px;">${estPct}% of Est</span>
+            <div class="matrix-input-item">
+              <label>
+                <span>Physical WIP %</span>
+                <span style="font-weight:700;color:var(--text-primary);">${pct(w.physical).toFixed(0)}%</span>
+              </label>
+              <div class="matrix-p-row">
+                <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${(w.physical * 100) || ''}" placeholder="0%" oninput="updateProgressBar('${safe(key)}')">
+                <div class="bar">
+                  <span id="pbar_${safe(key)}" style="width:${pct(w.physical)}%;"></span>
+                </div>
+              </div>
+            </div>
           </div>
-          <input data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Monthly remarks, notes, claim status..." style="padding:6px 10px;font-size:12px;border:1px solid var(--border-color);border-radius:var(--radius-sm);background:var(--bg-surface);color:var(--text-primary);width:100%;">
+
+          <!-- Column 3: Total Cumulative & Monthly Remarks -->
+          <div class="matrix-sub-panel">
+            <div class="matrix-panel-tag green">3. Cumulative & Remarks</div>
+            <div class="matrix-total-box">
+              <div>
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);">Total Cumulative</div>
+                <div class="matrix-total-val" data-wip-total="${safe(key)}">${money(totCum)}</div>
+              </div>
+              <span class="badge completed" id="estBadge_${safe(key)}" style="font-size:11px;font-weight:700;">${estPct}% of Est</span>
+            </div>
+            <input class="matrix-remarks-input" data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Monthly progress remarks, claim notes, invoice status...">
+          </div>
         </div>
       </div>
     `;
@@ -1065,17 +1227,16 @@ function renderWip() {
   // 2. Render Spreadsheet Table View
   $("wipTable").innerHTML = `
     <thead>
-      <tr>
-        <th style="min-width:110px;">No</th>
-        <th style="min-width:220px;">Description</th>
-        <th style="min-width:140px;">Client</th>
-        <th>Estimate (Without Tax)</th>
-        <th>Advance (Without Tax)</th>
-        <th>Total Cumulative Up to Prev Year</th>
-        <th style="color:#0284c7;min-width:140px;">Selected Month Progress (Rs.)</th>
-        <th style="min-width:85px;">Physical WIP %</th>
-        <th style="color:#10b981;min-width:140px;">Total Cumulative</th>
-        <th style="min-width:140px;">Remarks</th>
+      <tr style="background:var(--bg-surface-subtle);">
+        <th style="padding:10px 12px;text-align:left;font-size:12px;">No / Code</th>
+        <th style="padding:10px 12px;text-align:left;font-size:12px;">Client & Scope</th>
+        <th style="padding:10px 12px;text-align:right;font-size:12px;">Estimate (w/o tax)</th>
+        <th style="padding:10px 12px;text-align:right;font-size:12px;">Advance (w/o tax)</th>
+        <th style="padding:10px 12px;text-align:right;font-size:12px;">Prev. Cumulative</th>
+        <th style="padding:10px 12px;text-align:right;font-size:12px;color:#0284c7;">Selected Month (Rs.)</th>
+        <th style="padding:10px 12px;text-align:center;font-size:12px;">Physical %</th>
+        <th style="padding:10px 12px;text-align:right;font-size:12px;color:#10b981;">Total Cumulative</th>
+        <th style="padding:10px 12px;text-align:left;font-size:12px;">Remarks</th>
       </tr>
     </thead>
     <tbody>
@@ -1088,28 +1249,27 @@ function renderWip() {
         const prevCum = prevCumulativeValue(p, m);
         const totCum = prevCum + (w.financial || 0);
 
-        return `<tr>
-          <td class="code"><b>${safe(code)}</b></td>
-          <td style="font-size:12px;">${safe(p["Description"]) || safe(p["Client"])}</td>
-          <td><b>${safe(p["Client"])}</b></td>
-          <td>${estNoTax ? money(estNoTax) : '-'}</td>
-          <td>
-            <input data-wip-adv="${safe(key)}" type="number" step="0.01" value="${adv || ''}" style="width:115px;" placeholder="0.00">
+        return `<tr style="border-bottom:1px solid var(--border-color-subtle);">
+          <td class="code" style="padding:8px 12px;"><b>${safe(code)}</b></td>
+          <td style="padding:8px 12px;font-size:12px;"><b>${safe(p["Client"])}</b><div style="color:var(--text-muted);font-size:11px;">${safe(p["Description"])}</div></td>
+          <td style="padding:8px 12px;text-align:right;">${estNoTax ? money(estNoTax) : '-'}</td>
+          <td style="padding:8px 12px;text-align:right;">
+            <input data-wip-adv="${safe(key)}" type="number" step="0.01" value="${adv || ''}" style="width:105px;text-align:right;padding:4px 6px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0.00">
           </td>
-          <td>
+          <td style="padding:8px 12px;text-align:right;">
             <span data-wip-prev="${safe(key)}" data-val="${prevCum}">${prevCum ? money(prevCum) : '-'}</span>
           </td>
-          <td>
-            <input data-wip-wp="${safe(key)}" type="number" step="0.01" min="0" value="${w.financial || ''}" style="width:130px;font-weight:700;color:#0284c7;" placeholder="0.00" oninput="recalcProjectRow('${safe(key)}')">
+          <td style="padding:8px 12px;text-align:right;">
+            <input data-wip-wp="${safe(key)}" type="number" step="0.01" min="0" value="${w.financial || ''}" style="width:120px;text-align:right;font-weight:700;color:#0284c7;padding:4px 6px;border-radius:4px;border:1px solid rgba(2,132,199,0.4);" placeholder="0.00" oninput="recalcProjectRow('${safe(key)}')">
           </td>
-          <td>
-            <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${(w.physical * 100) || ''}" style="width:75px;" placeholder="0%">
+          <td style="padding:8px 12px;text-align:center;">
+            <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${(w.physical * 100) || ''}" style="width:65px;text-align:center;padding:4px 6px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0%" oninput="updateProgressBar('${safe(key)}')">
           </td>
-          <td>
-            <b data-wip-total="${safe(key)}" style="color:#10b981;display:inline-block;min-width:100px;">${money(totCum)}</b>
+          <td style="padding:8px 12px;text-align:right;">
+            <b data-wip-total="${safe(key)}" style="color:#10b981;">${money(totCum)}</b>
           </td>
-          <td>
-            <input data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Notes / claims..." style="width:100%;">
+          <td style="padding:8px 12px;">
+            <input data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Notes / claims..." style="width:100%;padding:4px 6px;border-radius:4px;border:1px solid var(--border-color);">
           </td>
         </tr>`;
       }).join("")}
@@ -1402,8 +1562,8 @@ function renderFinance() {
       <tr>
         <th>Project</th>
         <th>Client</th>
-        <th>Estimate (LKR)</th>
-        <th>Cumulative WIP (LKR)</th>
+        <th>Estimate (Rs.)</th>
+        <th>Cumulative WIP (Rs.)</th>
         <th>% of Estimate</th>
       </tr>
     </thead>
@@ -1592,6 +1752,14 @@ function switchTab(viewId) {
   document.querySelectorAll(".view").forEach(x => {
     x.classList.toggle("active", x.id === viewId);
   });
+  try {
+    if (viewId === "dashboard") renderExecutiveCharts();
+    else if (viewId === "projects") { if (state.viewMode === "kanban") renderKanban(); else renderProjects(); }
+    else if (viewId === "wip") renderWip();
+    else if (viewId === "finance") renderFinance();
+  } catch (e) {
+    console.error("[NBRI] switchTab render error:", e);
+  }
 }
 
 /* EVENT LISTENERS */
@@ -1657,22 +1825,22 @@ $("projectForm").addEventListener("submit", saveProject);
 $("exportBtn").onclick = exportJSON;
 
 // Dialog Backdrop Dismissal Listeners
-$("projectDialog").addEventListener("click", e => {
+$("projectDialog")?.addEventListener("click", e => {
   const rect = $("projectDialog").getBoundingClientRect();
   const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
   if (!isInDialog) $("projectDialog").close();
 });
 
-$("ghDialog").addEventListener("click", e => {
+$("ghDialog")?.addEventListener("click", e => {
   const rect = $("ghDialog").getBoundingClientRect();
   const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
   if (!isInDialog) $("ghDialog").close();
 });
 
 // GitHub Dialog Event Listeners
-$("ghSettingsBtn").onclick = openGitHubDialog;
-$("ghTestBtn").onclick = testGitHubConnection;
-$("ghForm").addEventListener("submit", e => {
+if ($("ghSettingsBtn")) $("ghSettingsBtn").onclick = openGitHubDialog;
+if ($("ghTestBtn")) $("ghTestBtn").onclick = testGitHubConnection;
+$("ghForm")?.addEventListener("submit", e => {
   e.preventDefault();
   const cfg = {
     token: $("ghToken").value.trim(),
@@ -1682,11 +1850,15 @@ $("ghForm").addEventListener("submit", e => {
     path: $("ghPath").value.trim() || "data/project-data.json"
   };
   saveGitHubConfig(cfg);
-  $("ghDialog").close();
+  $("ghDialog")?.close();
   showToast("GitHub sync settings saved successfully!");
 });
 
 $("matrixSearch")?.addEventListener("input", renderWip);
+$("matrixScientistFilter")?.addEventListener("change", renderWip);
+$("matrixGroupFilter")?.addEventListener("change", renderWip);
+$("matrixWipFilter")?.addEventListener("change", renderWip);
+$("matrixSortSelect")?.addEventListener("change", renderWip);
 $("matrixViewCards")?.addEventListener("click", () => setMatrixViewMode("cards"));
 $("matrixViewTable")?.addEventListener("click", () => setMatrixViewMode("table"));
 $("dashYearSelect")?.addEventListener("change", e => renderExecutiveCharts(e.target.value));
