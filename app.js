@@ -145,7 +145,7 @@ async function apiGet(action, params = {}) {
   const url = new URL(API_URL);
   url.searchParams.set("action", action);
   Object.entries(params).forEach(([k, v]) => { if (v !== undefined && v !== null && v !== "") url.searchParams.set(k, v); });
-  const response = await fetch(url.toString(), { cache: "no-store" });
+  const response = await fetch(url.toString(), { cache: "no-store", redirect: "follow" });
   if (!response.ok) throw new Error(`API GET failed: ${response.status}`);
   const data = await response.json();
   if (data.success === false || data.ok === false) throw new Error(data.error || data.message || "API request failed");
@@ -156,7 +156,8 @@ async function apiPost(action, payload = {}) {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ action, ...payload })
+    body: JSON.stringify({ action, ...payload }),
+    redirect: "follow"
   });
   if (!response.ok) throw new Error(`API POST failed: ${response.status}`);
   const data = await response.json();
@@ -179,18 +180,37 @@ function deriveLookups() {
 async function init() {
   initTheme();
   try {
-    const [projectsRes, wipRes, finSumRes, financeRes] = await Promise.all([
-      apiGet("projects"),
-      apiGet("wip"),
-      apiGet("financeSummary").catch(() => ({ data: [] })),
-      apiGet("finance").catch(() => ({ data: [] }))
-    ]);
-    state.projects = Array.isArray(projectsRes.data) ? projectsRes.data : [];
-    state.wip = Array.isArray(wipRes.data) ? wipRes.data : [];
-    state.financeSummary = Array.isArray(finSumRes.data) ? finSumRes.data : [];
-    state.finance = Array.isArray(financeRes.data) ? financeRes.data : [];
-    state.lookups = projectsRes.lookups || {};
-    state.month = projectsRes.reportingMonth || state.month;
+    let res = null;
+    try {
+      // Step 1: Try fast combined bootstrap fetch
+      res = await apiGet("all");
+    } catch (e) {
+      console.warn("Combined bootstrap fetch notice:", e);
+    }
+
+    if (!res || (!res.projects && !res.data)) {
+      // Step 2: Fallback to sequential individual fetches (prevents Google single-thread lock dropped connections)
+      const projectsRes = await apiGet("projects");
+      const wipRes = await apiGet("wip").catch(() => ({ data: [] }));
+      const finSumRes = await apiGet("financeSummary").catch(() => ({ data: [] }));
+      const financeRes = await apiGet("finance").catch(() => ({ data: [] }));
+
+      res = {
+        projects: projectsRes.data || [],
+        wip: wipRes.data || [],
+        financeSummary: finSumRes.data || [],
+        finance: financeRes.data || [],
+        lookups: projectsRes.lookups || {},
+        reportingMonth: projectsRes.reportingMonth || state.month
+      };
+    }
+
+    state.projects = Array.isArray(res.projects) ? res.projects : (Array.isArray(res.data) ? res.data : []);
+    state.wip = Array.isArray(res.wip) ? res.wip : [];
+    state.financeSummary = Array.isArray(res.financeSummary) ? res.financeSummary : [];
+    state.finance = Array.isArray(res.finance) ? res.finance : [];
+    state.lookups = res.lookups || {};
+    state.month = res.reportingMonth || state.month;
     deriveLookups();
     $("reportMonth").value = state.month;
     $("wipMonth").value = state.month;
@@ -219,7 +239,7 @@ async function init() {
       console.error(fallbackErr);
     }
     setApiStatus("API connection failed", false);
-    alert("Could not load the live NBRO database.\n\n" + err.message);
+    alert("Could not load the live NBRI database.\n\n" + err.message);
   }
 }
 
@@ -257,12 +277,30 @@ function getFilteredProjects() {
   });
 }
 
+function renderPortfolioStatus() {
+  const statusEl = $("statusChart");
+  if (!statusEl) return;
+  const statusCounts = {};
+  state.projects.forEach(p => {
+    const s = status(p);
+    statusCounts[s] = (statusCounts[s] || 0) + 1;
+  });
+  const total = state.projects.length || 1;
+  statusEl.innerHTML = Object.entries(statusCounts).sort((a, b) => b[1] - a[1]).map(([sName, count]) => {
+    const pctVal = ((count / total) * 100).toFixed(0);
+    return `
+      <div class="metric-row">
+        <div><b>${safe(sName)}</b></div>
+        <div class="bar"><span style="width:${pctVal}%"></span></div>
+        <b style="text-align:right;">${count} <span style="font-size:11px;color:var(--text-muted);">(${pctVal}%)</span></b>
+      </div>
+    `;
+  }).join("");
+}
+
 function renderAll() {
-  renderKpis();
   renderProfitabilitySection();
-  renderStatus();
-  renderGroups();
-  renderProgress();
+  renderPortfolioStatus();
   renderAlerts();
   renderProjects();
   renderKanban();
