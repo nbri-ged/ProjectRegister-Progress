@@ -1,5 +1,5 @@
 /* NBRO Project Register - live Google Apps Script API client */
-const API_URL = "https://script.google.com/macros/s/AKfycbz5iMl7p12CpNR1_AQ12944KGvmL68NrzSfukcTe5MyNdM1aSyZzHEJtUJT7u3b8iAUnw/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxxbM1pNLKYYWdDtdHPBg8ycXfrHCx_Qwr4we1KiogjBt9Wg6ukI9XRG8YJH3TnFMoAJQ/exec";
 
 let DB = null;
 const state = { projects: [], wip: [], finance: [], lookups: {}, month: "2026-06" };
