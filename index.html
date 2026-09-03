@@ -3,13 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>National Building Research Institute (NBRI) - Geotechnical Engineering Division | Project Registry & Progress</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=2.7.0">
+<link rel="stylesheet" href="styles.css?v=9.3.0">
 <!-- Chart.js for High-Performance Modern Interactive Visualizations -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- html2pdf for Direct A3 PDF Generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -23,64 +28,116 @@
       <span>🔍 Quick search</span> <kbd>Ctrl K</kbd>
     </button>
     <label class="month-label">Reporting month <input id="reportMonth" type="month" value="2026-06"></label>
-    <!-- Google Sheets Connection Status Pill -->
-    <div id="sheetsStatusPill" class="sheets-status-pill sheets-status-connecting" title="Google Sheets connection status">
+    <!-- Central Database Connection Status Pill -->
+    <div id="sheetsStatusPill" class="sheets-status-pill sheets-status-live" title="Central database connection status">
       <span class="sheets-status-dot" id="sheetsStatusDot"></span>
-      <span class="sheets-status-label" id="sheetsStatusLabel">Connecting…</span>
+      <span class="sheets-status-label" id="sheetsStatusLabel">🟢 Live DB</span>
     </div>
-    <!-- GitHub Sync Settings Button -->
-    <button class="ghost" id="ghSettingsBtn" title="Configure GitHub Auto-Backup Sync" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;font-size:12px;">
-      <span id="ghStatusDot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#9ca3af;"></span>
-      <span>⚙️ GitHub Sync</span>
-    </button>
+    <!-- User Authentication Profile Pill -->
+    <div id="userProfilePill" class="user-profile-pill" style="display:inline-flex;align-items:center;gap:8px;padding:4px 10px;background:var(--bg-surface-subtle);border:1px solid var(--border-color);border-radius:20px;font-size:12px;">
+      <span id="userAvatar" style="font-size:14px;">👤</span>
+      <span id="userNameLabel" style="font-weight:700;color:var(--text-primary);">Guest</span>
+      <span id="userRoleBadge" class="badge" style="font-size:10px;padding:2px 6px;">Viewer</span>
+      <button id="authTriggerBtn" class="ghost" style="padding:2px 8px;font-size:11px;border-radius:12px;margin-left:4px;" onclick="openAuthDialog('login')">🔑 Log In</button>
+      <select id="diagnosticRoleSelect" style="display:none;padding:2px 8px;font-size:11px;font-weight:700;border-radius:12px;border:1px solid #f59e0b;background:#fef3c7;color:#92400e;" onchange="handleDiagnosticRoleChange(this.value)" title="Diagnostic View-As Testing Mode">
+        <option value="">🎭 View As...</option>
+        <option value="System Admin">👑 System Admin (Ranjan)</option>
+        <option value="Director">🏛️ Director (Dr. Sanchitha)</option>
+        <option value="Manager">👔 Group Leader (Suranga)</option>
+        <option value="Editor">🔬 Scientist / Editor (Gayathri)</option>
+        <option value="Viewer">👁️ Viewer (Read-Only)</option>
+      </select>
+      <button id="approvalCenterBtn" class="ghost" style="display:none;padding:2px 8px;font-size:11px;border-radius:12px;color:#d97706;font-weight:700;" onclick="openGovernanceCenter()" title="Monthly Approvals & Locking Governance">🔔 Approvals <span id="approvalBadge" style="display:none;background:#ef4444;color:#fff;border-radius:10px;padding:1px 5px;font-size:9.5px;margin-left:2px;">0</span></button>
+      <button id="userMgmtBtn" class="ghost" style="display:none;padding:2px 8px;font-size:11px;border-radius:12px;" onclick="openUserManagement()" title="User Management">👥 Users</button>
+      <button id="logoutBtn" class="ghost" style="display:none;padding:2px 8px;font-size:11px;border-radius:12px;" onclick="logout()" title="Sign out">🚪</button>
+    </div>
     <button class="theme-toggle-btn" id="themeToggle" title="Toggle dark/light theme">🌙</button>
+    <button class="ghost" id="aboutHelpBtn" onclick="openAboutDialog()" title="System Information, Help Guide & Version Summary" style="display:inline-flex;align-items:center;gap:4px;font-weight:600;">ℹ️ Help & About</button>
     <button class="ghost" id="exportBtn">Export JSON</button>
   </div>
 </header>
+
+<!-- TOP DIAGNOSTIC / IMPERSONATION BANNER -->
+<div id="diagnosticBanner" style="display:none;align-items:center;justify-content:space-between;background:#fef3c7;color:#92400e;border-bottom:2px solid #f59e0b;padding:8px 24px;font-size:12.5px;font-weight:700;box-shadow:0 2px 8px rgba(245,158,11,0.15);">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-size:16px;">🎭</span>
+    <span>DIAGNOSTIC SIMULATION: Viewing as <span id="diagnosticTargetLabel" style="color:#78350f;text-decoration:underline;">Scientist / Editor</span></span>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button type="button" class="ghost" onclick="renderAll(); showToast('✓ Diagnostic views refreshed.');" style="padding:4px 10px;font-size:11.5px;font-weight:700;background:#fff;color:#92400e;border:1px solid #d97706;border-radius:4px;cursor:pointer;">🔄 Refresh UI</button>
+    <button type="button" class="primary" onclick="exitDiagnosticMode()" style="padding:4px 12px;font-size:11.5px;font-weight:700;background:#d97706;color:#fff;border:none;border-radius:4px;cursor:pointer;">✕ Exit Simulation</button>
+  </div>
+</div>
 
 <nav class="tabs">
   <button class="tab active" data-view="dashboard">📊 Dashboard</button>
   <button class="tab" data-view="projects">📁 Projects</button>
   <button class="tab" data-view="wip">📈 Monthly WIP</button>
   <button class="tab" data-view="finance">💰 Financial Overview</button>
+  <button class="tab" data-view="admin" id="adminTabBtn" style="display:none;background:var(--primary-subtle);color:var(--primary-text);border:1px solid var(--primary);font-weight:700;">🛡️ System Admin</button>
 </nav>
 
 <main>
 <!-- DASHBOARD VIEW -->
 <section id="dashboard" class="view active">
-  <!-- Top Executive Filter & Period Header -->
-  <div class="section-head" style="margin-bottom:16px;">
+  <!-- Top Executive Header -->
+  <div class="section-head" style="margin-bottom:12px;">
     <div>
       <h2 style="font-size:20px;margin:0;">Executive Financial & Project Performance Dashboard</h2>
       <p style="margin:4px 0 0;color:var(--text-secondary);font-size:13px;">Year-to-date monthly financial trajectories, cash flow analysis, and project completion metrics.</p>
     </div>
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text-primary);">
-        <span>Fiscal Year:</span>
-        <select id="dashYearSelect" style="padding:6px 12px;font-size:13px;font-weight:700;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
-          <option value="2026">2026</option>
-          <option value="2025">2025</option>
-          <option value="2024">2024</option>
+  </div>
+
+  <!-- Stable Fixed-Location Dashboard Control Toolbar -->
+  <div class="panel" style="margin-bottom:16px;padding:12px 18px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <!-- Left: Horizon and Financial Focus Toggle Buttons (Fixed Position & Width) -->
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">Horizon:</span>
+          <div class="view-switcher" style="margin:0;">
+            <button type="button" class="view-toggle-btn active" id="dashHorizonMonth" style="min-width:135px;text-align:center;" onclick="setDashHorizon('month')">📅 Selected Month</button>
+            <button type="button" class="view-toggle-btn" id="dashHorizonYtd" style="min-width:135px;text-align:center;" onclick="setDashHorizon('ytd')">📈 Full Year (YTD)</button>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">Focus:</span>
+          <div class="view-switcher" style="margin:0;">
+            <button type="button" class="view-toggle-btn active" id="dashFocusNet" style="min-width:120px;text-align:center;" onclick="setDashFinancialFocus('net')" title="Division Net In-House Performance (Excludes Subcontractor Costs)">🏛️ Division Net</button>
+            <button type="button" class="view-toggle-btn" id="dashFocusGross" style="min-width:120px;text-align:center;" onclick="setDashFinancialFocus('gross')" title="Total Gross Turnover (Includes Subcontractors)">🌐 Total Gross</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Filters & Period Badge (Fixed Min-Width to Prevent Layout Shifts) -->
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <select id="dashGroupFilter" onchange="renderExecutiveCharts()" style="min-width:160px;padding:6px 12px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
+          <option value="">All Working Groups</option>
         </select>
-      </label>
-      <span class="badge in-progress" id="dashPeriodBadge" style="font-size:12px;padding:5px 12px;">Jan – Jun 2026</span>
+
+        <select id="dashMonthSelect" onchange="handleDashMonthChange(this.value)" style="min-width:120px;padding:6px 12px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
+        </select>
+
+        <span class="badge in-progress" id="dashPeriodBadge" style="min-width:120px;text-align:center;font-size:12px;padding:5px 12px;display:inline-block;">2026-06</span>
+      </div>
     </div>
   </div>
 
   <!-- Portfolio Snapshot Banner -->
   <div id="portfolioSummaryBar" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding:12px 18px;background:var(--bg-surface-subtle);border-radius:var(--radius-md);border:1px solid var(--border-color);align-items:center;justify-content:space-between;"></div>
 
-  <!-- 6 Key Financial Indicator KPI Cards (Exact User Order) -->
+  <!-- 6 Key Financial Indicator KPI Cards -->
   <div class="cards" id="financeIndicatorKpis" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 22px;"></div>
 
-  <!-- TOP CHART ROW: WIP Overview (Combo) + Cash Flow Breakdown -->
+  <!-- TOP CHART ROW: WIP Overview + Cash Flow Breakdown -->
   <div class="grid two" style="margin-bottom:22px;">
-    <!-- Chart 1: Monthly Financial WIP & Cumulative Overview -->
+    <!-- Chart 1: 3-Pillar Financial Performance -->
     <article class="panel">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
         <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📈 Monthly Financial WIP & Cumulative Overview</h3>
-          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Monthly billing progress vs. cumulative rising trend across selected fiscal year.</p>
+          <h3 id="chart1Title" style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📈 3-Pillar Monthly Financial Trajectory</h3>
+          <p id="chart1Subtitle" style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Income vs. Net Division Expenditure vs. Operating Margin per month.</p>
         </div>
       </div>
       <div style="position:relative;height:290px;width:100%;">
@@ -88,12 +145,12 @@
       </div>
     </article>
 
-    <!-- Chart 2: Cash Flow & Claims Breakdown -->
+    <!-- Chart 2: Cash Flow Realization Waterfall -->
     <article class="panel">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
         <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">💵 Monthly Cash Flow & Claims Breakdown</h3>
-          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Money Received vs. Expenditure vs. Outstanding Claims per month.</p>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">💵 Cash Flow & Claims Breakdown</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Money Received vs. Total Expenditure vs. Outstanding Claims per month.</p>
         </div>
       </div>
       <div style="position:relative;height:290px;width:100%;">
@@ -104,12 +161,12 @@
 
   <!-- BOTTOM CHART ROW: Working Group Distribution + Profit Margin % Trend -->
   <div class="grid two" style="margin-bottom:22px;">
-    <!-- Chart 3: Working Group Portfolio Share -->
+    <!-- Chart 3: Working Group Portfolio & Financial Weight -->
     <article class="panel">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
         <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">🍩 Working Group Portfolio Distribution</h3>
-          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Project allocation & financial weight by engineering discipline.</p>
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">🍩 Working Group Portfolio & Revenue Contribution</h3>
+          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Project allocation & monthly WIP distribution across engineering disciplines.</p>
         </div>
       </div>
       <div style="position:relative;height:290px;width:100%;">
@@ -117,12 +174,12 @@
       </div>
     </article>
 
-    <!-- Chart 4: Profit Margin % Trend & 5% Safety Threshold -->
+    <!-- Chart 4: Profit Margin % Trend & Benchmark -->
     <article class="panel">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
         <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📉 Monthly Profit Margin % & 5% Red Alert Threshold</h3>
-          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Division margin performance with critical &lt; 5% safety benchmark.</p>
+          <h3 id="chart4Title" style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">📉 Monthly Profit Margin % & Safety Benchmark</h3>
+          <p id="chart4Subtitle" style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Division margin health trajectory with critical 5% safety threshold.</p>
         </div>
       </div>
       <div style="position:relative;height:290px;width:100%;">
@@ -149,7 +206,7 @@
   <div class="section-head">
     <div>
       <h2>Project Register</h2>
-      <p>Live synchronized records with NBRO Google Sheets. Direct inline editing & drag-and-drop Kanban supported.</p>
+      <p>Real-time synchronized central registry. Direct inline editing & drag-and-drop Kanban supported.</p>
     </div>
     <div class="head-actions">
       <div class="view-switcher">
@@ -162,9 +219,21 @@
 
   <div class="filters">
     <input id="search" placeholder="Search code, client, description, scientist…">
+    <select id="yearFilter"><option value="">All registered years</option></select>
     <select id="statusFilter"><option value="">All statuses</option></select>
     <select id="groupFilter"><option value="">All working groups</option></select>
     <select id="engineerFilter"><option value="">All scientists</option></select>
+    <select id="projectSortFilter">
+      <option value="code_asc">Sort: Project Code (A-Z)</option>
+      <option value="code_desc">Sort: Project Code (Z-A)</option>
+      <option value="year_desc">Sort: Registered Year (Newest)</option>
+      <option value="year_asc">Sort: Registered Year (Oldest)</option>
+      <option value="status_asc">Sort: Status</option>
+      <option value="group_asc">Sort: Working Group</option>
+      <option value="scientist_asc">Sort: Scientist (A-Z)</option>
+      <option value="est_desc">Sort: Estimate (High to Low)</option>
+      <option value="est_asc">Sort: Estimate (Low to High)</option>
+    </select>
   </div>
 
   <!-- TABLE CONTAINER -->
@@ -189,42 +258,48 @@
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <label class="month-label" style="margin:0;font-weight:700;color:var(--text-primary);">
-          Month: <input id="wipMonth" type="month" value="2026-06" style="background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border-color);padding:6px 10px;border-radius:6px;">
+          Month: <input id="wipMonth" type="month" value="2026-06" onchange="handleWipMonthChange(this.value)" style="background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border-color);padding:6px 10px;border-radius:6px;">
         </label>
         <button class="primary" id="saveFinanceSummaryBtn" style="padding:7px 14px;font-size:13px;">💾 Save Division Financials</button>
       </div>
     </div>
 
-    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 16px;">
+    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px;">
       <label>
-        <span>Expenditure (Rs.)</span>
-        <input id="summaryExp" type="number" step="0.01" placeholder="0.00" style="color:var(--danger);font-weight:600;" oninput="recalcFinanceSummary()">
+        <span>Total Expenditure (Rs.)</span>
+        <input id="summaryExp" type="text" inputmode="decimal" placeholder="0.00" style="color:var(--danger);font-weight:600;" oninput="recalcFinanceSummary()">
+      </label>
+      <label>
+        <span>Subcontractor Payment (Rs.)</span>
+        <input id="summarySubcontract" type="text" inputmode="decimal" placeholder="0.00" style="color:#e11d48;font-weight:600;" oninput="recalcFinanceSummary()" title="Direct subcontractor and outsourced drilling/testing costs">
       </label>
       <label>
         <span>Money Received (Rs.)</span>
-        <input id="summaryMr" type="number" step="0.01" placeholder="0.00" style="color:var(--primary);font-weight:600;" oninput="recalcFinanceSummary()">
+        <input id="summaryMr" type="text" inputmode="decimal" placeholder="0.00" style="color:var(--primary);font-weight:600;" oninput="recalcFinanceSummary()">
       </label>
       <label>
         <span>Outstanding (Rs.)</span>
-        <input id="summaryOut" type="number" step="0.01" placeholder="0.00" style="color:#d97706;font-weight:600;" oninput="recalcFinanceSummary()">
+        <input id="summaryOut" type="text" inputmode="decimal" placeholder="0.00" style="color:#d97706;font-weight:600;" oninput="recalcFinanceSummary()">
       </label>
       <label>
         <span>Interdivisional (Rs.)</span>
-        <input id="summaryInter" type="number" step="0.01" placeholder="0.00" style="color:#7c3aed;font-weight:600;" oninput="recalcFinanceSummary()">
+        <input id="summaryInter" type="text" inputmode="decimal" placeholder="0.00" style="color:#7c3aed;font-weight:600;" oninput="recalcFinanceSummary()">
       </label>
     </div>
 
     <!-- Calculated Row for Division Financials -->
     <div style="background:var(--bg-surface-subtle);padding:14px 16px;border-radius:var(--radius-md);border:1px solid var(--border-color-subtle);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
-      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;">
-        <div>Working Progress: <b id="summaryWpDisplay" style="color:#0284c7;font-size:15px;">Rs. 0.00</b></div>
-        <div>Income: <b id="summaryIncDisplay" style="color:#059669;font-size:15px;">Rs. 0.00</b></div>
-        <div>Profit: <b id="summaryProfitDisplay" style="color:#10b981;font-size:15px;">Rs. 0.00</b></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13px;align-items:center;">
+        <div>Division Net Exp: <b id="summaryDivExpDisplay" style="color:#b91c1c;font-size:14px;">Rs. 0.00</b></div>
+        <div>Working Progress: <b id="summaryWpDisplay" style="color:#0284c7;font-size:14px;">Rs. 0.00</b></div>
+        <div>Income: <b id="summaryIncDisplay" style="color:#059669;font-size:14px;">Rs. 0.00</b></div>
+        <div>Net Performance: <b id="summaryProfitDisplay" style="color:#10b981;font-size:15px;">Rs. 0.00</b></div>
       </div>
       <div>
         <span id="summaryProfitBadge" class="badge completed" style="font-size:13px;padding:5px 12px;font-weight:700;">0.0% Profit Margin</span>
       </div>
     </div>
+    <div id="summaryAuditLabel" style="font-size:11px;color:var(--text-muted);margin-top:8px;display:none;"></div>
   </article>
 
   <!-- BOTTOM PANEL: PROJECT-BY-PROJECT PROGRESS MATRIX (WITH ZERO-SCROLL CARDS & TABLE VIEW) -->
@@ -251,8 +326,10 @@
         </select>
         <select id="matrixWipFilter" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;">
           <option value="">All active projects</option>
+          <option value="all">All projects (including Completed)</option>
           <option value="with_wip">Has progress this month (Rs. > 0)</option>
           <option value="zero_wip">Zero progress this month (Rs. 0)</option>
+          <option value="completed">Completed projects only</option>
         </select>
         <select id="matrixSortSelect" style="padding:7px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;font-weight:600;">
           <option value="code_asc">Sort: Project Code (A-Z)</option>
@@ -263,18 +340,33 @@
         </select>
         <!-- View Mode Switcher -->
         <div class="view-switcher">
-          <button type="button" class="view-toggle-btn active" id="matrixViewCards" title="Zero-scroll modern card matrix">🗂️ Cards</button>
-          <button type="button" class="view-toggle-btn" id="matrixViewTable" title="Spreadsheet table view">📋 Table</button>
+          <button type="button" class="view-toggle-btn" id="matrixViewCards" title="Zero-scroll modern card matrix">🗂️ Cards</button>
+          <button type="button" class="view-toggle-btn active" id="matrixViewTable" title="Spreadsheet table view">📋 Table</button>
         </div>
-        <button class="primary" id="saveWipBtn" style="font-weight:700;padding:8px 16px;">💾 Save Progress Matrix</button>
+        <button type="button" class="primary" id="exportWipPdfBtn" style="font-weight:700;padding:8px 16px;display:inline-flex;align-items:center;gap:6px;" onclick="exportWipA3Pdf()" title="Download Division Monthly Progress as A3 PDF">📄 Export A3 PDF</button>
+      </div>
+    </div>
+
+    <!-- Month Finalization & Governance Banner -->
+    <div id="wipMonthLockBanner" style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-surface-subtle);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px 18px;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span id="wipLockIcon" style="font-size:20px;">🟢</span>
+        <div>
+          <div id="wipLockTitle" style="font-weight:700;font-size:13.5px;color:var(--text-primary);">Open for Monthly Progress Entry</div>
+          <div id="wipLockSubtitle" style="font-size:11.5px;color:var(--text-secondary);margin-top:1px;">Scientists & Engineers can update and save physical and financial progress for this reporting month.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button id="toggleMonthLockBtn" type="button" class="primary" style="display:none;padding:7px 16px;font-size:12.5px;font-weight:700;" onclick="toggleCurrentMonthLock()">🔒 Finalize & Lock Month</button>
+        <button id="requestUnlockBtn" type="button" class="ghost" style="display:none;padding:7px 16px;font-size:12.5px;font-weight:700;color:var(--primary);border:1px solid var(--primary);border-radius:var(--radius-sm);" onclick="openUnlockRequestDialog()">📩 Request Unlock to Edit</button>
       </div>
     </div>
 
     <!-- 1. MODERN ZERO-SCROLL CARDS VIEW -->
-    <div class="matrix-container" id="matrixCardList"></div>
+    <div class="matrix-container" id="matrixCardList" style="display:none;"></div>
 
-    <!-- 2. SPREADSHEET TABLE VIEW (RESPONSIVE) -->
-    <div id="matrixTableWrap" class="table-wrap" style="display:none;margin-top:14px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-color);">
+    <!-- 2. SPREADSHEET TABLE VIEW (RESPONSIVE - DEFAULT) -->
+    <div id="matrixTableWrap" class="table-wrap" style="display:block;margin-top:14px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-color);">
       <table id="wipTable" style="width:100%;border-collapse:collapse;"></table>
     </div>
   </article>
@@ -284,16 +376,136 @@
 <section id="finance" class="view">
   <div class="section-head">
     <div>
-      <h2>Financial Exposure & Billing</h2>
-      <p>Derived from project initial estimates and monthly WIP valuations.</p>
+      <h2 style="display:flex;align-items:center;gap:8px;">
+        <span>💰 Financial Exposure, Contract Backlog & Billing Realization</span>
+      </h2>
+      <p style="margin-top:4px;color:var(--text-secondary);font-size:13px;">Comprehensive analysis of contract estimates, cumulative progress valuations, advance collections, and unbilled exposure balances.</p>
+    </div>
+    <div class="head-actions">
+      <button class="ghost" onclick="renderFinance(); showToast('✓ Financial metrics refreshed.');">🔄 Refresh</button>
+      <button class="primary" onclick="exportFinanceCSV()">📥 Export Financial Ledger (CSV)</button>
     </div>
   </div>
-  <div class="cards" id="financeKpis"></div>
-  <div class="panel">
-    <h2>Ranked Projects by Financial Exposure</h2>
-    <div class="table-wrap">
-      <table id="financeTable"></table>
+
+  <!-- Financial Exposure Top Summary Cards -->
+  <div class="cards" id="financeKpis" style="margin-bottom:20px;"></div>
+
+  <!-- Interactive Financial Filter Toolbar -->
+  <div class="panel" style="margin-bottom:20px;padding:14px 18px;">
+    <div class="filters" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+      <input id="financeSearch" placeholder="🔍 Search code, client, description, scientist..." style="flex:1;min-width:240px;font-size:12.5px;padding:7px 12px;">
+      
+      <select id="financeYearFilter" style="min-width:150px;font-size:12.5px;padding:7px 10px;">
+        <option value="">All registered years</option>
+      </select>
+
+      <select id="financeGroupFilter" style="min-width:160px;font-size:12.5px;padding:7px 10px;">
+        <option value="">All working groups</option>
+      </select>
+
+      <select id="financeExposureFilter" style="min-width:170px;font-size:12.5px;padding:7px 10px;">
+        <option value="all">All Exposure States</option>
+        <option value="unbilled">Active Unbilled Backlog (> 0)</option>
+        <option value="high">High Exposure (> Rs. 5M)</option>
+        <option value="lag">⚠️ Delivery / Billing Lag</option>
+        <option value="advance">⏳ Advance Collected</option>
+        <option value="completed">✅ Fully Realized (≥ 100%)</option>
+      </select>
+
+      <select id="financeSortFilter" style="min-width:170px;font-size:12.5px;padding:7px 10px;">
+        <option value="exposure_desc">Sort: Highest Unbilled (Rs.) ▼</option>
+        <option value="estimate_desc">Sort: Highest Estimate (Rs.) ▼</option>
+        <option value="billed_desc">Sort: Highest Billed (Rs.) ▼</option>
+        <option value="pct_desc">Sort: Highest Realization % ▼</option>
+        <option value="code_asc">Sort: Project Code ▲</option>
+      </select>
     </div>
+  </div>
+
+  <!-- Ranked Projects Financial Exposure Table -->
+  <article class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <div>
+        <h3 style="margin:0;font-size:16px;font-weight:700;">📋 Project Financial Exposure & Delivery Ledger</h3>
+        <span style="font-size:12px;color:var(--text-muted);" id="financeTableSubtitle">Showing ranked projects</span>
+      </div>
+      <span class="badge" id="financeCountBadge" style="font-size:11.5px;padding:3px 8px;">0 Projects</span>
+    </div>
+    <div class="table-wrap">
+      <table id="financeTable" style="width:100%;font-size:12px;border-collapse:collapse;"></table>
+    </div>
+  </article>
+</section>
+
+<!-- SYSTEM ADMIN & TELEMETRY VIEW (SYSTEM ADMIN ONLY) -->
+<section id="admin" class="view">
+  <div class="section-head">
+    <div>
+      <h2 style="display:flex;align-items:center;gap:8px;">
+        <span>🛡️ System Administration & Telemetry Portal</span>
+        <span class="badge completed" style="font-size:11px;">Admin Only</span>
+      </h2>
+      <p>Central overview of system logs, user activity statistics, database storage metrics, and operational audits.</p>
+    </div>
+    <div class="head-actions">
+      <button class="ghost" onclick="renderAdminDashboard(); showToast('✓ Admin analytics refreshed.');">🔄 Refresh Stats</button>
+      <button class="ghost" onclick="openUserManagement()">👥 User Accounts</button>
+      <button class="primary" onclick="exportJSON()">📥 Full JSON Backup</button>
+    </div>
+  </div>
+
+  <!-- Telemetry KPI Cards -->
+  <div class="cards" id="adminTelemetryKpis" style="margin-bottom:20px;"></div>
+
+  <!-- 2-Column Grid: Staff Activity + System Logs -->
+  <div class="grid two">
+    <!-- Panel 1: Staff User Statistics & Engagement -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="margin:0;font-size:15px;font-weight:700;">👥 Staff Engagement & Activity Summary</h3>
+        <span id="adminStaffCountBadge" class="badge" style="font-size:11px;">0 Staff Accounts</span>
+      </div>
+      <div class="table-wrap" style="max-height:380px;overflow-y:auto;">
+        <table id="adminStaffStatsTable" style="width:100%;font-size:12px;">
+          <thead>
+            <tr>
+              <th style="width:34%;">Staff Member</th>
+              <th style="width:24%;">Role / Group</th>
+              <th style="width:16%;">Projects</th>
+              <th style="width:26%;">Last Active</th>
+            </tr>
+          </thead>
+          <tbody id="adminStaffStatsTbody"></tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- Panel 2: Operational Activity Ledger & Audit Logs -->
+    <article class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="margin:0;font-size:15px;font-weight:700;">📜 Operational Activity Ledger</h3>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="badge" id="adminLogsCountBadge" style="font-size:11px;">0 Logs</span>
+          <button class="ghost" style="font-size:10.5px;padding:2px 6px;" onclick="clearLocalLogs()" title="Clear local log buffer">🗑️</button>
+        </div>
+      </div>
+      <div style="margin-bottom:10px;">
+        <input id="adminLogSearchInput" placeholder="Filter logs by user, action, target code..." style="width:100%;font-size:12px;padding:6px 10px;" oninput="renderAdminLogsTable(this.value)">
+      </div>
+      <div class="table-wrap" style="max-height:330px;overflow-y:auto;">
+        <table id="adminLogsTable" style="width:100%;font-size:11.5px;">
+          <thead>
+            <tr>
+              <th style="width:26%;">Timestamp</th>
+              <th style="width:22%;">User</th>
+              <th style="width:22%;">Action</th>
+              <th style="width:30%;">Target / Details</th>
+            </tr>
+          </thead>
+          <tbody id="adminLogsTbody"></tbody>
+        </table>
+      </div>
+    </article>
   </div>
 </section>
 </main>
@@ -302,66 +514,50 @@
 <dialog id="projectDialog">
   <form id="projectForm">
     <div class="dialog-head">
-      <h2 id="dialogTitle">New project</h2>
+      <h2 id="dialogTitle">➕ Add New Project</h2>
       <button type="button" class="icon" onclick="$('projectDialog').close()" title="Close without saving">✕</button>
     </div>
     <input type="hidden" id="editIndex">
     <div class="form-grid">
-      <label>Project code <input id="fCode" required placeholder="e.g. 28598.M"></label>
+      <div id="fCodeStatus" style="grid-column:1/-1;display:none;font-size:12px;padding:8px 14px;border-radius:6px;font-weight:600;"></div>
+      <label>
+        Project code / No
+        <input id="fCode" required list="existingCodesList" placeholder="e.g. 28598.M or select existing" autocomplete="off">
+        <datalist id="existingCodesList"></datalist>
+      </label>
+      <label>
+        Registered Year
+        <input id="fYear" type="number" min="2000" max="2099" step="1" placeholder="e.g. 2026" required>
+      </label>
       <label>Client <input id="fClient" placeholder="e.g. RDA, UDA, Prison HQ"></label>
       <label class="wide">Description <textarea id="fDesc" placeholder="Project scope, investigation or design details..."></textarea></label>
-      <label>Working group <select id="fGroup"></select></label>
-      <label>Responsible scientist <select id="fEngineer"></select></label>
-      <label>Initial estimate (Rs.) <input id="fEstimate" type="number" step="0.01" placeholder="0.00"></label>
-      <label>Advance amount (Rs.) <input id="fAdvance" type="number" step="0.01" placeholder="0.00"></label>
+      <label class="wide">
+        Working Group Leader
+        <select id="fGroup" required></select>
+      </label>
+      <label class="wide">
+        Responsible Scientist(s) / Engineer(s)
+        <div class="dropdown-multiselect" id="engineerMultiselectWrap">
+          <div class="dropdown-multiselect-toggle" onclick="toggleEngineerDropdown(event)">
+            <div id="fEngineerSelectedBadges" class="selected-badges-bar"></div>
+            <span class="dropdown-arrow-icon" id="engineerDropdownArrow">▾</span>
+          </div>
+          <div id="fEngineerDropdownPanel" class="dropdown-multiselect-panel" style="display:none;">
+            <div style="padding:6px 10px;border-bottom:1px solid var(--border-color);font-size:11px;color:var(--text-muted);font-weight:600;">
+              Check scientists / engineers to assign to this project:
+            </div>
+            <div id="fEngineerCheckList" class="multi-select-checklist"></div>
+          </div>
+        </div>
+        <input type="hidden" id="fEngineer">
+      </label>
+      <label>Initial estimate (Rs.) <input id="fEstimate" type="text" inputmode="decimal" placeholder="0.00"></label>
+      <label>Advance amount (Rs.) <input id="fAdvance" type="text" inputmode="decimal" placeholder="0.00"></label>
       <label>Status <select id="fStatus"></select></label>
-      <label class="wide">Remarks <textarea id="fRemarks" placeholder="Site updates, constraints, notes..."></textarea></label>
     </div>
     <div class="dialog-actions">
       <button type="button" class="ghost" onclick="$('projectDialog').close()">Cancel</button>
-      <button id="saveProjectBtn" type="submit" class="primary">Save project</button>
-    </div>
-  </form>
-</dialog>
-
-<!-- GITHUB SETTINGS DIALOG -->
-<dialog id="ghDialog">
-  <form id="ghForm">
-    <div class="dialog-head">
-      <h2>⚙️ GitHub Database Sync Settings</h2>
-      <button type="button" class="icon" onclick="$('ghDialog').close()" title="Close without saving">✕</button>
-    </div>
-    <p style="color:var(--text-secondary);font-size:13px;margin:0 0 16px;">
-      Directly commits all updates to <code>data/project-data.json</code> in your GitHub repository before updating Google Sheets.
-    </p>
-    <div class="form-grid">
-      <label class="wide">
-        GitHub Personal Access Token (Fine-Grained or Classic with <code>repo:write</code>)
-        <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_xxxx" required>
-        <span style="font-size:11px;color:var(--text-muted);margin-top:2px;">Token is stored only in your browser's localStorage.</span>
-      </label>
-      <label>
-        Repository Owner / Username
-        <input id="ghOwner" placeholder="e.g. your-github-username" required>
-      </label>
-      <label>
-        Repository Name
-        <input id="ghRepo" placeholder="e.g. ProjectRegister" required>
-      </label>
-      <label>
-        Branch
-        <input id="ghBranch" value="main" placeholder="main">
-      </label>
-      <label>
-        Database File Path
-        <input id="ghPath" value="data/project-data.json" placeholder="data/project-data.json">
-      </label>
-    </div>
-    <div id="ghTestStatus" style="margin-top:12px;font-size:12px;display:none;"></div>
-    <div class="dialog-actions">
-      <button type="button" id="ghTestBtn" class="ghost">🧪 Test Connection</button>
-      <button type="button" class="ghost" onclick="$('ghDialog').close()">Cancel</button>
-      <button id="ghSaveBtn" type="submit" class="primary">Save GitHub Settings</button>
+      <button id="saveProjectBtn" type="submit" class="primary">➕ Create Project</button>
     </div>
   </form>
 </dialog>
@@ -378,9 +574,320 @@
   </div>
 </div>
 
+<!-- INSTITUTIONAL AUTHENTICATION MODAL (LOGIN & SIGN UP) -->
+<dialog id="authDialog" class="modal-dialog" style="max-width:460px;width:95%;padding:0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-xl);">
+  <div style="background:var(--primary);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h3 style="margin:0;font-size:17px;font-weight:800;" id="authModalTitle">🏛️ NBRI Staff Portal</h3>
+      <p style="margin:2px 0 0;font-size:12px;opacity:0.9;">Geotechnical Engineering Division</p>
+    </div>
+    <button type="button" class="ghost" onclick="$('authDialog').close()" style="color:#fff;font-size:18px;padding:2px 6px;">✕</button>
+  </div>
+
+  <div style="padding:20px 24px;">
+    <!-- Auth Mode Switcher Tabs -->
+    <div style="display:flex;border-bottom:1px solid var(--border-color);margin-bottom:18px;gap:8px;">
+      <button type="button" id="authTabLogin" class="view-toggle-btn active" style="flex:1;padding:8px 12px;font-weight:700;" onclick="switchAuthTab('login')">🔑 Log In</button>
+      <button type="button" id="authTabSignup" class="view-toggle-btn" style="flex:1;padding:8px 12px;font-weight:700;" onclick="switchAuthTab('signup')">📝 Register Account</button>
+    </div>
+
+    <!-- 1. LOGIN FORM -->
+    <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <label>
+          <span style="font-weight:600;font-size:13px;">Email Address or EPF No</span>
+          <input id="loginEmail" type="text" placeholder="e.g. name@nbri.gov.lk or 1256" required style="width:100%;margin-top:4px;" autocomplete="username" oninput="handleLoginIdentifierInput(this.value)">
+        </label>
+
+        <!-- Live Staff Recognition Card -->
+        <div id="staffRecognizedCard" style="display:none;padding:12px 14px;background:var(--primary-subtle);border:1px solid var(--primary);border-radius:var(--radius-md);animation:fadeIn 0.2s ease;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:24px;">👤</span>
+            <div>
+              <div id="staffRecogName" style="font-weight:700;color:var(--primary-text);font-size:14px;">Dr. Mihira Lakruwan</div>
+              <div id="staffRecogPos" style="font-size:12px;color:var(--text-secondary);">Senior Scientist • EPF: 1256</div>
+            </div>
+          </div>
+        </div>
+
+        <label>
+          <span style="font-weight:600;font-size:13px;">Password</span>
+          <input id="loginPass" type="password" placeholder="Enter your password" required style="width:100%;margin-top:4px;" autocomplete="current-password">
+        </label>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="loginRemember" checked>
+            <span>Remember login</span>
+          </label>
+          <span style="color:var(--text-muted);">🔒 Salted SHA-256 Protected</span>
+        </div>
+        <div id="loginError" style="display:none;color:var(--danger);font-size:12px;background:#fee2e2;padding:8px 12px;border-radius:6px;border:1px solid #fca5a5;"></div>
+        <button id="loginSubmitBtn" type="submit" class="primary" style="width:100%;padding:10px;font-weight:700;font-size:14px;margin-top:4px;">🔑 Log In to Dashboard</button>
+      </div>
+    </form>
+
+    <!-- 2. SIGN UP FORM -->
+    <form id="signupForm" style="display:none;" onsubmit="handleSignupSubmit(event)">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <label>
+          <span style="font-weight:600;font-size:12px;">EPF No *</span>
+          <input id="regEpf" placeholder="eg 918 or 1256" required style="width:100%;margin-top:4px;" oninput="handleSignupEpfInput(this.value)">
+        </label>
+
+        <!-- Pre-Registered Staff Match Alert -->
+        <div id="signupStaffCard" style="display:none;padding:10px 12px;background:var(--primary-subtle);border:1px solid var(--primary);border-radius:var(--radius-sm);font-size:12px;color:var(--primary-text);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span>ℹ️</span>
+            <span id="signupStaffMsg"><b>Pre-registered profile matched!</b> Details auto-filled below.</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:110px 1fr;gap:10px;">
+          <label>
+            <span style="font-weight:600;font-size:12px;">Title</span>
+            <select id="regTitle" style="width:100%;margin-top:4px;padding:8px;">
+              <option value="Dr.">Dr.</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Miss.">Miss.</option>
+              <option value="Ms.">Ms.</option>
+              <option value="Eng.">Eng.</option>
+              <option value="Prof.">Prof.</option>
+            </select>
+          </label>
+          <label>
+            <span style="font-weight:600;font-size:12px;">Full Official Name *</span>
+            <input id="regFullName" placeholder="eg Mihira Lakruwan" required style="width:100%;margin-top:4px;">
+          </label>
+        </div>
+
+        <label>
+          <span style="font-weight:600;font-size:12px;">Position / Designation</span>
+          <select id="regPosition" style="width:100%;margin-top:4px;padding:8px;">
+            <option value="Scientist">Scientist</option>
+            <option value="Senior Scientist">Senior Scientist</option>
+            <option value="Director">Director</option>
+            <option value="Junior Manager">Junior Manager</option>
+            <option value="MA Tech">MA Tech</option>
+            <option value="MA Non Tech">MA Non Tech</option>
+            <option value="Management Assistant">Management Assistant</option>
+            <option value="Technical Officer">Technical Officer</option>
+          </select>
+        </label>
+
+        <label>
+          <span style="font-weight:600;font-size:12px;">Official Email *</span>
+          <input id="regEmail" type="email" placeholder="name@nbri.gov.lk" required style="width:100%;margin-top:4px;">
+        </label>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <label>
+            <span style="font-weight:600;font-size:12px;">Password *</span>
+            <input id="regPass" type="password" placeholder="Create password" required style="width:100%;margin-top:4px;">
+          </label>
+          <label>
+            <span style="font-weight:600;font-size:12px;">Confirm Password *</span>
+            <input id="regPassConfirm" type="password" placeholder="Re-enter password" required style="width:100%;margin-top:4px;">
+          </label>
+        </div>
+
+        <div id="signupError" style="display:none;color:var(--danger);font-size:12px;background:#fee2e2;padding:8px 12px;border-radius:6px;border:1px solid #fca5a5;"></div>
+        <button id="signupSubmitBtn" type="submit" class="primary" style="width:100%;padding:10px;font-weight:700;font-size:14px;margin-top:6px;">📝 Create Institutional Account</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- USER MANAGEMENT MODAL (ADMIN ONLY) -->
+<dialog id="userMgmtDialog" class="modal-dialog" style="max-width:800px;width:95%;padding:0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-xl);">
+  <div style="background:var(--bg-surface);padding:18px 24px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h3 style="margin:0;font-size:18px;font-weight:800;">👥 Division User & Role Management</h3>
+      <p style="margin:2px 0 0;font-size:12px;color:var(--text-secondary);">Manage access permissions, designations, and account authorization states.</p>
+    </div>
+    <button type="button" class="ghost" onclick="$('userMgmtDialog').close()" style="font-size:18px;padding:2px 6px;">✕</button>
+  </div>
+  <div style="padding:18px 24px;max-height:65vh;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <span id="userCountBadge" class="badge" style="font-size:12px;">0 Staff Accounts</span>
+      <button class="ghost" onclick="loadUsersList()" style="font-size:12px;padding:4px 10px;">🔄 Refresh List</button>
+    </div>
+    <div style="border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-color);">
+      <table id="usersTable" style="width:100%;font-size:12.5px;table-layout:fixed;border-collapse:collapse;">
+        <thead>
+          <tr style="background:var(--bg-surface-subtle);">
+            <th style="width:28%;padding:10px 12px;text-align:left;">Staff Profile</th>
+            <th style="width:18%;padding:10px 10px;text-align:left;">EPF / Email</th>
+            <th style="width:18%;padding:10px 8px;text-align:left;">Working Group</th>
+            <th style="width:14%;padding:10px 8px;text-align:left;">System Role</th>
+            <th style="width:11%;padding:10px 8px;text-align:left;">Status</th>
+            <th style="width:11%;padding:10px 8px;text-align:center;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <tr><td colspan="6" style="text-align:center;padding:18px;color:var(--text-muted);">Loading staff directory & access permissions...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</dialog>
+
+<!-- MONTHLY GOVERNANCE & APPROVALS CENTER (DIRECTOR & SYSTEM ADMIN) -->
+<dialog id="governanceDialog" class="modal-dialog" style="max-width:760px;width:95%;padding:0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-xl);">
+  <div style="background:var(--bg-surface);padding:18px 24px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h3 style="margin:0;font-size:18px;font-weight:800;">🏛️ Monthly Governance & Approvals Center</h3>
+      <p style="margin:2px 0 0;font-size:12px;color:var(--text-secondary);">Manage monthly freeze locks, audit approvals, and review scientist unlock requests.</p>
+    </div>
+    <button type="button" class="ghost" onclick="$('governanceDialog').close()" style="font-size:18px;padding:2px 6px;">✕</button>
+  </div>
+  <div style="padding:18px 24px;max-height:65vh;overflow-y:auto;">
+    <!-- Tabs inside modal -->
+    <div style="display:flex;gap:10px;border-bottom:1px solid var(--border-color);margin-bottom:16px;">
+      <button type="button" id="govTabMonthsBtn" class="view-toggle-btn active" onclick="switchGovTab('months')" style="padding:6px 14px;font-size:12.5px;font-weight:700;">📅 Month Lock Status</button>
+      <button type="button" id="govTabRequestsBtn" class="view-toggle-btn" onclick="switchGovTab('requests')" style="padding:6px 14px;font-size:12.5px;font-weight:700;">📩 Unlock Requests <span id="govModalBadge" style="display:none;background:#ef4444;color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-left:4px;">0</span></button>
+    </div>
+
+    <!-- Section 1: Month Lock Matrix -->
+    <div id="govSectionMonths">
+      <div id="govMonthsList"></div>
+    </div>
+
+    <!-- Section 2: Pending Unlock Requests -->
+    <div id="govSectionRequests" style="display:none;">
+      <div id="govRequestsList"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- UNLOCK REQUEST MODAL (SCIENTISTS & EDITORS) -->
+<dialog id="unlockRequestDialog" class="modal-dialog" style="max-width:500px;width:92%;padding:0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-xl);">
+  <div style="background:var(--bg-surface);padding:18px 22px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h3 style="margin:0;font-size:17px;font-weight:800;">📩 Request Month Edit Access</h3>
+      <p style="margin:2px 0 0;font-size:12px;color:var(--text-secondary);">Submit a justification to Director / System Admin to unlock past records.</p>
+    </div>
+    <button type="button" class="ghost" onclick="$('unlockRequestDialog').close()" style="font-size:18px;padding:2px 6px;">✕</button>
+  </div>
+  <form id="unlockRequestForm" onsubmit="handleUnlockRequestSubmit(event)" style="padding:18px 22px;">
+    <div style="margin-bottom:14px;">
+      <label style="display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--text-primary);">Reporting Month</label>
+      <input id="unlockReqMonth" type="text" readonly style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-surface-subtle);font-weight:700;color:var(--text-primary);">
+    </div>
+    <div style="margin-bottom:14px;">
+      <label style="display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--text-primary);">Reason / Justification for Adjustment</label>
+      <textarea id="unlockReqReason" rows="3" required placeholder="e.g. RDA invoice revision claim #104 for Project 27224.B1…" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-size:13px;resize:vertical;"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button type="button" class="ghost" onclick="$('unlockRequestDialog').close()">Cancel</button>
+      <button type="submit" class="primary" id="unlockReqSubmitBtn" style="font-weight:700;">Submit Unlock Request</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- INSTITUTIONAL SYSTEM FOOTER -->
+<footer style="margin-top:40px;border-top:1px solid var(--border-color);background:var(--bg-surface);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--text-secondary);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font-weight:800;color:var(--text-primary);">🏛️ NBRI — Geotechnical Engineering Division</span>
+    <span>•</span>
+    <span>Project Registry & Financial Progress Portal</span>
+    <span>•</span>
+    <span class="badge secondary" style="font-size:11px;font-weight:700;">v9.3.0 Enterprise</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <span style="display:inline-flex;align-items:center;gap:4px;color:var(--text-secondary);font-weight:400;">👨‍💻 Work by Ranjan</span>
+    <span>•</span>
+    <button type="button" class="ghost" onclick="openAboutDialog()" style="font-size:12px;padding:3px 8px;">ℹ️ About & Help</button>
+    <button type="button" class="ghost" onclick="exportJSON()" style="font-size:12px;padding:3px 8px;">💾 Backup JSON</button>
+    <span>© 2026 National Building Research Institute. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- ABOUT, HELP & VERSION SUMMARY MODAL DIALOG -->
+<dialog id="aboutDialog" class="modal-dialog" style="max-width:720px;width:95%;padding:0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-xl);">
+  <div style="background:var(--bg-surface);padding:20px 24px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:24px;">🏛️</span>
+      <div>
+        <h3 style="margin:0;font-size:18px;font-weight:800;color:var(--text-primary);">National Building Research Institute (NBRI)</h3>
+        <p style="margin:2px 0 0;font-size:12px;color:var(--text-secondary);">Geotechnical Engineering Division (GED) · Project Registry & Enterprise Management</p>
+      </div>
+    </div>
+    <button type="button" class="ghost" onclick="$('aboutDialog').close()" style="font-size:18px;padding:2px 6px;">✕</button>
+  </div>
+
+  <div style="padding:22px 26px;max-height:70vh;overflow-y:auto;line-height:1.6;font-size:13px;color:var(--text-primary);">
+    
+    <!-- System Badge & Summary -->
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg-surface-subtle);padding:12px 16px;border-radius:8px;border:1px solid var(--border-color);margin-bottom:18px;">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">System Release</div>
+        <div style="font-size:15px;font-weight:800;color:var(--primary);">Version 9.3.0 (Enterprise Stable)</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Environment</div>
+        <span class="badge in-progress" style="font-size:11px;font-weight:700;">🟢 Live Synchronized</span>
+      </div>
+    </div>
+
+    <!-- Quick Help & Navigation Guide -->
+    <h4 style="margin:0 0 8px;font-size:14px;font-weight:700;color:var(--text-primary);">📖 User & Operational Help Guide</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:var(--bg-surface);padding:10px 14px;border-radius:6px;border:1px solid var(--border-color);">
+        <b style="color:var(--primary);">📊 Executive Dashboard</b>
+        <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);">High-level 3-pillar financial trajectories, margin performance, cashflow waterfalls, and working group distributions.</p>
+      </div>
+      <div style="background:var(--bg-surface);padding:10px 14px;border-radius:6px;border:1px solid var(--border-color);">
+        <b style="color:var(--primary);">📁 Project Registry</b>
+        <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);">Register and edit geotechnical projects, assign working group leaders and multi-scientists, and track status with year filtering.</p>
+      </div>
+      <div style="background:var(--bg-surface);padding:10px 14px;border-radius:6px;border:1px solid var(--border-color);">
+        <b style="color:var(--primary);">📈 Monthly WIP Portal</b>
+        <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);">Update monthly physical % and financial progress. Instant single-row saving with real-time cumulative updates.</p>
+      </div>
+      <div style="background:var(--bg-surface);padding:10px 14px;border-radius:6px;border:1px solid var(--border-color);">
+        <b style="color:var(--primary);">💰 Financial Exposure Ledger</b>
+        <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);">Track contract estimates, client mobilization advances, unbilled backlog, and physical vs. billing alignment badges.</p>
+      </div>
+    </div>
+
+    <!-- Key Shortcuts & Features -->
+    <h4 style="margin:0 0 8px;font-size:14px;font-weight:700;color:var(--text-primary);">⌨️ Keyboard Shortcuts & Quick Actions</h4>
+    <ul style="margin:0 0 20px;padding-left:20px;font-size:12.5px;color:var(--text-secondary);">
+      <li><kbd style="background:var(--bg-surface-subtle);padding:2px 5px;border-radius:3px;border:1px solid var(--border-color);">Ctrl + K</kbd> : Open Enterprise Quick Search palette across all projects, scientists, and clients.</li>
+      <li><kbd style="background:var(--bg-surface-subtle);padding:2px 5px;border-radius:3px;border:1px solid var(--border-color);">Esc</kbd> : Close any active modal window.</li>
+      <li><b>Exporting</b> : Instant CSV and direct A3 PDF export available across all primary portals.</li>
+    </ul>
+
+    <!-- Release Version Summary Changelog -->
+    <h4 style="margin:0 0 8px;font-size:14px;font-weight:700;color:var(--text-primary);">🚀 Release Version Summary (v9.3.0)</h4>
+    <div style="background:var(--bg-surface-subtle);border-radius:6px;padding:12px 16px;border:1px solid var(--border-color);font-size:12px;margin-bottom:20px;">
+      <ul style="margin:0;padding-left:18px;">
+        <li><b>Financial Exposure Ledger</b>: Complete redesign with 6 KPI cards, unbilled backlog tracking, and billing lag detection.</li>
+        <li><b>Registered Year Dimension</b>: Full database and UI support for multi-year project registry and filtering.</li>
+        <li><b>Staff Badges Optimization</b>: Responsive multi-line badge wrapping preserving horizontal table footprint.</li>
+        <li><b>Telemetry & Administration Portal</b>: Dedicated System Admin hub with live staff statistics and operational activity audit ledger.</li>
+        <li><b>Dashboard Horizon Control</b>: Pinned, zero-layout-shift toggles between Selected Month and Full Year (YTD).</li>
+        <li><b>Robust Database Sync</b>: Safe single-row updating and auto-header provisioning in Google Sheets.</li>
+      </ul>
+    </div>
+
+    <!-- Copyright & Disclaimer -->
+    <div style="border-top:1px solid var(--border-color);padding-top:14px;font-size:11.5px;color:var(--text-muted);text-align:center;">
+      <p style="margin:0;"><b>National Building Research Institute (NBRI)</b> — Geotechnical Engineering Division (GED)</p>
+      <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary);font-weight:400;">👨‍💻 System Architecture & Development: Work by Ranjan</p>
+      <p style="margin:4px 0 0;">© 2026 NBRI Sri Lanka. All Rights Reserved. Enterprise Geotechnical Project & Progress Registry System.</p>
+    </div>
+  </div>
+  
+  <div style="background:var(--bg-surface-subtle);padding:12px 24px;border-top:1px solid var(--border-color);display:flex;justify-content:flex-end;">
+    <button type="button" class="primary" onclick="$('aboutDialog').close()" style="font-weight:700;padding:6px 16px;">Close</button>
+  </div>
+</dialog>
+
 <!-- TOAST NOTIFICATION -->
 <div id="toast"></div>
 
-<script src="app.js?v=2.7.0"></script>
+<script src="app.js?v=9.3.0"></script>
 </body>
 </html>
