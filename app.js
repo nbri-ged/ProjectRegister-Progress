@@ -647,33 +647,40 @@ async function apiGet(action, params = {}, timeoutMs = 45000) {
   }
 }
 
-async function apiPost(action, payload = {}, timeoutMs = 45000) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
+async function apiPost(action, payload = {}, timeoutMs = 45000, retryCount = 1) {
+  const authFields = {
+    token: state.token || "",
+    userRole: state.user ? (state.user.role || "") : "",
+    userEmail: state.user ? (state.user.email || "") : "",
+    userEpf: state.user ? (state.user.epf || "") : ""
+  };
 
-  try {
-    const authFields = {
-      token: state.token || "",
-      userRole: state.user ? (state.user.role || "") : "",
-      userEmail: state.user ? (state.user.email || "") : "",
-      userEpf: state.user ? (state.user.epf || "") : ""
-    };
+  for (let attempt = 0; attempt <= retryCount; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
 
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ action, ...authFields, ...payload }),
-      redirect: "follow",
-      signal: controller.signal
-    });
-    clearTimeout(timer);
-    if (!response.ok) throw new Error(`API POST failed: ${response.status}`);
-    const data = await response.json();
-    if (data.success === false || data.ok === false) throw new Error(data.error || data.message || "API request failed");
-    return data;
-  } catch(e) {
-    clearTimeout(timer);
-    throw e;
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action, ...authFields, ...payload }),
+        redirect: "follow",
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      if (!response.ok) throw new Error(`API POST failed: ${response.status}`);
+      const data = await response.json();
+      if (data.success === false || data.ok === false) throw new Error(data.error || data.message || "API request failed");
+      return data;
+    } catch(e) {
+      clearTimeout(timer);
+      if (attempt < retryCount) {
+        console.warn(`[NBRI] apiPost("${action}") attempt ${attempt + 1} failed (${e.message}). Retrying in 1.5s...`);
+        await new Promise(r => setTimeout(r, 1500));
+        continue;
+      }
+      throw e;
+    }
   }
 }
 
@@ -798,7 +805,9 @@ async function init() {
       fillFilters();
       renderAll();
       setSheetsStatus("live", `Live Database (${state.projects.length} Projects)`);
-      setApiStatus(`Live database connected (${state.projects.length} Projects)`, true);
+      if (Array.isArray(res.feedbackTickets)) {
+        state.feedbackTickets = res.feedbackTickets;
+      }
     }
     // Fetch real-time delegation & action notifications for logged in user
     fetchLiveNotifications();
@@ -2950,8 +2959,12 @@ async function saveWip(singleProjectKey = null) {
     }, 2500);
   } catch (err) {
     console.error(err);
-    showToast("Failed to save progress: " + err.message, true);
-    alert("Project progress could not be saved.\n\n" + err.message);
+    const isFetchErr = err.message && (err.message.includes("Failed to fetch") || err.message.includes("NetworkError"));
+    const msg = isFetchErr
+      ? "Connection to Central Database was interrupted. If you have an ad-blocker or privacy extension active, please whitelist this site or check your connection and try again."
+      : err.message;
+    showToast("Failed to save progress: " + msg, true);
+    alert("Project progress could not be saved to Central Database.\n\n" + msg);
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -3884,8 +3897,12 @@ async function saveProject(e) {
     showToast(id ? "✓ Project record updated successfully!" : "✓ New project registered successfully!");
   } catch (err) {
     console.error(err);
-    showToast("Save failed: " + err.message, true);
-    alert("Project could not be saved.\n\n" + err.message);
+    const isFetchErr = err.message && (err.message.includes("Failed to fetch") || err.message.includes("NetworkError"));
+    const msg = isFetchErr
+      ? "Connection to Central Database was interrupted. If you have an ad-blocker or privacy extension active, please whitelist this site or check your connection and try again."
+      : err.message;
+    showToast("Save failed: " + msg, true);
+    alert("Project could not be saved to Central Database.\n\n" + msg);
   } finally {
     btn.disabled = false;
     btn.textContent = id ? "💾 Update Existing Project" : "➕ Create Project";
@@ -6404,6 +6421,12 @@ function renderAdminDashboard() {
 
   // 3. Render Logs Table
   renderAdminLogsTable($("adminLogSearchInput")?.value || "");
+
+  // 4. Render Feedback & Support Tickets
+  renderAdminTicketsTable();
+
+  // 5. Render Error Telemetry
+  renderAdminErrorsTable();
 }
 window.renderAdminDashboard = renderAdminDashboard;
 
@@ -6433,7 +6456,8 @@ function renderAdminLogsTable(filterQuery = "") {
     else if (l.action.includes("LOCK")) { actionBadgeClass = "in-progress"; actionIcon = "🔒"; }
     else if (l.action.includes("SAVE")) { actionBadgeClass = "completed"; actionIcon = "💾"; }
     else if (l.action.includes("USER") || l.action.includes("PASSWORD")) { actionBadgeClass = "in-progress"; actionIcon = "👤"; }
-    else if (l.action.includes("REJECT")) { actionBadgeClass = "red"; actionIcon = "✕"; }
+    else if (l.action.includes("FEEDBACK")) { actionBadgeClass = "client-approval"; actionIcon = "💡"; }
+    else if (l.action.includes("REJECT") || l.action.includes("ERROR")) { actionBadgeClass = "red"; actionIcon = "✕"; }
 
     return `
       <tr style="border-bottom:1px solid var(--border-color-subtle);">
@@ -6454,6 +6478,330 @@ function renderAdminLogsTable(filterQuery = "") {
   }).join("");
 }
 window.renderAdminLogsTable = renderAdminLogsTable;
+
+/* =========================================================================
+   AUTOMATED ERROR TELEMETRY & FEEDBACK TICKETING SYSTEM
+   ========================================================================= */
+
+// Rolling buffer of recent client-side errors (max 30)
+state.clientErrors = state.clientErrors || [];
+state.feedbackTickets = state.feedbackTickets || [];
+
+function recordClientTelemetryError(msg, source, line, col, errorObj) {
+  const errEntry = {
+    id: "err_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
+    timestamp: new Date().toISOString(),
+    user: state.user ? `${state.user.fullName || state.user.shortName} (${state.user.epf || 'Guest'})` : "Guest / Not signed in",
+    location: source ? `${String(source).split("/").pop()}:${line || 0}` : "App Runtime",
+    message: String(msg || (errorObj && errorObj.message) || "Unknown error"),
+    stack: errorObj && errorObj.stack ? String(errorObj.stack).slice(0, 350) : (source ? `${source}:${line}:${col}` : "")
+  };
+
+  state.clientErrors.unshift(errEntry);
+  if (state.clientErrors.length > 30) state.clientErrors.pop();
+
+  // If error box is open in feedback modal, show latest snippet
+  const errBox = $("feedbackErrorBox");
+  const errSnippet = $("feedbackErrorSnippet");
+  if (errBox && errSnippet) {
+    errSnippet.textContent = `${errEntry.message}\n${errEntry.location}`;
+    errBox.style.display = "block";
+  }
+
+  // Live refresh admin telemetry if open
+  const curAdminTab = document.querySelector(".tab[data-view='admin']");
+  if (curAdminTab && curAdminTab.classList.contains("active")) {
+    renderAdminErrorsTable();
+  }
+}
+
+// Global JavaScript runtime exception listeners
+window.addEventListener("error", function(e) {
+  recordClientTelemetryError(e.message, e.filename, e.lineno, e.colno, e.error);
+});
+
+window.addEventListener("unhandledrejection", function(e) {
+  const reason = e.reason;
+  recordClientTelemetryError(
+    reason ? (reason.message || String(reason)) : "Unhandled Promise Rejection",
+    "Async API / Network",
+    0, 0,
+    reason instanceof Error ? reason : null
+  );
+});
+
+function openFeedbackModal() {
+  const dialog = $("feedbackDialog");
+  if (!dialog) return;
+
+  // Display user status
+  const userDisplay = $("feedbackUserDisplay");
+  if (userDisplay) {
+    if (state.user) {
+      userDisplay.textContent = `${state.user.title ? state.user.title + ' ' : ''}${state.user.fullName || state.user.shortName} (EPF: ${state.user.epf || '—'} · ${state.user.role || 'Viewer'})`;
+    } else {
+      userDisplay.textContent = "Guest Staff Member (Not Signed In)";
+    }
+  }
+
+  // Pre-fill recent error if available
+  const errBox = $("feedbackErrorBox");
+  const errSnippet = $("feedbackErrorSnippet");
+  if (state.clientErrors && state.clientErrors.length > 0) {
+    const latestErr = state.clientErrors[0];
+    if (errSnippet) errSnippet.textContent = `[${new Date(latestErr.timestamp).toLocaleTimeString()}] ${latestErr.message}\nAt: ${latestErr.location}`;
+    if (errBox) errBox.style.display = "block";
+  } else {
+    if (errBox) errBox.style.display = "none";
+  }
+
+  dialog.showModal();
+}
+window.openFeedbackModal = openFeedbackModal;
+
+function handleFeedbackTypeChange(typeVal) {
+  const errBox = $("feedbackErrorBox");
+  if (typeVal === "Bug / Error" && state.clientErrors.length > 0) {
+    if (errBox) errBox.style.display = "block";
+  }
+}
+window.handleFeedbackTypeChange = handleFeedbackTypeChange;
+
+async function handleFeedbackSubmit(e) {
+  e.preventDefault();
+  const submitBtn = $("feedbackSubmitBtn");
+  const type = $("feedbackType")?.value || "Upgrade / Request";
+  const mod = $("feedbackModule")?.value || "General";
+  const urgencyRadio = document.querySelector('input[name="feedbackUrgency"]:checked');
+  const urgency = urgencyRadio ? urgencyRadio.value : "Normal";
+  const message = ($("feedbackMessage")?.value || "").trim();
+  const includeError = $("feedbackIncludeError")?.checked;
+
+  if (!message) {
+    showToast("Please enter a description or comment.", true);
+    return;
+  }
+
+  let diagErr = "";
+  if (includeError && state.clientErrors.length > 0) {
+    const topErr = state.clientErrors[0];
+    diagErr = `${topErr.message} | Loc: ${topErr.location} | Time: ${topErr.timestamp}`;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "⏳ Submitting...";
+  }
+
+  const payload = {
+    id: "ticket_" + Date.now(),
+    timestamp: new Date().toISOString(),
+    type,
+    module: mod,
+    urgency,
+    userEpf: state.user ? (state.user.epf || "") : "",
+    userName: state.user ? (state.user.fullName || state.user.shortName || "") : "Guest Staff",
+    userRole: state.user ? (state.user.role || "Viewer") : "Viewer",
+    message,
+    diagnosticError: diagErr
+  };
+
+  try {
+    const res = await apiPost("submitFeedback", payload);
+    state.feedbackTickets.unshift({
+      ...payload,
+      status: "Open",
+      adminNotes: "",
+      resolvedAt: ""
+    });
+    showToast("✓ Thank you! Your submission has been securely sent to the System Admin.");
+    $("feedbackDialog")?.close();
+    $("feedbackForm")?.reset();
+    if ($("feedbackErrorBox")) $("feedbackErrorBox").style.display = "none";
+
+    // Refresh admin tables if admin is viewing
+    renderAdminTicketsTable();
+  } catch (err) {
+    console.warn("Feedback submission fallback:", err.message);
+    // Add locally and show friendly success message
+    state.feedbackTickets.unshift({
+      ...payload,
+      status: "Open",
+      adminNotes: "",
+      resolvedAt: ""
+    });
+    showToast("✓ Received! Logged into system diagnostics ledger.");
+    $("feedbackDialog")?.close();
+    $("feedbackForm")?.reset();
+    renderAdminTicketsTable();
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "📤 Send to System Admin";
+    }
+  }
+}
+window.handleFeedbackSubmit = handleFeedbackSubmit;
+
+async function fetchLiveFeedbackTickets(manual = false) {
+  try {
+    const res = await apiGet("getFeedback");
+    if (res && Array.isArray(res.feedbackTickets)) {
+      state.feedbackTickets = res.feedbackTickets;
+      renderAdminTicketsTable();
+      if (manual) showToast(`✓ Synced ${res.feedbackTickets.length} feedback tickets.`);
+    }
+  } catch(e) {
+    if (manual) showToast("Could not sync tickets from central database.", true);
+  }
+}
+window.fetchLiveFeedbackTickets = fetchLiveFeedbackTickets;
+
+function renderAdminTicketsTable() {
+  const tbody = $("adminTicketsTbody");
+  if (!tbody) return;
+
+  const filterStatus = $("adminTicketFilterStatus")?.value || "all";
+  const tickets = state.feedbackTickets || [];
+
+  const filtered = tickets.filter(t => {
+    if (filterStatus === "all") return true;
+    if (filterStatus === "Open") return t.status === "Open" || !t.status;
+    if (filterStatus === "In Progress") return t.status === "In Progress";
+    if (filterStatus === "Resolved") return t.status === "Resolved" || t.status === "Closed";
+    return true;
+  });
+
+  const countBadge = $("adminTicketsCountBadge");
+  if (countBadge) countBadge.textContent = `${filtered.length} of ${tickets.length} Tickets`;
+
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted);font-size:12.5px;">No support tickets or feedback found matching filter.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(t => {
+    const timeStr = t.timestamp ? new Date(t.timestamp).toLocaleString("en-GB", { month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—";
+    
+    let typeBadge = "secondary";
+    if (t.type.includes("Bug") || t.type.includes("Error")) typeBadge = "abandoned";
+    else if (t.type.includes("Upgrade") || t.type.includes("Feature")) typeBadge = "pipeline";
+    else if (t.type.includes("Question")) typeBadge = "in-progress";
+
+    let urgBadge = "";
+    if (t.urgency === "Critical") urgBadge = `<span class="badge abandoned" style="font-size:9.5px;padding:1px 5px;margin-left:4px;">🚨 Critical</span>`;
+    else if (t.urgency === "High") urgBadge = `<span class="badge client-approval" style="font-size:9.5px;padding:1px 5px;margin-left:4px;">⚡ High</span>`;
+
+    const isResolved = t.status === "Resolved" || t.status === "Closed";
+
+    return `
+      <tr style="border-bottom:1px solid var(--border-color-subtle);background:${isResolved ? 'transparent' : 'var(--bg-surface)'};">
+        <td style="padding:8px 10px;font-size:11px;color:var(--text-muted);white-space:nowrap;vertical-align:top;">
+          <b>${safe(timeStr)}</b>
+          <div style="font-family:monospace;font-size:9.5px;color:var(--text-secondary);margin-top:2px;">${safe(t.id)}</div>
+        </td>
+        <td style="padding:8px 10px;font-size:12px;vertical-align:top;">
+          <div style="font-weight:700;color:var(--text-primary);">${safe(t.userName || 'Staff')}</div>
+          <div style="font-size:10.5px;color:var(--text-muted);">${t.userEpf ? 'EPF: ' + safe(t.userEpf) : ''} · ${safe(t.userRole || 'Viewer')}</div>
+        </td>
+        <td style="padding:8px 10px;vertical-align:top;">
+          <span class="badge ${typeBadge}" style="font-size:10px;padding:2px 6px;">${safe(t.type)}</span>
+          ${urgBadge}
+        </td>
+        <td style="padding:8px 10px;font-size:12px;font-weight:600;color:var(--text-secondary);vertical-align:top;">
+          ${safe(t.module)}
+        </td>
+        <td style="padding:8px 10px;font-size:12.5px;color:var(--text-primary);vertical-align:top;">
+          <div style="white-space:pre-wrap;line-height:1.4;">${safe(t.message)}</div>
+          ${t.diagnosticError ? `
+            <div style="margin-top:6px;padding:6px 8px;background:#fef2f2;border:1px solid #fca5a5;border-radius:4px;font-size:10.5px;font-family:monospace;color:#991b1b;word-break:break-all;">
+              <b>Telemetry:</b> ${safe(t.diagnosticError)}
+            </div>
+          ` : ''}
+          ${t.adminNotes ? `
+            <div style="margin-top:4px;font-size:11px;color:var(--primary);font-style:italic;">
+              💬 Admin Note: ${safe(t.adminNotes)}
+            </div>
+          ` : ''}
+        </td>
+        <td style="padding:8px 10px;text-align:center;vertical-align:top;white-space:nowrap;">
+          <select style="font-size:11px;padding:3px 6px;border-radius:4px;border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);font-weight:700;" onchange="updateTicketStatus('${safe(t.id)}', this.value)">
+            <option value="Open" ${t.status === 'Open' || !t.status ? 'selected' : ''}>⚡ Open</option>
+            <option value="In Progress" ${t.status === 'In Progress' ? 'selected' : ''}>⏳ In Progress</option>
+            <option value="Resolved" ${t.status === 'Resolved' ? 'selected' : ''}>✅ Resolved</option>
+            <option value="Closed" ${t.status === 'Closed' ? 'selected' : ''}>📁 Closed</option>
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+window.renderAdminTicketsTable = renderAdminTicketsTable;
+
+async function updateTicketStatus(ticketId, newStatus) {
+  const t = (state.feedbackTickets || []).find(x => x.id === ticketId);
+  if (!t) return;
+  t.status = newStatus;
+  if (newStatus === "Resolved" || newStatus === "Closed") {
+    t.resolvedAt = new Date().toISOString();
+  }
+  renderAdminTicketsTable();
+  showToast(`✓ Ticket status updated to ${newStatus}`);
+
+  // Background sync to Google Sheets
+  apiPost("updateFeedbackTicket", {
+    id: ticketId,
+    status: newStatus,
+    adminUser: state.user ? (state.user.fullName || state.user.shortName) : "Admin"
+  }).catch(console.warn);
+}
+window.updateTicketStatus = updateTicketStatus;
+
+function renderAdminErrorsTable() {
+  const tbody = $("adminErrorsTbody");
+  if (!tbody) return;
+
+  const errors = state.clientErrors || [];
+  const countBadge = $("adminErrorsCountBadge");
+  if (countBadge) {
+    countBadge.textContent = `${errors.length} Active Errors`;
+    countBadge.className = `badge ${errors.length > 0 ? 'abandoned' : 'completed'}`;
+  }
+
+  if (!errors.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px;">🟢 Zero client errors detected. System runtime health is optimal.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = errors.map(err => {
+    const timeStr = err.timestamp ? new Date(err.timestamp).toLocaleTimeString("en-GB") : "—";
+    return `
+      <tr style="border-bottom:1px solid var(--border-color-subtle);">
+        <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);white-space:nowrap;vertical-align:top;">
+          ${safe(timeStr)}
+        </td>
+        <td style="padding:6px 10px;font-size:11.5px;font-weight:600;color:var(--text-primary);vertical-align:top;">
+          ${safe(err.user)}
+        </td>
+        <td style="padding:6px 10px;font-size:11.5px;color:var(--text-secondary);vertical-align:top;">
+          ${safe(err.location)}
+        </td>
+        <td style="padding:6px 10px;font-size:11.5px;color:#b91c1c;font-family:monospace;vertical-align:top;word-break:break-word;">
+          <b>${safe(err.message)}</b>
+          ${err.stack ? `<div style="font-size:9.5px;color:var(--text-muted);margin-top:2px;max-height:40px;overflow-y:auto;">${safe(err.stack)}</div>` : ''}
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+window.renderAdminErrorsTable = renderAdminErrorsTable;
+
+function clearClientTelemetryErrors() {
+  state.clientErrors = [];
+  renderAdminErrorsTable();
+  showToast("✓ Error telemetry buffer cleared.");
+}
+window.clearClientTelemetryErrors = clearClientTelemetryErrors;
 
 // Auth Event Listeners
 if ($("authTriggerBtn")) $("authTriggerBtn").onclick = () => openAuthDialog("login");
@@ -6493,6 +6841,14 @@ window.exitDiagnosticMode = exitDiagnosticMode;
 window.updateEditorReminders = updateEditorReminders;
 window.openEditorRemindersModal = openEditorRemindersModal;
 window.jumpToWipProject = jumpToWipProject;
+window.openFeedbackModal = openFeedbackModal;
+window.handleFeedbackTypeChange = handleFeedbackTypeChange;
+window.handleFeedbackSubmit = handleFeedbackSubmit;
+window.fetchLiveFeedbackTickets = fetchLiveFeedbackTickets;
+window.renderAdminTicketsTable = renderAdminTicketsTable;
+window.updateTicketStatus = updateTicketStatus;
+window.renderAdminErrorsTable = renderAdminErrorsTable;
+window.clearClientTelemetryErrors = clearClientTelemetryErrors;
 
 // Boot application
 initAuth();

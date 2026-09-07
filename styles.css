@@ -70,19 +70,23 @@ body {
   min-height: 100vh;
 }
 
-/* TOPBAR */
-.topbar {
+/* 2-LAYER APP HEADER */
+.app-header {
   background: var(--header-bg);
   color: var(--header-text);
-  padding: 16px 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Layer 1: Title & User Header */
+.header-top-row {
+  padding: 14px 32px 10px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.topbar .branding {
+.header-top-row .branding {
   display: flex;
   flex-direction: column;
 }
@@ -107,17 +111,109 @@ body {
   border-radius: 50%;
 }
 
-.topbar h1 {
+.header-top-row h1 {
   margin: 2px 0 0;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.top-actions {
+.header-user-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+}
+
+/* Layer 2: Down Layer Controls Bar */
+.header-down-row {
+  padding: 8px 32px 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.down-row-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.down-row-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Unified 34px Controls Across Down Layer and Header */
+.cmd-hint,
+.month-label input,
+.sheets-status-pill,
+.user-profile-pill,
+.theme-toggle-btn,
+.top-action-btn {
+  height: 34px;
+  box-sizing: border-box;
+}
+
+/* Quick Search Button */
+.cmd-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.cmd-hint:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.cmd-hint kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+/* Month Picker */
+.month-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.month-label input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+
+.month-label input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 
 /* Google Sheets Live Connection Status Pill */
@@ -125,7 +221,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 12px;
+  padding: 0 12px;
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 600;
@@ -196,46 +292,131 @@ body {
   50%       { opacity: 0.35; }
 }
 
-.cmd-hint {
+/* User Profile Pill Capsule */
+.user-profile-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-sm);
-  color: #cbd5e1;
+  padding: 0 10px;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
   font-size: 12px;
-  cursor: pointer;
-  transition: var(--transition);
+  white-space: nowrap;
+  line-height: 1;
 }
 
-.cmd-hint:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+.user-profile-pill #userNameLabel {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1;
 }
 
-.cmd-hint kbd {
-  background: rgba(255, 255, 255, 0.2);
+.user-profile-pill #userRoleBadge {
+  font-size: 10px;
   padding: 2px 6px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 11px;
+  line-height: 1.2;
 }
 
+.topbar-chip-btn {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.topbar-chip-btn:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.topbar-chip-btn.reminders-chip {
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.35);
+  background: #fffbeb;
+}
+
+[data-theme="dark"] .topbar-chip-btn.reminders-chip {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fbbf24;
+}
+
+.topbar-chip-btn.messages-chip {
+  color: #2563eb;
+  border-color: rgba(37, 99, 235, 0.35);
+  background: #eff6ff;
+}
+
+[data-theme="dark"] .topbar-chip-btn.messages-chip {
+  background: rgba(37, 99, 235, 0.15);
+  color: #60a5fa;
+}
+
+.topbar-chip-btn.approvals-chip {
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.35);
+  background: #fffbeb;
+}
+
+[data-theme="dark"] .topbar-chip-btn.approvals-chip {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fbbf24;
+}
+
+.topbar-chip-btn .chip-counter {
+  background: #ef4444;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 5px;
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 14px;
+}
+
+.topbar-select {
+  height: 24px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid #f59e0b;
+  background: #fef3c7;
+  color: #92400e;
+  cursor: pointer;
+  outline: none;
+}
+
+[data-theme="dark"] .topbar-select {
+  background: #451a03;
+  color: #fbbf24;
+  border-color: #b45309;
+}
+
+/* Theme Toggle Button */
 .theme-toggle-btn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
-  width: 36px;
-  height: 36px;
+  width: 34px;
   border-radius: var(--radius-sm);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   transition: var(--transition);
+  flex-shrink: 0;
 }
 
 .theme-toggle-btn:hover {
@@ -243,28 +424,29 @@ body {
   transform: rotate(15deg);
 }
 
-.month-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #94a3b8;
-  font-weight: 500;
+/* Top Action Buttons (Feedback, Help, Export) */
+.top-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 0 12px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-sm) !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  cursor: pointer;
 }
 
-.month-label input {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  font-family: inherit;
-  font-size: 13px;
-  outline: none;
+#feedbackSupportBtn {
+  font-weight: 700 !important;
+  color: var(--primary) !important;
+  border-color: rgba(37, 99, 235, 0.35) !important;
+  background: var(--primary-subtle) !important;
 }
 
-.month-label input::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+#feedbackSupportBtn:hover {
+  background: rgba(37, 99, 235, 0.18) !important;
 }
 
 /* NAVIGATION TABS */
@@ -1743,6 +1925,31 @@ dialog::backdrop {
     width: 100%;
   }
 
+  .header-top-row {
+    padding: 12px 16px 8px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-user-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header-down-row {
+    padding: 8px 16px 10px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .down-row-left,
+  .down-row-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .eyebrow {
     font-size: 10px;
     letter-spacing: 0.05em;
@@ -1750,19 +1957,10 @@ dialog::backdrop {
     white-space: normal;
   }
 
-  .topbar h1 {
+  .header-top-row h1 {
     font-size: 17px;
     line-height: 1.25;
     margin-top: 2px;
-  }
-
-  .top-actions {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-    justify-content: flex-start;
   }
 
   .cmd-hint {
