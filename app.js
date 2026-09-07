@@ -2,7 +2,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbxxbM1pNLKYYWdDtdHPBg8ycXfrHCx_Qwr4we1KiogjBt9Wg6ukI9XRG8YJH3TnFMoAJQ/exec";
 
 // EMBEDDED SEED DATABASE FOR INSTANT ZERO-LATENCY DISPLAY
-const BUNDLED_DATABASE = {"projects": [{"Project Code": "27224.B1", "Client": "RDA", "Description": "Detailed Engineering Desingn -Central Expressway Section 3 Package1(3+440 KM to 12+890KM)", "Working Group": "Mihira", "Responsible Engineer": "Gayathri", "Initial Estimate": 26922500, "Advance Amount": 0, "Advance Received": "", "Status": "In Progress"}, {"Project Code": 27795, "Client": "RDA", "Description": "Consultancy Supervision (geotechnical work) of CEP section 3", "Working Group": "Mihira", "Responsible Engineer": "Gayathri", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": "27623.a", "Client": "Prison Head Quarters", "Description": "Construction of Boundry wall at Kegalle Prison (Supervision)", "Working Group": "Mihira", "Responsible Engineer": "Dulan", "Initial Estimate": 1949085.77, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28021, "Client": "200 Mn", "Description": "Construction Supervision - RLVMMP", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "27693.a", "Client": "DNCWS", "Description": "Stabilisation of failed slope behind the community water supply scheme at menikkandarawa mahapallegama, in Kagalle District", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": 1900000, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28133, "Client": "ICC- Finex", "Description": "Site No.74 Installation and Monitoring", "Working Group": "Suranga", "Responsible Engineer": "", "Initial Estimate": 3760000, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28152, "Client": "RDA", "Description": "G.I. at CEP Section 3 - Package 2(Geotechnical Investigation)", "Working Group": "Suranga", "Responsible Engineer": "", "Initial Estimate": "", "Advance Amount": 152995000, "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28292, "Client": "Mr.Rathnagoda", "Description": "Design report of retaining wall at Pitagaldeniya , Kegalla", "Working Group": "Mihira", "Responsible Engineer": "Sadani", "Initial Estimate": 224500, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "26215.k", "Client": "AIIB", "Description": "RLVMMP Additional Sites Package 10 (J-Q) (Surveying, Investigation, Design)", "Working Group": "Mihira", "Responsible Engineer": "", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28331, "Client": "HSD", "Description": "Indian Housing Project", "Working Group": "Nirmanthi", "Responsible Engineer": "", "Initial Estimate": 13515750, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28259, "Client": "RR Construction", "Description": "Instrumantation of railway mainline (site 130,133,134,135)", "Working Group": "Suranga", "Responsible Engineer": "", "Initial Estimate": 8630000, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28411, "Client": "NWS & DB", "Description": "Boundry wall at Ambathale Water Treatment Plant", "Working Group": "Mihira", "Responsible Engineer": "Darsha", "Initial Estimate": 1345000, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28503, "Client": "Bope DS", "Description": "Design submission for approval Justin Kandan", "Working Group": "Mihira", "Responsible Engineer": "Poorni", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": 28564, "Client": "GG", "Description": "Dithwa Syclone - RDA Roads", "Working Group": "Mihira", "Responsible Engineer": "", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28555, "Client": "RLVMMP", "Description": "School Project", "Working Group": "Nirmanthi", "Responsible Engineer": "", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28566, "Client": "Urban Council Seethawakumbura", "Description": "Rectification of slope instabilization at Seethalena road near Awissawella rest house", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": 722174.7, "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": 28594, "Client": "Government Grant Mitigation", "Description": "Procurement of Balangoda Goragala Rock Fall", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": 319611, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28425.A", "Client": "Uva Wellassa University", "Description": "Geotechnical Investgation at University of Uva Wellassa - Technology facuilty", "Working Group": "Suranga", "Responsible Engineer": "Narmada", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28425.B", "Client": "Uva Wellassa University", "Description": "Geotechnical Investgation at University of Uva Wellassa - Hostel Complex", "Working Group": "Suranga", "Responsible Engineer": "Akila", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": 28458, "Client": "Ole spring bottles (Pvt) Ltd", "Description": "Geotechnical Investigation at Ole spring bottles (Pvt) Ltd.", "Working Group": "Suranga", "Responsible Engineer": "Akila", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28571, "Client": "Maharagama Urban Council", "Description": "Retaining wall construction at Talapathpitiya", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28033, "Client": "GG", "Description": "Pahala Kadugannawa Rock Blasting", "Working Group": "Suranga", "Responsible Engineer": "", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": 28205, "Client": "HSD", "Description": "Clearance - No.96, Manning Place, Colombo 06", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 54368.79, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28226, "Client": "HSD", "Description": "Clearance - Ragama", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 46861.82, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28239, "Client": "HSD", "Description": "Clearance - Dickmans Road", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 98312, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28349, "Client": "HSD", "Description": "Clearance - Galleface Tereace", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 80333, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28250, "Client": "HSD", "Description": "Clearance - Janaki Jane", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 98301, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28265, "Client": "HSD", "Description": "Clearance - Charls Way", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 84424.36, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28392, "Client": "HSPTD", "Description": "Clearance - Dehiwala", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 150586, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28532, "Client": "HSD", "Description": "Clearance - Sea Veiw avenue", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 232659, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28568, "Client": "HSD", "Description": "Clearance - IBC ROAD", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 68151, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598. A", "Client": "HSD", "Description": "Clearance -Poruthota", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 299406, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598. D", "Client": "HSD", "Description": "Clearance -Moors Road", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 80544, "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": 28430, "Client": "Uva Province", "Description": "G.I for Uva Provincial Council Building", "Working Group": "", "Responsible Engineer": "Narmada", "Initial Estimate": 1260500, "Advance Amount": 585000, "Advance Received": "", "Status": "Completed"}, {"Project Code": 28596, "Client": "RDA", "Description": "Inclusive Conectivity and Development Project", "Working Group": "Mihira", "Responsible Engineer": "Dulan", "Initial Estimate": 1378625, "Advance Amount": 689312.5, "Advance Received": "", "Status": "Completed"}, {"Project Code": 28613, "Client": "Nipon Hotel, Ella", "Description": "Slope stability Assessment- Nipon Hotel, Ella", "Working Group": "Mihira", "Responsible Engineer": "Sasith", "Initial Estimate": 155000, "Advance Amount": 75000, "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28623, "Client": "NIFS", "Description": "NIFS - Phase II", "Working Group": "Nirmanthi", "Responsible Engineer": "Imalsha", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28615, "Client": "OPEC", "Description": "Re instatement of road damages caused by Dithwa under OPEC Badulla - Chenkaladi Road", "Working Group": "Mihira", "Responsible Engineer": "Lakshan", "Initial Estimate": 145000, "Advance Amount": 145000, "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28294.A", "Client": "Yatiyanthota PS", "Description": "Post Contract stage of Yatiyanthota PS- Rock fall", "Working Group": "Nirmanthi", "Responsible Engineer": "Narmada", "Initial Estimate": 150000, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28616, "Client": "Airport Aviation Service (Pvt)Ltd", "Description": "Repair of Acess Road to Redar Complex at Piduruthalagala ", "Working Group": "Mihira", "Responsible Engineer": "Lahiru", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28626, "Client": "RDA", "Description": "Kahathuduwa System Interchange", "Working Group": "Suranga", "Responsible Engineer": "Narmada", "Initial Estimate": "", "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28583, "Client": "HSD", "Description": "Clearance -Dutugemunu Street", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 112455.1, "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": "28598.B", "Client": "HSD", "Description": "Clearance -No.175. Baudhdhaloka Mawatha ", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 134660, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.E", "Client": "HSD", "Description": "Clearance -ICBT, Nugegoda", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 119983, "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": "28598.G", "Client": "HSD", "Description": "Clearance -Kularathna Mawatha, Colombo 10", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 98450, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.J", "Client": "HSD", "Description": "Clearance -No.5A, Alfred Road, Colombo 03", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 87167, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.K", "Client": "HSD", "Description": "Clearance -Nawala Road, Rajagiriya", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 82069, "Advance Amount": "", "Advance Received": "", "Status": "Completed"}, {"Project Code": "28598.L", "Client": "HSD", "Description": "No.43, Moors Road", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 85889, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.M", "Client": "HSD", "Description": "Clearance -No.68, Dharmapala Mawatha, ", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 87213, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.O", "Client": "HSD", "Description": "Clearance -No.55, Mirihana Rd, Nugegoda", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 92232, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": "28598.P", "Client": "HSD", "Description": "Clearance -No.380/1, Baudhaloka Mawatha, Colombo 07", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": 356134, "Advance Amount": "", "Advance Received": "", "Status": "In Progress"}, {"Project Code": 28690, "Client": "UDA", "Description": "Methotamulla Urban Park", "Working Group": "Sanchitha", "Responsible Engineer": "Ranjan", "Initial Estimate": 2665000, "Advance Amount": 0, "Advance Received": "", "Status": "In Progress"}], "wip": [{"Update ID": "", "Project ID": "26215.k", "Project Code": "26215.k", "Reporting Month": "2026-06", "Physical WIP %": 0, "Financial WIP": 22224, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-01T11:32:12.738Z", "Monthly Progress": 22224, "Working Progress": 22224, "Advance Received": 2222, "Prev Cumulative": 0, "Total Cumulative": 22224}, {"Update ID": "", "Project ID": "26215.k", "Project Code": "26215.k", "Reporting Month": "2026-07", "Physical WIP %": 0, "Financial WIP": 222225, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-01T11:33:42.041Z", "Monthly Progress": 222225, "Working Progress": 222225, "Advance Received": 0, "Prev Cumulative": 22224, "Total Cumulative": 244449}, {"Update ID": "", "Project ID": "27224.B1", "Project Code": "27224.B1", "Reporting Month": "2026-06", "Physical WIP %": 0, "Financial WIP": 222224, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-01T11:31:11.680Z", "Monthly Progress": 222224, "Working Progress": 222224, "Advance Received": 0, "Prev Cumulative": 0, "Total Cumulative": 222224}, {"Update ID": "", "Project ID": "27623.a", "Project Code": "27623.a", "Reporting Month": "2026-06", "Physical WIP %": 0, "Financial WIP": 1210, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-01T10:53:45.695Z", "Monthly Progress": 1210, "Working Progress": 1210, "Advance Received": 0, "Prev Cumulative": 0, "Total Cumulative": 1210}, {"Update ID": "", "Project ID": "27224.B1", "Project Code": "27224.B1", "Reporting Month": "2026-07", "Physical WIP %": 0, "Financial WIP": 333334, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-01T11:33:50.674Z", "Monthly Progress": 333334, "Working Progress": 333334, "Advance Received": 0, "Prev Cumulative": 444448, "Total Cumulative": 777782}], "financeSummary": [{"Reporting Month": "2026-01", "Expenditure": 22134786, "Money Received": 392018.71, "Outstanding": 628000, "Interdivisional": 0, "Working Progress": 0, "Income": 1020018.71, "Profit": -21115767.29, "Profit %": -2070.14, "Remarks": "", "Updated At": "2026-08-29T15:49:24.669Z"}, {"Reporting Month": "2026-02", "Expenditure": 19840211, "Money Received": 163520.43, "Outstanding": 0, "Interdivisional": 0, "Working Progress": 0, "Income": 163520.43, "Profit": -19676690.57, "Profit %": -12033.17, "Remarks": "", "Updated At": "2026-08-28T09:46:41.539Z"}, {"Reporting Month": "2026-03", "Expenditure": 30338366, "Money Received": 80257.5, "Outstanding": 961467.85, "Interdivisional": 0, "Working Progress": 0, "Income": 1041725.35, "Profit": -29296640.65, "Profit %": -2812.32, "Remarks": "", "Updated At": "2026-08-28T09:47:59.200Z"}, {"Reporting Month": "2026-04", "Expenditure": 37947534, "Money Received": 703770.13, "Outstanding": 2648936, "Interdivisional": 0, "Working Progress": 0, "Income": 3352706.13, "Profit": -34594827.87, "Profit %": -1031.85, "Remarks": "", "Updated At": "2026-08-28T09:49:23.815Z"}, {"Reporting Month": "2026-05", "Expenditure": 33452974, "Money Received": 64712.29, "Outstanding": 1536422.99, "Interdivisional": 0, "Working Progress": 0, "Income": 1601135.28, "Profit": -31851838.72, "Profit %": -1989.33, "Remarks": "", "Updated At": "2026-08-28T09:50:07.252Z"}, {"Reporting Month": "2026-06", "Expenditure": 45780140, "Money Received": 11957.71, "Outstanding": 859854.77, "Interdivisional": 0, "Working Progress": 0, "Income": 871812.48, "Profit": -44908327.52, "Profit %": -5151.15, "Remarks": "", "Updated At": "2026-08-28T09:50:55.438Z"}, {"Reporting Month": "2026-07", "Expenditure": 50137224, "Money Received": 103212.03, "Outstanding": 1333195.61, "Interdivisional": 0, "Working Progress": 0, "Income": 1436407.6400000001, "Profit": -48700816.36, "Profit %": -3390.46, "Remarks": "", "Updated At": "2026-08-28T09:52:40.207Z"}], "finance": [], "lookups": {"statuses": ["In Progress", "Completed"], "workingGroups": ["Mihira", "Nirmanthi", "Suranga", "Sanchitha"], "engineers": ["Gayathri", "Dulan", "Narmada", "Sadani", "Darsha", "Poorni", "Akila", "Sasith", "Imalsha", "Lakshan", "Lahiru", "Ranjan"]}, "reportingMonth": "2026-06", "users": [{"epf": 926, "title": "Mr.", "shortName": "Ranjan", "fullName": "Ranjan Weerasinghe", "email": "ranjan.weerasinghe@gmail.com", "position": "Scientist", "workingGroup": "Leader ", "role": "Admin", "status": "Active", "hasPassword": true, "lastLogin": "2026-09-01T11:38:08.855Z", "createdAt": "2026-08-28T04:38:51.398Z"}, {"epf": 784, "title": "Mr.", "shortName": "Suranga", "fullName": "Suranga Dissanayaka", "email": "", "position": "Senior Scientist", "workingGroup": "Leader", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "2026-08-28T05:31:28.275Z", "createdAt": "2026-08-28T04:54:12.258Z"}, {"epf": 1351, "title": "Mrs.", "shortName": "Thakshila", "fullName": "A.K.A.T. NAYOMI", "email": "", "position": "MA Tech", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 698, "title": "Mrs.", "shortName": "Menaka", "fullName": "E.P. Menaka Samanmali", "email": "", "position": "MA Non Tech", "workingGroup": "", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1043, "title": "Miss.", "shortName": "", "fullName": "G.N.D. Rajapaksha", "email": "", "position": "Junior Manager", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 556, "title": "Mrs.", "shortName": "Nishanthi", "fullName": "K.M.D. NISHANTHI", "email": "", "position": "Junior Manager", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1044, "title": "Mrs.", "shortName": "", "fullName": "P.H.D.K. Hettiarachchi", "email": "", "position": "MA Tech", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 947, "title": "Mrs.", "shortName": "Samadhi", "fullName": "A.Dinesha Samadhi", "email": "", "position": "MA Tech", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 919, "title": "Dr.", "shortName": "Sanchitha", "fullName": "Sanchitha Jayakody", "email": "", "position": "Director", "workingGroup": "Leader", "role": "Admin", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 552, "title": "Mrs.", "shortName": "Sewwandi", "fullName": "G.D.C. Sewwandi", "email": "", "position": "MA Non Tech", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 349, "title": "Mrs.", "shortName": "", "fullName": "S.D. Rajapaksha", "email": "", "position": "Junior Manager", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1312, "title": "Mrs.", "shortName": "Lakshika", "fullName": "S.D.M.L.V. Senevirathne", "email": "", "position": "Junior Manager", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1027, "title": "Mrs.", "shortName": "Mihirani", "fullName": "R.L.D. Mihirani", "email": "", "position": "MA Non Tech", "workingGroup": "", "role": "Viewer", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 918, "title": "Dr.", "shortName": "Mihira", "fullName": "Mihira Lakruwan", "email": "", "position": "Senior Scientist", "workingGroup": "Leader", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1081, "title": "Mrs.", "shortName": "Amali", "fullName": "N.P.G.Amali", "email": "", "position": "Scientist", "workingGroup": "Leader", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1089, "title": "Mrs.", "shortName": "Gayathri", "fullName": "D.G.G.K.Somarathna", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1188, "title": "Ms.", "shortName": "Dharsha", "fullName": "D. M. D. T. Dasanayaka", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 655, "title": "Mr. ", "shortName": "Ravindra", "fullName": "B.M.R.K.Balassoriya", "email": "", "position": "Senior Scientist", "workingGroup": "Leader", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 788, "title": "Ms.", "shortName": "Nirmanthi", "fullName": "I.A.N.D.Idirimanna", "email": "", "position": "Senior Scientist", "workingGroup": "Leader", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 770, "title": "Ms.", "shortName": "Narmada", "fullName": "U.L.N.I. Liyanage", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 656, "title": "Mr. ", "shortName": "Lasantha", "fullName": "N.W.L.B.Nawarathna", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1435, "title": "Ms.", "shortName": "Ishanka", "fullName": "K.K.D.I.Chathurangi", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1504, "title": "Mr. ", "shortName": "Tharaka", "fullName": "U.G.K.T.Dissanayake", "email": "", "position": "Midle Manager", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1438, "title": "", "shortName": "Sadani", "fullName": "H.W.S.D. Hewawasam", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1437, "title": "", "shortName": "Imalsha", "fullName": "W.C.M.Imalsha", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1483, "title": "", "shortName": "", "fullName": "R.J.P.N.K.Ranathunga", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1484, "title": "", "shortName": "", "fullName": "A.H.T.A.S.Hewage", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1681, "title": "", "shortName": "", "fullName": "L.T.Nanayakkara", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1682, "title": "", "shortName": "", "fullName": "R.K.Nuwan Tharanga", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1665, "title": "", "shortName": "", "fullName": "A.M.C.B.Attanayake", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1354, "title": "Mr. ", "shortName": "Lahiru", "fullName": "P.A.D.L.S.Chandrasiri", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 838, "title": "", "shortName": "", "fullName": "P.G.D.S.Jayawickrama", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 659, "title": "Ms.", "shortName": "Chandima", "fullName": "Chandima Adeysinghe", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1573, "title": "", "shortName": "", "fullName": "S.A.Darmadasa", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1697, "title": "Ms.", "shortName": "Ashini", "fullName": "D.G.M.Ashini Godagampola", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1696, "title": "", "shortName": "", "fullName": "W.A.G.P.Senarathna", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1716, "title": "Mr. ", "shortName": "Lasindu", "fullName": "M.G.Lasindu Chathurya", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}, {"epf": 1704, "title": "", "shortName": "", "fullName": "K.S.Hewanayaka", "email": "", "position": "Scientist", "workingGroup": "Member", "role": "Editor", "status": "Active", "hasPassword": false, "lastLogin": "", "createdAt": ""}]};
+const BUNDLED_DATABASE = {"projects": [{"Registered Year": "2024", "Project Code": "26215.k", "Client": "AIIB", "Description": "RLVMMP Additional Sites Package 10 (J-Q) (Surveying, Investigation, Design)", "Working Group": "Mihira", "Responsible Engineer": "Dr.Mihira", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "34300117.00"}, {"Registered Year": "2025", "Project Code": "27222.a", "Client": "Kandy Municipal Council", "Description": "Rectification of unstable slope above Sampth Building at Kandy Lake Round", "Working Group": "GED", "Responsible Engineer": "Ms.Chandima", "Initial Estimate": "24135128.19", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "15381529.78"}, {"Registered Year": "2025", "Project Code": "27224.B1", "Client": "RDA", "Description": "Detailed Engineering Desingn -Central Expressway Section 3 Package1(3+440 KM to 12+890KM)", "Working Group": "Mihira", "Responsible Engineer": "Ms.Gayathri, Dr.Sanchitha", "Initial Estimate": "26922500.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "25600000.00"}, {"Registered Year": "2025", "Project Code": "27602", "Client": "NIFS", "Description": "NIFS Mitigation Site", "Working Group": "GED", "Responsible Engineer": "Ms.Sadhani ,Ms.Narmadha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "105640276.00"}, {"Registered Year": "2025", "Project Code": "27623.a", "Client": "Prison Head Quarters", "Description": "Construction of Boundry wall at Kegalle Prison (Supervision)", "Working Group": "Mihira", "Responsible Engineer": "Mr.Dulan", "Initial Estimate": "1949086.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1870000.00"}, {"Registered Year": "2025", "Project Code": "27662.a", "Client": "LRRMD", "Description": "Investigation at Balapokuna Road", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi , Ms.Narmadha,Ms.Gayathri", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2025", "Project Code": "27693.a", "Client": "DNCWS", "Description": "Stabilisation of failed slope behind the community water supply scheme at menikkandarawa mahapallegama, in Kagalle District", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms Nirmanthi ,Ms.Narmada", "Initial Estimate": "1900000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "15252564.43"}, {"Registered Year": "2025", "Project Code": "27729", "Client": "HSD", "Description": "NBRO clearance for IIHS , 312,15 & 312,19 , Kerawalapitiya Rd, Wattala", "Working Group": "GED", "Responsible Engineer": "Ms.Lasanda", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "20000.00"}, {"Registered Year": "2025", "Project Code": "27795", "Client": "RDA", "Description": "Consultancy Supervision (geotechnical work) of CEP section 3", "Working Group": "Mihira", "Responsible Engineer": "Ms.Gayathri, Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "5639075.63"}, {"Registered Year": "2025", "Project Code": "27912", "Client": "200 Mn", "Description": "Constrction Supervision at Bandarawela Police Station and Proposed road side retaining wall at Korandikumbura - Welamaddegama - Uduhawara Temple Road", "Working Group": "GED", "Responsible Engineer": "Mr.Ranjan , Mr.Maduranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "10308357.63"}, {"Registered Year": "2025", "Project Code": "27979", "Client": "R R C o n s t r u c t io n", "Description": "Post Construction Instrumentation", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "3455000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "4566750.00"}, {"Registered Year": "2025", "Project Code": "27989.c", "Client": "Star Packaging (pvt) Ltd", "Description": "Providing geotechnical consultancy and QA,QC service for Star Packaging (pvt) Ltd", "Working Group": "GED", "Responsible Engineer": "Ms.Amali,Dr.Sanchitha", "Initial Estimate": "5066250.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "4423100.00"}, {"Registered Year": "2026", "Project Code": "28002", "Client": "", "Description": "Construction of Road Side R,W at Sri Wijayarama Maha Vidyalaya,Welamedagama, Uduhawara", "Working Group": "GED", "Responsible Engineer": "Mr.Maduranga", "Initial Estimate": "1051827.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "218272.89"}, {"Registered Year": "2026", "Project Code": "28012.a", "Client": "", "Description": "Sethsewana Eldering Care Home - Meerigama", "Working Group": "GED", "Responsible Engineer": "Ms.Narmada, Ms.Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "30000.00"}, {"Registered Year": "2026", "Project Code": "28021", "Client": "200 Mn", "Description": "Construction Supervision - RLVMMP", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms.Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "21923310.75"}, {"Registered Year": "2026", "Project Code": "28033", "Client": "GG", "Description": "Pahala Kadugannawa Rock Blasting", "Working Group": "Suranga", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28050", "Client": "Bailli Investment", "Description": "Damages to the Buthgamuwa cross road at Rajagiriya due to deep excavation", "Working Group": "GED", "Responsible Engineer": "Ms.Lasanda,Dr.Mihira, Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "350000.00"}, {"Registered Year": "2026", "Project Code": "28081", "Client": "CMC", "Description": "Geotechnical Investigation and Design for a suitable earth retaining structure for pumping station Madampitiya", "Working Group": "GED", "Responsible Engineer": "Mr.Dileesha", "Initial Estimate": "838000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "400000.00"}, {"Registered Year": "2026", "Project Code": "28110", "Client": "PMD", "Description": "NBRO clearance for proposed building at 108,1, Puththalam Road,", "Working Group": "GED", "Responsible Engineer": "Mr.Dulan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "70000.00"}, {"Registered Year": "2026", "Project Code": "28113", "Client": "Irigation Department", "Description": "G.I. at Wee Oya Reservior", "Working Group": "GED", "Responsible Engineer": "Mr.Ranjan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "3665750.00"}, {"Registered Year": "2026", "Project Code": "28120", "Client": "HSD", "Description": "NBRO clearance for proposed development at 15, Wattegedara Road, Maharagama", "Working Group": "GED", "Responsible Engineer": "Mr.Dulan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "30000.00"}, {"Registered Year": "2026", "Project Code": "28122", "Client": "ICC- Finex", "Description": "Instrumentation at already mitigated landslides at Kalutara Districts", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "5267000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "4027000.00"}, {"Registered Year": "2026", "Project Code": "28125", "Client": "LRRMD", "Description": "Rectification Proposal for risk of rockfall at Dowa, Bandarawela", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi", "Initial Estimate": "377178.13", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "377178.13"}, {"Registered Year": "2026", "Project Code": "28133", "Client": "ICC- Finex", "Description": "Site No.74 Installation and Monitoring", "Working Group": "Suranga", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "3760000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1300000.00"}, {"Registered Year": "2026", "Project Code": "28147", "Client": "RDA", "Description": "Rehabilitation of the A017 road corridor project (Sooriyakanda - Rakwana", "Working Group": "GED", "Responsible Engineer": "Dr.Mihira,Ms.Sadani,Ms.Narmada,Mr. Ranjan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "130000.00"}, {"Registered Year": "2026", "Project Code": "28151", "Client": "BOI", "Description": "GeotechnicalInvestigationsPertainingToProposedPumping Station And Force Mains For Discharging Waste Water At Phase Iv Of Export Processing Zone , Katunayake", "Working Group": "GED", "Responsible Engineer": "Mr.Maduranga, Mr,Ranjan,Mr.Eranga", "Initial Estimate": "1001466.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1055000.00"}, {"Registered Year": "2026", "Project Code": "28152", "Client": "RDA", "Description": "G.I. at CEP Section 3 - Package 2(Geotechnical Investigation)", "Working Group": "Suranga", "Responsible Engineer": "Mr.Suranga,Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "152995000.00", "Status": "In Progress", "Total Cumulative up to 2025": "14392000.00"}, {"Registered Year": "2026", "Project Code": "28153", "Client": "Colonial Propertise", "Description": "G.I for Mix Development Project at D.R.Wijewardena Mawatha , Col.12", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Mr.Suranga,Ms.Gayathri", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "2170000.00"}, {"Registered Year": "2026", "Project Code": "28162", "Client": "RDA", "Description": "Construction of HGDs and Geotechnical Investigation at Gampola", "Working Group": "GED", "Responsible Engineer": "Mr. Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "3655030.00"}, {"Registered Year": "2026", "Project Code": "28202", "Client": "GG", "Description": "LS Mitigation 2025 - Design", "Working Group": "GED", "Responsible Engineer": "Dr.Mihira", "Initial Estimate": "13000000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "5000000.00"}, {"Registered Year": "2026", "Project Code": "28202.a", "Client": "GG", "Description": "LS Mitigation 2025 - Surveing & Investigation", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "2889810.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "2400000.00"}, {"Registered Year": "2026", "Project Code": "28202.b", "Client": "", "Description": "Construction of Horizontal Gravity Drains", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga ,Ms.Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "200000.00"}, {"Registered Year": "2026", "Project Code": "28204", "Client": "HSD", "Description": "Clearance - Habaraduwa", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "86735.82", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "86735.00"}, {"Registered Year": "2026", "Project Code": "28205", "Client": "HSD", "Description": "Clearance - No.96, Manning Place, Colombo 06", "Working Group": "Sanchitha", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "54369.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "40000.00"}, {"Registered Year": "2026", "Project Code": "28210", "Client": "RR Construction", "Description": "LS Monitoring", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "1694000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "400000.00"}, {"Registered Year": "2026", "Project Code": "28216", "Client": "Sangune Sri Ram", "Description": "Instrumentation at Yaikadurawa, Rathnapura", "Working Group": "GED", "Responsible Engineer": "Ms.Narmadha, Mr.Suranga", "Initial Estimate": "1664000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1400000.00"}, {"Registered Year": "2026", "Project Code": "28226", "Client": "HSD", "Description": "Clearance - Ragama", "Working Group": "Sanchitha", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "46862.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "15000.00"}, {"Registered Year": "2026", "Project Code": "28228", "Client": "HSD", "Description": "Clearance - Wijerama", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "79822.92", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "60000.00"}, {"Registered Year": "2026", "Project Code": "28238", "Client": "RR Construction", "Description": "LS Monitoring", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "2611000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1500000.00"}, {"Registered Year": "2026", "Project Code": "28239", "Client": "HSD", "Description": "Clearance - Dickmans Road", "Working Group": "Sanchitha", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "98312.90", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "40000.00"}, {"Registered Year": "2026", "Project Code": "28250", "Client": "HSD", "Description": "Clearance - Janaki Jane", "Working Group": "Sanchitha", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "98301.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "40000.00"}, {"Registered Year": "2026", "Project Code": "28259", "Client": "RR Construction", "Description": "Instrumantation of railway mainline (site 130,133,134,135)", "Working Group": "Suranga", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "8630000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "6000000.00"}, {"Registered Year": "2026", "Project Code": "28265", "Client": "HSD", "Description": "Clearance - Charls Way", "Working Group": "Sanchitha", "Responsible Engineer": "Dr.Sanchitha, Ms.Darsha", "Initial Estimate": "84424.36", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "50000.00"}, {"Registered Year": "2026", "Project Code": "28269", "Client": "NWS & DB", "Description": "Technical Inspection near Seethawaka Ganga intake", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Mr.Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "400000.00"}, {"Registered Year": "2026", "Project Code": "28271", "Client": "Sri Lanka Navy", "Description": "Design of Retaining Wall Nawal Doc Yard, Trinco", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2026", "Project Code": "28272", "Client": "RR Construction", "Description": "Geo technical Investigation at Weleboda School", "Working Group": "GED", "Responsible Engineer": "Ms.Narmadha, Mr.Suranga", "Initial Estimate": "570000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "570000.00"}, {"Registered Year": "2026", "Project Code": "28275", "Client": "200 Mn", "Description": "LS Maintanace", "Working Group": "GED", "Responsible Engineer": "Mr.Ranjan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1700000.00"}, {"Registered Year": "2026", "Project Code": "28283", "Client": "Sanasa Fedaration Ltd", "Description": "Geotechnical Investigation for the proposed extension of Sanasa office building at Kirulapana", "Working Group": "GED", "Responsible Engineer": "Ms.Lasanda", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "301900.00"}, {"Registered Year": "2026", "Project Code": "28289", "Client": "SLAF", "Description": "Dental Hospital", "Working Group": "GED", "Responsible Engineer": "Ms.Darsha, Dr. Sanchitha", "Initial Estimate": "618550.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "199150.00"}, {"Registered Year": "2026", "Project Code": "28291", "Client": "Sangune Sri Ram", "Description": "Geo technical Investigation at Bathgoda, Budagekanda", "Working Group": "GED", "Responsible Engineer": "Ms.Narmadha, Mr.Suranga", "Initial Estimate": "1304000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "1228000.00"}, {"Registered Year": "2026", "Project Code": "28292", "Client": "Mr.Rathnagoda", "Description": "Design report of retaining wall at Pitagaldeniya , Kegalla", "Working Group": "Mihira", "Responsible Engineer": "Ms. Sadhani,Dr.Mihira", "Initial Estimate": "224500.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "60000.00"}, {"Registered Year": "2026", "Project Code": "28294", "Client": "Government Grant Mitigation", "Description": "Procurement of Yatiyanthota Pradeshiya Sabha Rock Fall", "Working Group": "GED", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28294.A", "Client": "Yatiyanthota PS", "Description": "Post Contract stage of Yatiyanthota PS- Rock fall", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "386227.40", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28296", "Client": "RDA", "Description": "Rehabilitation and Improvement of Access Roads to Kandy Multimodal Transport Terminal", "Working Group": "GED", "Responsible Engineer": "Dr.Mihira , Mr.Dulan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "76500.00"}, {"Registered Year": "2026", "Project Code": "28298", "Client": "HSD", "Description": "Clearance - Damro", "Working Group": "GED", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28302", "Client": "HNB", "Description": "Stabilization of failed slope ,earth embankment", "Working Group": "GED", "Responsible Engineer": "Dr.Mihira , Mr.Dulan", "Initial Estimate": "110000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "50000.00"}, {"Registered Year": "2026", "Project Code": "28308", "Client": "LRRMD", "Description": "S.I of the premises at No.48,60, Epitamulla Rd,Pitakotte", "Working Group": "GED", "Responsible Engineer": "Mr.Dulani,Dr.Sanchitha", "Initial Estimate": "190000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "190000.00"}, {"Registered Year": "2026", "Project Code": "28314", "Client": "PMD", "Description": "Sri Vidyaloka Pirivena, Kothmale", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Mr.Dulan", "Initial Estimate": "100000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "50000.00"}, {"Registered Year": "2026", "Project Code": "28325", "Client": "PRDA", "Description": "Kamburuwala road 4.6k.m LS at Kalutara", "Working Group": "GED", "Responsible Engineer": "Ms. Sadhani,Ms Nirmanthi ,Ms.Narmada", "Initial Estimate": "50000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "70000.00"}, {"Registered Year": "2026", "Project Code": "28331", "Client": "HSD", "Description": "Indian Housing Project", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms.Nirmanthi", "Initial Estimate": "13515750.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "3000000.00"}, {"Registered Year": "2026", "Project Code": "28343", "Client": "SER & PMD", "Description": "Condition Report No. 813 & No.1,6, House, Rajagiriya", "Working Group": "GED", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "79827.00"}, {"Registered Year": "2026", "Project Code": "28348", "Client": "HSD", "Description": "Clearance - Beach Road", "Working Group": "GED", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "76303.63", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "50000.00"}, {"Registered Year": "2026", "Project Code": "28349", "Client": "HSD", "Description": "Clearance - Galleface Tereace", "Working Group": "Sanchitha", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "80333.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "40000.00"}, {"Registered Year": "2026", "Project Code": "28364", "Client": "888 Residancy (Pvt) Ltd", "Description": "G.I at No.41,Fransis Rd , Col.07", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Sanchitha,Ms.Darsha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "3719050.00"}, {"Registered Year": "2026", "Project Code": "28392", "Client": "HSPTD", "Description": "Clearance - Dehiwala", "Working Group": "Sanchitha", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "150586.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "50000.00"}, {"Registered Year": "2026", "Project Code": "28394", "Client": "HSPTD", "Description": "Clearance -Katunayaka", "Working Group": "GED", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "223200.91", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "145000.00"}, {"Registered Year": "2026", "Project Code": "28395", "Client": "HSPTD", "Description": "Clearance -Alfred place", "Working Group": "GED", "Responsible Engineer": "Ms.Dilini,Ms.Darsha,Dr.Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "60000.00"}, {"Registered Year": "2026", "Project Code": "28402", "Client": "UDA", "Description": "Preliminary status report Balangoda - UDA land", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi , Ms.Narmadha,Ms.Lasanda", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "85000.00"}, {"Registered Year": "2026", "Project Code": "28409", "Client": "Kandy Municipal Council", "Description": "Retaining wall Construction at Sri Dhammadhassi Mawatha, Kandy", "Working Group": "GED", "Responsible Engineer": "Ms.Narmadha, Mr.Dulan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "201500.00"}, {"Registered Year": "2026", "Project Code": "28411", "Client": "NWS & DB", "Description": "Boundry wall at Ambathale Water Treatment Plant", "Working Group": "Mihira", "Responsible Engineer": "Dr.Mihira , Ms.Darsha", "Initial Estimate": "1345000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2026", "Project Code": "28413", "Client": "Divisional Secrateriat Pathahewaheta", "Description": "Retaining wall construction at Puliyadda", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi , Mr.Dulan", "Initial Estimate": "206500.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "76500.00"}, {"Registered Year": "2026", "Project Code": "28415", "Client": "B.O.I", "Description": "G.I. at Katunayaka B.O.I", "Working Group": "GED", "Responsible Engineer": "Ms.Lasanda", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "300000.00"}, {"Registered Year": "2026", "Project Code": "28419", "Client": "Department of Irrigation", "Description": "G.I. for proposed building at Ampara", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "350000.00"}, {"Registered Year": "2026", "Project Code": "28425", "Client": "Uva Wellassa University", "Description": "G.I. for Uva Wellassa University", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Mr.Suranga,Mr. Akila", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "838875.00"}, {"Registered Year": "2026", "Project Code": "28425.A", "Client": "Uva Wellassa University", "Description": "Geotechnical Investgation at University of Uva Wellassa - Technology facuilty", "Working Group": "Suranga", "Responsible Engineer": "Mr.Akila , Mr. Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28425.B", "Client": "Uva Wellassa University", "Description": "Geotechnical Investgation at University of Uva Wellassa - Hostel Complex", "Working Group": "Suranga", "Responsible Engineer": "Ms. Narmadha, Mr.Akila", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28430", "Client": "Uva Province", "Description": "G.I for Uva Provincial Council Building", "Working Group": "GED", "Responsible Engineer": "Ms.Narmadha , Ms. Amali", "Initial Estimate": "1260500.00", "Advance Amount": "585000.00", "Status": "Completed", "Total Cumulative up to 2025": "585000.00"}, {"Registered Year": "2026", "Project Code": "28445", "Client": "", "Description": "Surveing and Investigation of Maliththagolla", "Working Group": "GED", "Responsible Engineer": "Mr.Danushka , Ms.Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "200000.00"}, {"Registered Year": "2026", "Project Code": "28451", "Client": "Kurunegala M.C", "Description": "G.I. for Thempana Len Viharaya", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi , Ms.Amali,Mr.Suranga", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "120600.00"}, {"Registered Year": "2026", "Project Code": "28452", "Client": "Kotikawatta Mulleriyawa PS", "Description": "Geotechnical Investigation for road project at Kiththampahuwa, Wellampitiya", "Working Group": "GED", "Responsible Engineer": "", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "207000.00"}, {"Registered Year": "2026", "Project Code": "28458", "Client": "Ole spring bottles (Pvt) Ltd", "Description": "Geotechnical Investigation at Ole spring bottles (Pvt) Ltd.", "Working Group": "Suranga", "Responsible Engineer": "Mr. Suranga. Dr. Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28462", "Client": "Petrolium Coporation", "Description": "S.I. at Sapugaskanda", "Working Group": "GED", "Responsible Engineer": "Ms. Narmadha,Ms.Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "400000.00"}, {"Registered Year": "2026", "Project Code": "28470", "Client": "H.Lalithasiri", "Description": "Geotechnical investigation for proposed textile building at No.24., Nimal peris mawatha, Maharagama", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha, Mr.Suranga,Ms.Gayathri", "Initial Estimate": "1095000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "700000.00"}, {"Registered Year": "2026", "Project Code": "28477", "Client": "LRRMD", "Description": "Design at Dabora Ayera Estate - Padukka", "Working Group": "GED", "Responsible Engineer": "Ms.Nirmanthi , Ms.Narmadha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "35000.00"}, {"Registered Year": "2026", "Project Code": "28483", "Client": "PMD", "Description": "Geotechnical assessment for the building of Blue orchid Residancies at Boralesgamuwa", "Working Group": "GED", "Responsible Engineer": "Dr.Sanchitha , M. Dulan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28503", "Client": "Bope DS", "Description": "Design submission for approval Justin Kandan", "Working Group": "Mihira", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2026", "Project Code": "285032855428564", "Client": "Bope DS", "Description": "Design submission for approval Justin Kandan", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2026", "Project Code": "2850328564", "Client": "Bope DS", "Description": "Design submission for approval Justin Kandan", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "100000.00"}, {"Registered Year": "2026", "Project Code": "28506", "Client": "Hemas Hospital, Thalawathugoda", "Description": "Stabilisation of failed slope at Hemas Hospital, Thalawathugoda", "Working Group": "GED", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "229092.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28524", "Client": "HSD", "Description": "Clearance - CDB", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "95228.94", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "10000.00"}, {"Registered Year": "2026", "Project Code": "28525", "Client": "HSD", "Description": "Clearance - Mireka Sea Scape", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "213793.52", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "70000.00"}, {"Registered Year": "2026", "Project Code": "28530", "Client": "HSD", "Description": "Clearance - Rathnagiri Estate", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "97286.75", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "10000.00"}, {"Registered Year": "2026", "Project Code": "28531", "Client": "HSD", "Description": "Clearance - College stree", "Working Group": "GED", "Responsible Engineer": "Ms.Poorni,Dr.Mihira,Ms.Gayathri", "Initial Estimate": "164932.14", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "40000.00"}, {"Registered Year": "2026", "Project Code": "28532", "Client": "HSD", "Description": "Clearance - Sea Veiw avenue", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "232659.08", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28540", "Client": "Government Grant Mitigation", "Description": "Horizontal drains installing at Haggala", "Working Group": "GED", "Responsible Engineer": "Mr. Suranga.", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28555", "Client": "RLVMMP", "Description": "School Project", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms. Nirmanthi", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28562", "Client": "HSD", "Description": "Clearance - CM Fernando Mawatha", "Working Group": "GED", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "317548.14", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28564", "Client": "GG", "Description": "Dithwa Syclone - RDA Roads", "Working Group": "Mihira", "Responsible Engineer": "Dr. Mihira", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28565", "Client": "Irrigation Department", "Description": "Kothmale Reservoire catchment area investigation", "Working Group": "GED", "Responsible Engineer": "Mr.Dulan , Ms. Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28566", "Client": "Urban Council Seethawakumbura", "Description": "Rectification of slope instabilization at Seethalena road near Awissawella rest house", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "722175.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28568", "Client": "HSD", "Description": "Clearance - IBC ROAD", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "68151.30", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28569", "Client": "Electricity Board", "Description": "Moragolla Resettlement site Investigation and Design.", "Working Group": "GED", "Responsible Engineer": "Mr.Dulan , Ms. Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28570", "Client": "Irrigation Department", "Description": "Stability Assessment of Kothmale Mahaweli Maha Seya", "Working Group": "GED", "Responsible Engineer": "Mr.Dulan , Ms. Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28571", "Client": "Maharagama Urban Council", "Description": "Retaining wall construction at Talapathpitiya", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28582", "Client": "HSD", "Description": "Clearance -Mattakkuliya", "Working Group": "GED", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "111194.14", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28583", "Client": "HSD", "Description": "Clearance -Dutugemunu Street", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": "112455.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28585", "Client": "SLDC", "Description": "Seepage issue across the Ambathale flood band", "Working Group": "GED", "Responsible Engineer": "Ms. Nirmanthi", "Initial Estimate": "343313.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28592", "Client": "Damro", "Description": "Seismic Refraction Survey , Hotel Project at Kandy for Damro", "Working Group": "GED", "Responsible Engineer": "Mr.Ranjan", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "501942.00"}, {"Registered Year": "2026", "Project Code": "28594", "Client": "Government Grant Mitigation", "Description": "Procurement of Balangoda Goragala Rock Fall", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms. Nirmanthi , Ms.Narmada", "Initial Estimate": "319611.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28596", "Client": "RDA", "Description": "Inclusive Conectivity and Development Project", "Working Group": "Mihira", "Responsible Engineer": "Dr.Mihira , Mr.Dulan", "Initial Estimate": "1626777.50", "Advance Amount": "689313.00", "Status": "Completed", "Total Cumulative up to 2025": "1378625.00"}, {"Registered Year": "2026", "Project Code": "28598.A", "Client": "HSD", "Description": "Clearance -Poruthota", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "299406.27", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.B", "Client": "HSD", "Description": "Clearance -No.175. Baudhdhaloka Mawatha", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "134660.86", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.D", "Client": "HSD", "Description": "Clearance -Moors Road", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "80544.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.E", "Client": "HSD", "Description": "Clearance -ICBT, Nugegoda", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": "119983.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.G", "Client": "HSD", "Description": "Clearance -Kularathna Mawatha, Colombo 10", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "98450.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.J", "Client": "HSD", "Description": "Clearance - No.5A, Alfrod Road, Colombo 03", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "87167.02", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.K", "Client": "HSD", "Description": "Clearance -Nawala Road, Rajagiriya", "Working Group": "Sanchitha", "Responsible Engineer": "Darsha", "Initial Estimate": "82069.00", "Advance Amount": "0.00", "Status": "Completed", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.L", "Client": "HSD", "Description": "Clearance - No43, Moors Road", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "85889.73", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.M", "Client": "HSD", "Description": "Clearance -No.68, Dharmapala Mawatha,", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "87213.89", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.N", "Client": "HSD", "Description": "Clearance - No32, School lane, Nawala", "Working Group": "GED", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.O", "Client": "HSD", "Description": "Clearance - No55, Mirihana Road, Nugegoda", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "92232.40", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28598.P", "Client": "HSD", "Description": "Clearance -No.380/1, Baudhaloka Mawatha, Colombo 07", "Working Group": "Sanchitha", "Responsible Engineer": "Ms. Darsha , Dr. Sanchitha", "Initial Estimate": "356134.28", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28606", "Client": "SLLDC", "Description": "Stability Assessment of Waste Heaps at Kelawarapitiya Waste Park", "Working Group": "Mihira", "Responsible Engineer": "Ranjan, Sadani", "Initial Estimate": "4195000.00", "Advance Amount": "2097475.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28613", "Client": "Nipon Hotel, Ella", "Description": "Slope stability Assessment- Nipon Hotel, Ella", "Working Group": "Mihira", "Responsible Engineer": "Dr.Mihira , Mr.Sasith", "Initial Estimate": "187472.00", "Advance Amount": "75000.00", "Status": "In Progress", "Total Cumulative up to 2025": "155000.00"}, {"Registered Year": "2026", "Project Code": "28615", "Client": "OPEC", "Description": "Re instatement of road damages caused by Dithwa under OPEC Badulla - Chenkaladi Road", "Working Group": "Mihira", "Responsible Engineer": "Dr.Mihira, Mr.Lakshan", "Initial Estimate": "20000000.00", "Advance Amount": "145000.00", "Status": "In Progress", "Total Cumulative up to 2025": "145000.00"}, {"Registered Year": "2026", "Project Code": "28616", "Client": "Airport Aviation Services (Pvt) Ltd", "Description": "Repair of Access Road to Redar Complex at Piduruthalagala", "Working Group": "Mihira", "Responsible Engineer": "Dr. Mihira, Mr.Lahiru, Mr.Sasith", "Initial Estimate": "181425.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "150000.00"}, {"Registered Year": "2026", "Project Code": "28623", "Client": "NIFS", "Description": "NIFS - Phase II", "Working Group": "Nirmanthi", "Responsible Engineer": "Ms.Imalsha", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28625", "Client": "RDA", "Description": "Kahathuduwa - Sys interchange", "Working Group": "GED", "Responsible Engineer": "Mr.Suranga, Ms.Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28626", "Client": "RDA", "Description": "Kahathuduwa System Interchange", "Working Group": "Suranga", "Responsible Engineer": "Narmada", "Initial Estimate": "0.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}, {"Registered Year": "2026", "Project Code": "28690", "Client": "UDA", "Description": "Meethotamulla Urban Park", "Working Group": "Mihira", "Responsible Engineer": "Ranjan", "Initial Estimate": "2665000.00", "Advance Amount": "0.00", "Status": "In Progress", "Total Cumulative up to 2025": "0.00"}], "monthlyWip": [{"Update ID": "", "Project ID": "27224.B1", "Project Code": "27224.B1", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "50000.00", "Total Cumulative": "25650000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "1700000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1700000.00", "Working Progress": "1700000.00", "Advance Received": "0.00", "Prev Cumulative": "1700000.00", "Total Cumulative": "23623310.75"}, {"Update ID": "", "Project ID": "28275", "Project Code": "28275", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "1700000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1700000.00", "Working Progress": "1700000.00", "Advance Received": "0.00", "Prev Cumulative": "1700000.00", "Total Cumulative": "3400000.00"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "6000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "6000000.00", "Working Progress": "6000000.00", "Advance Received": "0.00", "Prev Cumulative": "6000000.00", "Total Cumulative": "20392000.00"}, {"Update ID": "", "Project ID": "28331", "Project Code": "28331", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "1000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1000000.00", "Working Progress": "1000000.00", "Advance Received": "0.00", "Prev Cumulative": "1000000.00", "Total Cumulative": "4000000.00"}, {"Update ID": "", "Project ID": "28289", "Project Code": "28289", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "300000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "300000.00", "Working Progress": "300000.00", "Advance Received": "0.00", "Prev Cumulative": "300000.00", "Total Cumulative": "499150.00"}, {"Update ID": "", "Project ID": "28470", "Project Code": "28470", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "900000.00"}, {"Update ID": "", "Project ID": "28445", "Project Code": "28445", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "500000.00", "Working Progress": "500000.00", "Advance Received": "0.00", "Prev Cumulative": "500000.00", "Total Cumulative": "700000.00"}, {"Update ID": "", "Project ID": "28419", "Project Code": "28419", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "260250.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "260250.00", "Working Progress": "260250.00", "Advance Received": "0.00", "Prev Cumulative": "260250.00", "Total Cumulative": "610250.00"}, {"Update ID": "", "Project ID": "28566", "Project Code": "28566", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28570", "Project Code": "28570", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "30000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "30000.00", "Working Progress": "30000.00", "Advance Received": "0.00", "Prev Cumulative": "30000.00", "Total Cumulative": "30000.00"}, {"Update ID": "", "Project ID": "28565", "Project Code": "28565", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "50000.00", "Total Cumulative": "50000.00"}, {"Update ID": "", "Project ID": "28569", "Project Code": "28569", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "50000.00", "Total Cumulative": "50000.00"}, {"Update ID": "", "Project ID": "28294", "Project Code": "28294", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "75000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "75000.00", "Working Progress": "75000.00", "Advance Received": "0.00", "Prev Cumulative": "75000.00", "Total Cumulative": "75000.00"}, {"Update ID": "", "Project ID": "28594", "Project Code": "28594", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "75000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "75000.00", "Working Progress": "75000.00", "Advance Received": "0.00", "Prev Cumulative": "75000.00", "Total Cumulative": "75000.00"}, {"Update ID": "", "Project ID": "28425", "Project Code": "28425", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28506", "Project Code": "28506", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28458", "Project Code": "28458", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "200000.00"}, {"Update ID": "", "Project ID": "28540", "Project Code": "28540", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "1500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1500000.00", "Working Progress": "1500000.00", "Advance Received": "0.00", "Prev Cumulative": "1500000.00", "Total Cumulative": "1500000.00"}, {"Update ID": "", "Project ID": "28571", "Project Code": "28571", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "20000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "20000.00", "Working Progress": "20000.00", "Advance Received": "0.00", "Prev Cumulative": "20000.00", "Total Cumulative": "20000.00"}, {"Update ID": "", "Project ID": "28033", "Project Code": "28033", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "3964294.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "3964294.00", "Working Progress": "3964294.00", "Advance Received": "0.00", "Prev Cumulative": "3964294.00", "Total Cumulative": "3964294.00"}, {"Update ID": "", "Project ID": "28411", "Project Code": "28411", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "150000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "150000.00", "Working Progress": "150000.00", "Advance Received": "0.00", "Prev Cumulative": "150000.00", "Total Cumulative": "150000.00"}, {"Update ID": "", "Project ID": "28524", "Project Code": "28524", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "40000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "40000.00", "Working Progress": "40000.00", "Advance Received": "0.00", "Prev Cumulative": "40000.00", "Total Cumulative": "40000.00"}, {"Update ID": "", "Project ID": "28530", "Project Code": "28530", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "40000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "40000.00", "Working Progress": "40000.00", "Advance Received": "0.00", "Prev Cumulative": "40000.00", "Total Cumulative": "40000.00"}, {"Update ID": "", "Project ID": "28532", "Project Code": "28532", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28562", "Project Code": "28562", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28568", "Project Code": "28568", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "10000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "10000.00", "Working Progress": "10000.00", "Advance Received": "0.00", "Prev Cumulative": "10000.00", "Total Cumulative": "10000.00"}, {"Update ID": "", "Project ID": "28582", "Project Code": "28582", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "10000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "10000.00", "Working Progress": "10000.00", "Advance Received": "0.00", "Prev Cumulative": "10000.00", "Total Cumulative": "10000.00"}, {"Update ID": "", "Project ID": "27623.a", "Project Code": "27623.a", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "50000.00", "Total Cumulative": "1920000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "1700000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1700000.00", "Working Progress": "1700000.00", "Advance Received": "0.00", "Prev Cumulative": "3400000.00", "Total Cumulative": "25323310.75"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "6000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "6000000.00", "Working Progress": "6000000.00", "Advance Received": "0.00", "Prev Cumulative": "12000000.00", "Total Cumulative": "26392000.00"}, {"Update ID": "", "Project ID": "28445", "Project Code": "28445", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "2478.50", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2478.50", "Working Progress": "2478.50", "Advance Received": "0.00", "Prev Cumulative": "502478.50", "Total Cumulative": "702478.50"}, {"Update ID": "", "Project ID": "28294", "Project Code": "28294", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "96000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "96000.00", "Working Progress": "96000.00", "Advance Received": "0.00", "Prev Cumulative": "171000.00", "Total Cumulative": "171000.00"}, {"Update ID": "", "Project ID": "28425", "Project Code": "28425", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "750000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "750000.00", "Working Progress": "750000.00", "Advance Received": "0.00", "Prev Cumulative": "850000.00", "Total Cumulative": "850000.00"}, {"Update ID": "", "Project ID": "28506", "Project Code": "28506", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "177087.12", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "177087.12", "Working Progress": "177087.12", "Advance Received": "0.00", "Prev Cumulative": "277087.12", "Total Cumulative": "277087.12"}, {"Update ID": "", "Project ID": "28540", "Project Code": "28540", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "452000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "452000.00", "Working Progress": "452000.00", "Advance Received": "0.00", "Prev Cumulative": "1952000.00", "Total Cumulative": "1952000.00"}, {"Update ID": "", "Project ID": "28585", "Project Code": "28585", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "0.00"}, {"Update ID": "", "Project ID": "28348", "Project Code": "28348", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "12500.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "12500.00", "Working Progress": "12500.00", "Advance Received": "0.00", "Prev Cumulative": "12500.00", "Total Cumulative": "62500.00"}, {"Update ID": "", "Project ID": "28394", "Project Code": "28394", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "30000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "30000.00", "Working Progress": "30000.00", "Advance Received": "0.00", "Prev Cumulative": "30000.00", "Total Cumulative": "175000.00"}, {"Update ID": "", "Project ID": "28395", "Project Code": "28395", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "15000.00", "Total Cumulative": "75000.00"}, {"Update ID": "", "Project ID": "28525", "Project Code": "28525", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "70000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "70000.00", "Working Progress": "70000.00", "Advance Received": "0.00", "Prev Cumulative": "70000.00", "Total Cumulative": "140000.00"}, {"Update ID": "", "Project ID": "28531", "Project Code": "28531", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "3000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "3000.00", "Working Progress": "3000.00", "Advance Received": "0.00", "Prev Cumulative": "3000.00", "Total Cumulative": "43000.00"}, {"Update ID": "", "Project ID": "28524", "Project Code": "28524", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "2000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2000.00", "Working Progress": "2000.00", "Advance Received": "0.00", "Prev Cumulative": "42000.00", "Total Cumulative": "52000.00"}, {"Update ID": "", "Project ID": "28530", "Project Code": "28530", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "2000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2000.00", "Working Progress": "2000.00", "Advance Received": "0.00", "Prev Cumulative": "42000.00", "Total Cumulative": "52000.00"}, {"Update ID": "", "Project ID": "28562", "Project Code": "28562", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "10000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "10000.00", "Working Progress": "10000.00", "Advance Received": "0.00", "Prev Cumulative": "110000.00", "Total Cumulative": "110000.00"}, {"Update ID": "", "Project ID": "28483", "Project Code": "28483", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "15000.00", "Total Cumulative": "0.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "1700000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1700000.00", "Working Progress": "1700000.00", "Advance Received": "0.00", "Prev Cumulative": "5100000.00", "Total Cumulative": "27023310.75"}, {"Update ID": "", "Project ID": "27693.a", "Project Code": "27693.a", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "3988916.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "3988916.00", "Working Progress": "3988916.00", "Advance Received": "0.00", "Prev Cumulative": "3988916.00", "Total Cumulative": "19241480.43"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "16400000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "16400000.00", "Working Progress": "16400000.00", "Advance Received": "0.00", "Prev Cumulative": "28400000.00", "Total Cumulative": "42792000.00"}, {"Update ID": "", "Project ID": "28331", "Project Code": "28331", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "1100000.00", "Total Cumulative": "4100000.00"}, {"Update ID": "", "Project ID": "28462", "Project Code": "28462", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "600000.00"}, {"Update ID": "", "Project ID": "28566", "Project Code": "28566", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "150000.00", "Total Cumulative": "150000.00"}, {"Update ID": "", "Project ID": "28294", "Project Code": "28294", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "271000.00", "Total Cumulative": "271000.00"}, {"Update ID": "", "Project ID": "28458", "Project Code": "28458", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "400000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "400000.00", "Working Progress": "400000.00", "Advance Received": "0.00", "Prev Cumulative": "600000.00", "Total Cumulative": "600000.00"}, {"Update ID": "", "Project ID": "28598. A", "Project Code": "28598. A", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "60000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "60000.00", "Working Progress": "60000.00", "Advance Received": "0.00", "Prev Cumulative": "60000.00", "Total Cumulative": "60000.00"}, {"Update ID": "", "Project ID": "28430", "Project Code": "28430", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28592", "Project Code": "28592", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "730000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "730000.00", "Working Progress": "730000.00", "Advance Received": "0.00", "Prev Cumulative": "730000.00", "Total Cumulative": "730000.00"}, {"Update ID": "", "Project ID": "27623.a", "Project Code": "27623.a", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "20000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "20000.00", "Working Progress": "20000.00", "Advance Received": "0.00", "Prev Cumulative": "70000.00", "Total Cumulative": "1940000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "2200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2200000.00", "Working Progress": "2200000.00", "Advance Received": "0.00", "Prev Cumulative": "7300000.00", "Total Cumulative": "29223310.75"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "23000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "23000000.00", "Working Progress": "23000000.00", "Advance Received": "0.00", "Prev Cumulative": "51400000.00", "Total Cumulative": "65792000.00"}, {"Update ID": "", "Project ID": "28425", "Project Code": "28425", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "300000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "300000.00", "Working Progress": "300000.00", "Advance Received": "0.00", "Prev Cumulative": "300000.00", "Total Cumulative": "1138875.00"}, {"Update ID": "", "Project ID": "28555", "Project Code": "28555", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "1000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1000000.00", "Working Progress": "1000000.00", "Advance Received": "0.00", "Prev Cumulative": "1000000.00", "Total Cumulative": "1000000.00"}, {"Update ID": "", "Project ID": "28566", "Project Code": "28566", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "200000.00"}, {"Update ID": "", "Project ID": "28294", "Project Code": "28294", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "75000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "75000.00", "Working Progress": "75000.00", "Advance Received": "0.00", "Prev Cumulative": "346000.00", "Total Cumulative": "346000.00"}, {"Update ID": "", "Project ID": "28594", "Project Code": "28594", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "125000.00", "Total Cumulative": "125000.00"}, {"Update ID": "", "Project ID": "28430", "Project Code": "28430", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "300000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "300000.00", "Working Progress": "300000.00", "Advance Received": "0.00", "Prev Cumulative": "400000.00", "Total Cumulative": "400000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "1000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1000000.00", "Working Progress": "1000000.00", "Advance Received": "0.00", "Prev Cumulative": "8300000.00", "Total Cumulative": "30223310.75"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "20000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "20000000.00", "Working Progress": "20000000.00", "Advance Received": "0.00", "Prev Cumulative": "71400000.00", "Total Cumulative": "85792000.00"}, {"Update ID": "", "Project ID": "28331", "Project Code": "28331", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "500000.00", "Working Progress": "500000.00", "Advance Received": "0.00", "Prev Cumulative": "1600000.00", "Total Cumulative": "4600000.00"}, {"Update ID": "", "Project ID": "28411", "Project Code": "28411", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "750000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "750000.00", "Working Progress": "750000.00", "Advance Received": "0.00", "Prev Cumulative": "900000.00", "Total Cumulative": "1000000.00"}, {"Update ID": "", "Project ID": "28555", "Project Code": "28555", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "2000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2000000.00", "Working Progress": "2000000.00", "Advance Received": "0.00", "Prev Cumulative": "3000000.00", "Total Cumulative": "3000000.00"}, {"Update ID": "", "Project ID": "28566", "Project Code": "28566", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "322174.70", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "322174.70", "Working Progress": "322174.70", "Advance Received": "0.00", "Prev Cumulative": "522174.70", "Total Cumulative": "522174.70"}, {"Update ID": "", "Project ID": "28425.A", "Project Code": "28425.A", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "400000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "400000.00", "Working Progress": "400000.00", "Advance Received": "0.00", "Prev Cumulative": "1250000.00", "Total Cumulative": "1250000.00"}, {"Update ID": "", "Project ID": "28425.B", "Project Code": "28425.B", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "300000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "300000.00", "Working Progress": "300000.00", "Advance Received": "0.00", "Prev Cumulative": "300000.00", "Total Cumulative": "300000.00"}, {"Update ID": "", "Project ID": "28532", "Project Code": "28532", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "20000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "20000.00", "Working Progress": "20000.00", "Advance Received": "0.00", "Prev Cumulative": "120000.00", "Total Cumulative": "120000.00"}, {"Update ID": "", "Project ID": "28568", "Project Code": "28568", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "25000.00", "Total Cumulative": "25000.00"}, {"Update ID": "", "Project ID": "28598. A", "Project Code": "28598. A", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "110000.00", "Total Cumulative": "110000.00"}, {"Update ID": "", "Project ID": "28598. D", "Project Code": "28598. D", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "35000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "35000.00", "Working Progress": "35000.00", "Advance Received": "0.00", "Prev Cumulative": "35000.00", "Total Cumulative": "35000.00"}, {"Update ID": "", "Project ID": "28430", "Project Code": "28430", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "460500.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "460500.00", "Working Progress": "460500.00", "Advance Received": "0.00", "Prev Cumulative": "860500.00", "Total Cumulative": "860500.00"}, {"Update ID": "", "Project ID": "28596", "Project Code": "28596", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "600000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "600000.00", "Working Progress": "600000.00", "Advance Received": "0.00", "Prev Cumulative": "600000.00", "Total Cumulative": "600000.00"}, {"Update ID": "", "Project ID": "28613", "Project Code": "28613", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28623", "Project Code": "28623", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "50000.00", "Total Cumulative": "50000.00"}, {"Update ID": "", "Project ID": "28615", "Project Code": "28615", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28294.A", "Project Code": "28294.A", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "1500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1500000.00", "Working Progress": "1500000.00", "Advance Received": "0.00", "Prev Cumulative": "9800000.00", "Total Cumulative": "31723310.75"}, {"Update ID": "", "Project ID": "27222.a", "Project Code": "27222.a", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "5937625.06", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "5937625.06", "Working Progress": "5937625.06", "Advance Received": "0.00", "Prev Cumulative": "5937625.06", "Total Cumulative": "21319154.84"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "26500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "26500000.00", "Working Progress": "26500000.00", "Advance Received": "0.00", "Prev Cumulative": "97900000.00", "Total Cumulative": "112292000.00"}, {"Update ID": "", "Project ID": "28425.A", "Project Code": "28425.A", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "1450000.00", "Total Cumulative": "1450000.00"}, {"Update ID": "", "Project ID": "28425.B", "Project Code": "28425.B", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "250000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "250000.00", "Working Progress": "250000.00", "Advance Received": "0.00", "Prev Cumulative": "550000.00", "Total Cumulative": "550000.00"}, {"Update ID": "", "Project ID": "28033", "Project Code": "28033", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "2320369.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2320369.00", "Working Progress": "2320369.00", "Advance Received": "0.00", "Prev Cumulative": "6284663.00", "Total Cumulative": "6284663.00"}, {"Update ID": "", "Project ID": "28623", "Project Code": "28623", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "50000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "50000.00", "Working Progress": "50000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.00", "Total Cumulative": "100000.00"}, {"Update ID": "", "Project ID": "28615", "Project Code": "28615", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "800000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "800000.00", "Working Progress": "800000.00", "Advance Received": "0.00", "Prev Cumulative": "900000.00", "Total Cumulative": "900000.00"}, {"Update ID": "", "Project ID": "28294.A", "Project Code": "28294.A", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "200000.00", "Total Cumulative": "200000.00"}, {"Update ID": "", "Project ID": "28021", "Project Code": "28021", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "1500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1500000.00", "Working Progress": "1500000.00", "Advance Received": "0.00", "Prev Cumulative": "11300000.95", "Total Cumulative": "33223311.70"}, {"Update ID": "", "Project ID": "28152", "Project Code": "28152", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "38000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "38000000.00", "Working Progress": "38000000.00", "Advance Received": "0.00", "Prev Cumulative": "135900000.90", "Total Cumulative": "150292000.90"}, {"Update ID": "", "Project ID": "28331", "Project Code": "28331", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "1600000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "1600000.00", "Working Progress": "1600000.00", "Advance Received": "0.00", "Prev Cumulative": "3200000.00", "Total Cumulative": "6200000.00"}, {"Update ID": "", "Project ID": "28564", "Project Code": "28564", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "7000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "7000000.00", "Working Progress": "7000000.00", "Advance Received": "0.00", "Prev Cumulative": "51868000.00", "Total Cumulative": "51868000.00"}, {"Update ID": "", "Project ID": "28425.A", "Project Code": "28425.A", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "120000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "120000.00", "Working Progress": "120000.00", "Advance Received": "0.00", "Prev Cumulative": "1570000.85", "Total Cumulative": "1570000.85"}, {"Update ID": "", "Project ID": "28598. A", "Project Code": "28598. A", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "25000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "25000.00", "Working Progress": "25000.00", "Advance Received": "0.00", "Prev Cumulative": "135000.95", "Total Cumulative": "135000.95"}, {"Update ID": "", "Project ID": "28598. B", "Project Code": "28598. B", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "60000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "60000.00", "Working Progress": "60000.00", "Advance Received": "0.00", "Prev Cumulative": "60000.45", "Total Cumulative": "60000.45"}, {"Update ID": "", "Project ID": "28598.G", "Project Code": "28598.G", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "20000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "20000.00", "Working Progress": "20000.00", "Advance Received": "0.00", "Prev Cumulative": "20000.95", "Total Cumulative": "20000.95"}, {"Update ID": "", "Project ID": "28598.J", "Project Code": "28598.J", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "10000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "10000.00", "Working Progress": "10000.00", "Advance Received": "0.00", "Prev Cumulative": "10000.21", "Total Cumulative": "10000.21"}, {"Update ID": "", "Project ID": "28598.L", "Project Code": "28598.L", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "15000.42", "Total Cumulative": "15000.42"}, {"Update ID": "", "Project ID": "28598.M", "Project Code": "28598.M", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "25000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "25000.00", "Working Progress": "25000.00", "Advance Received": "0.00", "Prev Cumulative": "25000.54", "Total Cumulative": "25000.54"}, {"Update ID": "", "Project ID": "28598.O", "Project Code": "28598.O", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "15000.16", "Total Cumulative": "15000.16"}, {"Update ID": "", "Project ID": "28598.P", "Project Code": "28598.P", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "15000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "15000.00", "Working Progress": "15000.00", "Advance Received": "0.00", "Prev Cumulative": "15000.04", "Total Cumulative": "15000.04"}, {"Update ID": "", "Project ID": "28623", "Project Code": "28623", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "500000.00", "Working Progress": "500000.00", "Advance Received": "0.00", "Prev Cumulative": "600000.23", "Total Cumulative": "600000.23"}, {"Update ID": "", "Project ID": "28615", "Project Code": "28615", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "500000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "500000.00", "Working Progress": "500000.00", "Advance Received": "0.00", "Prev Cumulative": "1400000.00", "Total Cumulative": "1400000.00"}, {"Update ID": "", "Project ID": "28294.A", "Project Code": "28294.A", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "200000.00", "Working Progress": "200000.00", "Advance Received": "0.00", "Prev Cumulative": "400001.60", "Total Cumulative": "400001.60"}, {"Update ID": "", "Project ID": "28616", "Project Code": "28616", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "100000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "100000.00", "Working Progress": "100000.00", "Advance Received": "0.00", "Prev Cumulative": "100000.66", "Total Cumulative": "100000.66"}, {"Update ID": "", "Project ID": "28625", "Project Code": "28625", "Reporting Month": "2026-07", "Physical WIP %": "", "Financial WIP": "2000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "2000000.00", "Working Progress": "2000000.00", "Advance Received": "0.00", "Prev Cumulative": "2000000.35", "Total Cumulative": "2000000.35"}, {"Update ID": "", "Project ID": "28554", "Project Code": "28554", "Reporting Month": "2026-01", "Physical WIP %": "", "Financial WIP": "3900000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "3900000.00", "Working Progress": "3900000.00", "Advance Received": "0.00", "Prev Cumulative": "3500000.00", "Total Cumulative": "7400000.00"}, {"Update ID": "", "Project ID": "28554", "Project Code": "28554", "Reporting Month": "2026-02", "Physical WIP %": "", "Financial WIP": "11200000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "11200000.00", "Working Progress": "11200000.00", "Advance Received": "0.00", "Prev Cumulative": "7400000.00", "Total Cumulative": "18600000.00"}, {"Update ID": "", "Project ID": "28564", "Project Code": "28564", "Reporting Month": "2026-03", "Physical WIP %": "", "Financial WIP": "7000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "7000000.00", "Working Progress": "7000000.00", "Advance Received": "0.00", "Prev Cumulative": "11200000.00", "Total Cumulative": "18200000.00"}, {"Update ID": "", "Project ID": "28564", "Project Code": "28564", "Reporting Month": "2026-04", "Physical WIP %": "", "Financial WIP": "9668000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "9668000.00", "Working Progress": "9668000.00", "Advance Received": "0.00", "Prev Cumulative": "18200000.00", "Total Cumulative": "27868000.00"}, {"Update ID": "", "Project ID": "28564", "Project Code": "28564", "Reporting Month": "2026-05", "Physical WIP %": "", "Financial WIP": "7000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "7000000.00", "Working Progress": "7000000.00", "Advance Received": "0.00", "Prev Cumulative": "27868000.00", "Total Cumulative": "34868000.00"}, {"Update ID": "", "Project ID": "28564", "Project Code": "28564", "Reporting Month": "2026-06", "Physical WIP %": "", "Financial WIP": "10000000.00", "Remarks": "", "Updated By": "Admin", "Updated At": "2026-09-03T18:00:00.000Z", "Monthly Progress": "10000000.00", "Working Progress": "10000000.00", "Advance Received": "0.00", "Prev Cumulative": "34868000.00", "Total Cumulative": "44868000.00"}], "financeSummary": [{"Reporting Month": "2026-01", "Expenditure": 22134786.0, "Subcontract Payment": 0.0, "Division Expenditure": 22134786.0, "Money Received": 392018.71, "Outstanding": 628000.0, "Interdivisional": 0.0, "Working Progress": 22324544.0, "Income": 23344562.71, "Profit": 1209776.71, "Profit %": 5.18, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-02", "Expenditure": 19840211.0, "Subcontract Payment": 0.0, "Division Expenditure": 19840211.0, "Money Received": 163520.43, "Outstanding": 0.0, "Interdivisional": 0.0, "Working Progress": 20787065.62, "Income": 20950586.05, "Profit": 1110375.05, "Profit %": 5.3, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-03", "Expenditure": 30338366.0, "Subcontract Payment": 0.0, "Division Expenditure": 30338366.0, "Money Received": 80257.5, "Outstanding": 961467.85, "Interdivisional": 0.0, "Working Progress": 30828916.0, "Income": 31870641.35, "Profit": 1532275.35, "Profit %": 4.81, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-04", "Expenditure": 37947534.0, "Subcontract Payment": 0.0, "Division Expenditure": 37947534.0, "Money Received": 703770.13, "Outstanding": 2648936.0, "Interdivisional": 0.0, "Working Progress": 36663000.0, "Income": 40015706.13, "Profit": 2068172.13, "Profit %": 5.17, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-05", "Expenditure": 33452974.0, "Subcontract Payment": 0.0, "Division Expenditure": 33452974.0, "Money Received": 64712.29, "Outstanding": 1536422.99, "Interdivisional": 0.0, "Working Progress": 33802674.7, "Income": 35403809.98, "Profit": 1950835.98, "Profit %": 5.51, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-06", "Expenditure": 45780140.0, "Subcontract Payment": 0.0, "Division Expenditure": 45780140.0, "Money Received": 11957.71, "Outstanding": 859854.77, "Interdivisional": 0.0, "Working Progress": 47657994.06, "Income": 48529806.54, "Profit": 2749666.54, "Profit %": 5.67, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}, {"Reporting Month": "2026-07", "Expenditure": 50137224.0, "Subcontract Payment": 29509834.0, "Division Expenditure": 20627390.0, "Money Received": 103212.03, "Outstanding": 1333195.61, "Interdivisional": 0.0, "Working Progress": 51705000.0, "Income": 53141407.64, "Profit": 3004183.64, "Profit %": 5.65, "Remarks": "", "Updated By": "Mr. Ranjan", "Updated At": "2026-09-04T12:00:00.000Z"}]};
 
 const state = {
   projects: [],
@@ -62,6 +62,18 @@ const safe = v => v == null ? "" : String(v);
 function projectCode(p) { return safe(p["Project Code"] ?? p.projectCode ?? p["No"] ?? p.no); }
 function projectId(p) { return safe(p["Project ID"] ?? p.projectId ?? p.id) || projectCode(p); }
 function status(p) { return safe(p["Current Status"] ?? p.Status ?? p.status) || "In Progress"; }
+function statusBadgeClass(stRaw) {
+  const st = String(stRaw || "").toLowerCase().trim();
+  if (st.includes("abandon")) return "abandoned";
+  if (st.includes("phys") && (st.includes("complete") || st.includes("pending payment"))) return "phys-completed";
+  if (st.includes("approval") || st.includes("waiting")) return "client-approval";
+  if (st.includes("draft") || st.includes("report")) return "draft-report";
+  if (st.includes("complete")) return "completed";
+  if (st.includes("progress")) return "in-progress";
+  if (st.includes("pipeline") || st.includes("proposal")) return "pipeline";
+  if (st.includes("hold") || st.includes("suspend") || st.includes("pending")) return "pending";
+  return "";
+}
 function scientist(p) { return safe(p["Responsible Scientist"] ?? p["Responsible Engineer"] ?? p.responsibleScientist ?? p.responsibleEngineer ?? p["Scientist"] ?? p.scientist) || ""; }
 function projectLeader(p) { return safe(p["Project Leader"] ?? p["Group Leader"] ?? p.projectLeader ?? p.groupLeader ?? p.leader) || ""; }
 function registeredYear(p) {
@@ -75,6 +87,24 @@ function registeredYear(p) {
   return "2026";
 }
 window.registeredYear = registeredYear;
+
+function baselinePriorCumulative(p) {
+  if (!p) return 0;
+  return parseNum(
+    p["Total Cumulative up to 2025"] ??
+    p["Total Cumulative up to 2024"] ??
+    p["Cumulative up to 2025"] ??
+    p["Cumulative up to 2024"] ??
+    p["Cumulative Up to 2024"] ??
+    p["Prev Cumulative"] ??
+    p["Prior Cumulative"] ??
+    p.totalCumulativeUpTo2025 ??
+    p.priorCumulative ??
+    p.prevCumulative ??
+    0
+  );
+}
+window.baselinePriorCumulative = baselinePriorCumulative;
 
 function isExcludedSupportStaff(u) {
   if (!u) return true;
@@ -230,6 +260,72 @@ function staffBadge(identifier, icon = "🔬") {
   return staffBadges(identifier, icon);
 }
 
+/* SCIENTIST & USER PROJECT INVOLVEMENT HELPERS */
+function isUserAssignedToProject(p, user = state.user) {
+  if (!p || !user) return false;
+  const userEpf = String(user.epf || "").trim().toLowerCase();
+  const userName = String(user.fullName || user.shortName || user.email || "").trim().toLowerCase();
+  const userShort = String(user.shortName || "").trim().toLowerCase();
+
+  // 1. Check Scientists / Engineers
+  const scList = parseStaffList(scientist(p));
+  const scMatch = scList.some(s => {
+    const u = findStaffByEpfOrName(s);
+    if (u) {
+      const epf = String(u.epf || "").trim().toLowerCase();
+      const fn = String(u.fullName || "").trim().toLowerCase();
+      const sn = String(u.shortName || "").trim().toLowerCase();
+      if (userEpf && epf && userEpf === epf) return true;
+      if (userShort && sn && (userShort === sn || sn.includes(userShort) || userShort.includes(sn))) return true;
+      if (userName && fn && (userName === fn || fn.includes(userName) || userName.includes(fn))) return true;
+    }
+    const clean = String(s).toLowerCase();
+    if (userEpf && clean.includes(userEpf)) return true;
+    if (userShort && clean.includes(userShort)) return true;
+    if (userName && clean.includes(userName)) return true;
+    return false;
+  });
+  if (scMatch) return true;
+
+  // 2. Check Project Leader
+  const ldr = projectLeader(p);
+  if (ldr) {
+    const uLdr = findStaffByEpfOrName(ldr);
+    if (uLdr) {
+      const epf = String(uLdr.epf || "").trim().toLowerCase();
+      const fn = String(uLdr.fullName || "").trim().toLowerCase();
+      const sn = String(uLdr.shortName || "").trim().toLowerCase();
+      if (userEpf && epf && userEpf === epf) return true;
+      if (userShort && sn && (userShort === sn || sn.includes(userShort) || userShort.includes(sn))) return true;
+      if (userName && fn && (userName === fn || fn.includes(userName) || userName.includes(fn))) return true;
+    }
+    const cleanLdr = String(ldr).toLowerCase();
+    if (userEpf && cleanLdr.includes(userEpf)) return true;
+    if (userShort && cleanLdr.includes(userShort)) return true;
+    if (userName && cleanLdr.includes(userName)) return true;
+  }
+
+  return false;
+}
+
+function getMyAssignedProjects() {
+  if (!state.user) return [];
+  return (state.projects || []).filter(p => isUserAssignedToProject(p, state.user));
+}
+
+function getMyPendingWipProjects(targetMonth = state.month) {
+  if (!state.user) return [];
+  const myProjs = getMyAssignedProjects();
+  return myProjs.filter(p => {
+    const st = status(p).toLowerCase().trim();
+    if (st === "completed") return false;
+    const w = currentWip(p, targetMonth);
+    const hasPh = w && w.physical !== null && w.physical !== undefined && w.physical > 0;
+    const hasFin = w && w.financial !== null && w.financial !== undefined && w.financial > 0;
+    return !(hasPh && hasFin);
+  });
+}
+
 function reportingMonth(r) {
   if (!r) return "";
   let raw = safe(r["Reporting Month"] ?? r.reportingMonth ?? r.month ?? r["Month"]).trim();
@@ -269,7 +365,7 @@ function getWipRow(pOrCodeOrId, month = state.month) {
     const xCode = norm(x["Project Code"] ?? x.projectCode ?? x["No"] ?? x.no ?? x["Project ID"] ?? x.projectId);
     const xId = norm(x["Project ID"] ?? x.projectId);
     const m = reportingMonth(x);
-    const match = codes.some(c => c && (xCode === c || xId === c || xCode.startsWith(c) || c.startsWith(xCode)));
+    const match = codes.some(c => c && (xCode === c || xId === c));
     return match && m === targetM;
   }) || null;
 }
@@ -291,7 +387,7 @@ function getLastWipRow(pOrCodeOrId, beforeMonth = state.month) {
     const xCode = norm(x["Project Code"] ?? x.projectCode ?? x["No"] ?? x.no ?? x["Project ID"] ?? x.projectId);
     const xId = norm(x["Project ID"] ?? x.projectId);
     const m = reportingMonth(x);
-    const match = codes.some(c => c && (xCode === c || xId === c || xCode.startsWith(c) || c.startsWith(xCode)));
+    const match = codes.some(c => c && (xCode === c || xId === c));
     return match && m && m < targetM;
   });
   if (!priorRows.length) return null;
@@ -329,8 +425,8 @@ function prevCumulativeValue(p, month = state.month) {
   const pIdNorm = norm(projectId(p));
   const targetM = (month || "").trim();
 
-  // 1. Historical baseline if defined
-  const base = parseNum(p["Prev Cumulative"] ?? p["Cumulative Up to 2024"] ?? p.prevCumulative ?? 0);
+  // 1. Historical baseline (up to prior year)
+  const base = baselinePriorCumulative(p);
 
   // 2. Sum all previous recorded months strictly prior to target month
   const priorRows = state.wip.filter(x => {
@@ -344,12 +440,31 @@ function prevCumulativeValue(p, month = state.month) {
   const sumPrior = priorRows.reduce((sum, r) => sum + workingProgressValue(r), 0);
 
   const currentR = getWipRow(code || projectId(p), month);
-  if (currentR && currentR["Prev Cumulative"] != null && !sumPrior) {
+  if (currentR && currentR["Prev Cumulative"] != null && !sumPrior && !base) {
     const explicit = parseNum(currentR["Prev Cumulative"]);
     if (explicit > 0) return explicit;
   }
 
   return base + sumPrior;
+}
+
+// Sum only current year months prior to target month (excluding baseline)
+function currentYearPrevCumulativeValue(p, month = state.month) {
+  const code = projectCode(p);
+  const cNorm = norm(code);
+  const pIdNorm = norm(projectId(p));
+  const targetM = (month || "").trim();
+  const targetYear = (targetM || "2026").split("-")[0];
+
+  const priorRows = state.wip.filter(x => {
+    const xCode = norm(x["Project Code"] ?? x.projectCode ?? x["No"] ?? x.no ?? x["Project ID"] ?? x.projectId);
+    const xId = norm(x["Project ID"] ?? x.projectId);
+    const codeMatch = (cNorm && (xCode === cNorm || xId === cNorm)) || (pIdNorm && (xCode === pIdNorm || xId === pIdNorm));
+    const m = reportingMonth(x);
+    return codeMatch && m && m < targetM && m.startsWith(targetYear);
+  });
+
+  return priorRows.reduce((sum, r) => sum + workingProgressValue(r), 0);
 }
 
 function getCurrentUserDisplayName() {
@@ -369,7 +484,18 @@ function totalCumulativeValue(p, month = state.month) {
 function getDivisionFinance(month = state.month) {
   const targetM = (month || "").trim();
   const found = state.financeSummary.find(f => reportingMonth(f) === targetM);
-  const projectsTotalWp = state.projects.reduce((sum, p) => sum + workingProgressValue(getWipRow(projectCode(p), month)), 0);
+  
+  // Calculate live sum of all individual projects' WIP for this specific month
+  let projectsTotalWp = state.projects.reduce((sum, p) => sum + workingProgressValue(getWipRow(projectCode(p), month)), 0);
+  const matchedCodes = new Set(state.projects.map(p => norm(projectCode(p))));
+  state.wip.forEach(w => {
+    if (reportingMonth(w) === targetM) {
+      const c = norm(w["Project Code"] ?? w.projectCode ?? w["Project ID"]);
+      if (c && !matchedCodes.has(c)) {
+        projectsTotalWp += workingProgressValue(w);
+      }
+    }
+  });
 
   if (found) {
     const exp = parseNum(found["Expenditure"] || found["Total Expenditure"] || found.expenditure || 0);
@@ -379,9 +505,20 @@ function getDivisionFinance(month = state.month) {
     const mr = parseNum(found["Money Received"] || found.moneyReceived || 0);
     const out = parseNum(found["Outstanding"] || found.outstanding || 0);
     const inter = parseNum(found["Interdivisional"] || found.interdivisional || 0);
-    const wp = parseNum(found["Working Progress"] || found.workingProgress || 0) || projectsTotalWp;
-    const income = parseNum(found["Income"] || found.income || 0) || (wp > 0 ? wp : (mr + out));
-    const profit = found["Profit"] !== undefined && found["Profit"] !== "" && found["Profit"] !== null ? parseNum(found["Profit"]) : (income - exp - inter);
+    
+    // Priority: If the sheet summary has an official Working Progress recorded (> 0), use it; otherwise live sum
+    const sheetWp = parseNum(found["Working Progress"] || found.workingProgress || 0);
+    const wp = sheetWp > 0 ? sheetWp : projectsTotalWp;
+    
+    // Official NBRO Division Income Formula: Working Progress + Money Received + Outstanding
+    const sheetIncome = parseNum(found["Income"] || found.income || 0);
+    const income = sheetIncome > 0 ? sheetIncome : (wp + mr + out);
+    const sheetProfit = found["Profit"] !== undefined && found["Profit"] !== "" && found["Profit"] !== null 
+      ? parseNum(found["Profit"]) 
+      : (found["Net Profit"] !== undefined && found["Net Profit"] !== "" && found["Net Profit"] !== null 
+         ? parseNum(found["Net Profit"]) 
+         : null);
+    const profit = sheetProfit !== null ? sheetProfit : (income - exp - inter);
     const profitPct = income > 0 ? (profit / income) * 100 : (parseNum(found["Profit %"]) || 0);
 
     return {
@@ -402,7 +539,7 @@ function getDivisionFinance(month = state.month) {
     };
   }
 
-  // Baseline from project sums when no entry recorded yet
+  // Baseline when no financial summary recorded yet: dynamic WIP from all projects
   const exp = 0, subcontract = 0, divExp = 0, mr = 0, out = 0, inter = 0;
   const income = projectsTotalWp;
   const profit = income;
@@ -546,8 +683,19 @@ function deriveLookups() {
     return "";
   }).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
 
+  const standardStatuses = [
+    "In Progress",
+    "Waiting for Client Approval",
+    "Physical Progress Completed (Pending Final Payment)",
+    "Draft Report Submitted",
+    "Completed",
+    "Pipeline / Proposal",
+    "On Hold",
+    "Project Abandoned"
+  ];
   const foundStatuses = unique("Current Status", "Status", "status");
-  state.lookups.statuses = foundStatuses.length ? foundStatuses : ["In Progress", "Completed", "Pending", "On Hold"];
+  const mergedStatuses = Array.from(new Set([...standardStatuses, ...foundStatuses])).filter(Boolean);
+  state.lookups.statuses = mergedStatuses;
   state.lookups.workingGroups = unique("Working Group");
   state.lookups.engineers = unique("Responsible Scientist", "Responsible Engineer", "Scientist", "Engineer");
 
@@ -561,7 +709,7 @@ async function init() {
   initTheme();
 
   // Invalidate stale or empty browser cache from previous versions
-  const CACHE_VERSION = "v9.3.0";
+  const CACHE_VERSION = "v1.0.0";
   try {
     const savedVer = localStorage.getItem("nbri_cache_version");
     if (savedVer !== CACHE_VERSION) {
@@ -570,6 +718,11 @@ async function init() {
       localStorage.setItem("nbri_cache_version", CACHE_VERSION);
     }
   } catch (e) {}
+
+  // Mobile Detection: Auto-default Monthly WIP to touch-optimized Cards view on screens <= 768px
+  if (typeof window !== "undefined" && window.innerWidth <= 768) {
+    state.matrixViewMode = "cards";
+  }
 
   // Load from local storage cache, or instantly fall back to bundled seed
   let initial = null;
@@ -647,6 +800,8 @@ async function init() {
       setSheetsStatus("live", `Live Database (${state.projects.length} Projects)`);
       setApiStatus(`Live database connected (${state.projects.length} Projects)`, true);
     }
+    // Fetch real-time delegation & action notifications for logged in user
+    fetchLiveNotifications();
   } catch (err) {
     console.warn("[NBRI] Central Database background sync:", err.message);
     if (state.projects.length > 0) {
@@ -858,6 +1013,67 @@ window.toggleEngineerDropdown = toggleEngineerDropdown;
 window.handleEngineerCheckboxChange = handleEngineerCheckboxChange;
 window.removeEngineerChip = removeEngineerChip;
 
+let filterMyProjectsActive = false;
+function toggleMyProjectsFilter() {
+  filterMyProjectsActive = !filterMyProjectsActive;
+  const btn = $("myProjectsToggleBtn");
+  const txt = $("myProjectsBtnText");
+  if (btn) btn.classList.toggle("active", filterMyProjectsActive);
+  if (txt) {
+    txt.textContent = filterMyProjectsActive ? "🌐 All Projects" : "👤 My Projects";
+  }
+  if (btn) {
+    btn.title = filterMyProjectsActive ? "Click to view all projects" : "Show only projects assigned to my scientist profile";
+  }
+  renderProjects();
+  renderKanban();
+}
+window.toggleMyProjectsFilter = toggleMyProjectsFilter;
+
+let filterMyWipActive = false;
+let filterMyPendingWipActive = false;
+
+function toggleMyWipFilter() {
+  if (!state.user) {
+    showToast("Please sign in or select a profile to view your assigned projects.", true);
+    openAuthDialog("login");
+    return;
+  }
+  filterMyWipActive = !filterMyWipActive;
+  if (filterMyWipActive) filterMyPendingWipActive = false;
+  
+  const btn = $("myWipToggleBtn");
+  const txt = $("myWipBtnText");
+  if (btn) btn.classList.toggle("active", filterMyWipActive);
+  if (txt) {
+    txt.textContent = filterMyWipActive ? "🌐 All Projects" : "👤 My Projects";
+  }
+  if (btn) {
+    btn.title = filterMyWipActive ? "Click to view all projects" : "Show only projects assigned to my profile";
+  }
+  $("myPendingWipBtn")?.classList.remove("active");
+  renderWip();
+}
+window.toggleMyWipFilter = toggleMyWipFilter;
+
+function toggleMyPendingWipFilter() {
+  if (!state.user) {
+    showToast("Please sign in or select a profile to view missing updates.", true);
+    openAuthDialog("login");
+    return;
+  }
+  filterMyPendingWipActive = !filterMyPendingWipActive;
+  if (filterMyPendingWipActive) {
+    filterMyWipActive = false;
+    const wipTxt = $("myWipBtnText");
+    if (wipTxt) wipTxt.textContent = "👤 My Projects";
+  }
+  $("myPendingWipBtn")?.classList.toggle("active", filterMyPendingWipActive);
+  $("myWipToggleBtn")?.classList.remove("active");
+  renderWip();
+}
+window.toggleMyPendingWipFilter = toggleMyPendingWipFilter;
+
 function getFilteredProjects() {
   const q = ($("search")?.value || "").toLowerCase().trim();
   const yf = ($("yearFilter")?.value || "").trim();
@@ -867,6 +1083,11 @@ function getFilteredProjects() {
   const sortMode = ($("projectSortFilter")?.value || "code_asc").toLowerCase().trim();
 
   const filtered = (state.projects || []).filter(p => {
+    // 0. My Projects Filter
+    if (filterMyProjectsActive && !isUserAssignedToProject(p, state.user)) {
+      return false;
+    }
+
     // 1. Registered Year Match
     if (yf) {
       const pYear = registeredYear(p);
@@ -971,6 +1192,7 @@ function renderAll() {
   safe_call(renderProfitabilitySection, "renderProfitabilitySection");
   safe_call(renderPortfolioStatus,      "renderPortfolioStatus");
   safe_call(populateDashControls,       "populateDashControls");
+  safe_call(populateDossierSelector,    "populateDossierSelector");
   safe_call(renderExecutiveCharts,      "renderExecutiveCharts");
   safe_call(renderAlerts,               "renderAlerts");
   safe_call(renderProjects,             "renderProjects");
@@ -978,6 +1200,8 @@ function renderAll() {
   safe_call(renderWip,                  "renderWip");
   safe_call(renderFinance,              "renderFinance");
   safe_call(applyRolePermissions,       "applyRolePermissions");
+  safe_call(updateEditorReminders,      "updateEditorReminders");
+  safe_call(updateTeamMessagesBadge,     "updateTeamMessagesBadge");
 }
 
 /* =========================================================================
@@ -986,7 +1210,7 @@ function renderAll() {
 
 let dashState = {
   horizon: "month", // 'month' | 'ytd'
-  focus: "net",     // 'net' (Division In-House) | 'gross' (Total incl Subcontractor)
+  focus: "gross",   // 'gross' (Total Gross Default) | 'net' (Division In-House)
   group: "",        // '' (All) | 'B1' | 'B2' | 'R&D' | etc.
   month: "2026-06"
 };
@@ -1134,8 +1358,8 @@ function renderExecutiveDashboard() {
   const kpiEl = $("financeIndicatorKpis");
   if (kpiEl) {
     const profitBadgeHtml = divFin.profit < 0
-      ? `<span style="font-size:12px;padding:2px 8px;border-radius:12px;margin-left:4px;background:#fee2e2;color:#b91c1c;font-weight:700;">(${Math.abs(divFin.profitPct).toFixed(1)}% Deficit)</span>`
-      : `<span style="font-size:12px;padding:2px 8px;border-radius:12px;margin-left:4px;background:#ecfdf5;color:#047857;font-weight:700;">+${divFin.profitPct.toFixed(1)}% Margin</span>`;
+      ? `<span style="font-size:12px;padding:2px 8px;border-radius:12px;margin-left:4px;background:#fee2e2;color:#b91c1c;font-weight:700;">(${Math.abs(divFin.profitPct).toFixed(2)}% Deficit)</span>`
+      : `<span style="font-size:12px;padding:2px 8px;border-radius:12px;margin-left:4px;background:#ecfdf5;color:#047857;font-weight:700;">+${divFin.profitPct.toFixed(2)}% Margin</span>`;
 
     kpiEl.innerHTML = [
       ["1. Money Received", money(divFin.moneyReceived), "#10b981", ""],
@@ -1166,11 +1390,14 @@ const chartInstances = { wip: null, cashflow: null, group: null, profit: null };
 window.chartInstances = chartInstances;
 
 function formatRupeeMillions(value) {
+  if (value === 0) return "Rs. 0";
   const abs = Math.abs(value);
   if (abs >= 1_000_000) {
-    return "Rs. " + (value / 1_000_000).toFixed(1) + "M";
+    const num = Number((value / 1_000_000).toFixed(1));
+    return "Rs. " + num + "M";
   } else if (abs >= 1_000) {
-    return "Rs. " + (value / 1_000).toFixed(0) + "K";
+    const num = Number((value / 1_000).toFixed(0));
+    return "Rs. " + num + "K";
   }
   return "Rs. " + value.toLocaleString();
 }
@@ -1219,8 +1446,8 @@ function renderExecutiveCharts(targetYear) {
   }
   if ($("chart1Subtitle")) {
     $("chart1Subtitle").textContent = isNet
-      ? "Focusing on in-house engineering operations, excluding outsourced subcontractor costs."
-      : "Full turnover perspective including subcontractor direct payment outflows.";
+      ? "Two-color stacked expenditure column (Division Net In-House + Subcontractor Payment) alongside Income and Operating Margin."
+      : "Full turnover perspective with stacked expenditure (In-House + Subcontractor) alongside Income and Operating Margin.";
   }
 
   // Calculate Monthly Metrics
@@ -1231,6 +1458,7 @@ function renderExecutiveCharts(targetYear) {
   const mrData = [];
   const outData = [];
   const profitMarginData = [];
+  const profitAmountData = [];
   const profitPointColors = [];
 
   monthKeys.forEach(mKey => {
@@ -1250,8 +1478,11 @@ function renderExecutiveCharts(targetYear) {
     const out = fin.outstanding || 0;
     const inc = (fin.income > 0) ? fin.income : (wp || (mr + out));
     const inter = fin.interdivisional || 0;
-    const profit = fin.hasData && fin.profit !== undefined ? fin.profit : (isNet ? (inc - divExp - inter) : (inc - exp - inter));
+    // Calculate profit dynamically based on focus toggle
+    const profit = isNet ? (inc - divExp - inter) : (inc - exp - inter);
     const profitPct = inc > 0 ? (profit / inc) * 100 : (fin.profitPct || 0);
+
+    const hasData = fin.hasData || (inc > 0) || (exp > 0);
 
     incomeData.push(inc);
     divExpData.push(divExp);
@@ -1259,65 +1490,62 @@ function renderExecutiveCharts(targetYear) {
     grossExpData.push(exp);
     mrData.push(mr);
     outData.push(out);
-    profitMarginData.push(Number(profitPct.toFixed(1)));
+    profitAmountData.push(hasData ? profit : null);
+    profitMarginData.push(hasData ? Number(profitPct.toFixed(2)) : null);
     profitPointColors.push(profitPct < 5 ? "#ef4444" : "#10b981");
   });
 
   /* ----------------------------------------------------
-     CHART 1: 3-Pillar Financial Performance (Grouped Bar)
+     CHART 1: 3-Pillar Financial Performance (Grouped Stacked Bar + Dual Axis Line)
      ---------------------------------------------------- */
   const ctxWip = $("chartWipOverview")?.getContext("2d");
   if (ctxWip) {
     if (chartInstances.wip) chartInstances.wip.destroy();
 
-    const chart1Datasets = isNet ? [
+    const chart1Datasets = [
       {
         type: "bar",
         label: "Income / WIP",
         data: incomeData,
         backgroundColor: "#0284c7",
-        borderRadius: 5
+        borderRadius: 4,
+        stack: "income",
+        order: 1
       },
       {
         type: "bar",
-        label: "Division Net Exp (In-House)",
-        data: divExpData,
-        backgroundColor: "#b91c1c",
-        borderRadius: 5
-      },
-      {
-        type: "line",
-        label: "Net Operating Margin",
-        data: profitMarginData.map((pct, idx) => (incomeData[idx] * pct) / 100),
-        borderColor: "#10b981",
-        backgroundColor: "rgba(16, 185, 129, 0.1)",
-        borderWidth: 3,
-        pointRadius: 4,
-        tension: 0.2
-      }
-    ] : [
-      {
-        type: "bar",
-        label: "Income / WIP",
-        data: incomeData,
-        backgroundColor: "#0284c7",
-        borderRadius: 5
-      },
-      {
-        type: "bar",
-        label: "Division Net Exp",
+        label: isNet ? "Division Net Exp (In-House)" : "Division Net Exp",
         data: divExpData,
         backgroundColor: "#b91c1c",
         stack: "exp",
-        borderRadius: 4
+        borderRadius: 4,
+        order: 1
       },
       {
         type: "bar",
         label: "Subcontractor Payment",
         data: subData,
-        backgroundColor: "#e11d48",
+        backgroundColor: "#f59e0b",
         stack: "exp",
-        borderRadius: 4
+        borderRadius: 4,
+        order: 1
+      },
+      {
+        type: "line",
+        label: "Net Operating Margin",
+        data: profitAmountData,
+        yAxisID: "y1",
+        borderColor: "#10b981",
+        backgroundColor: "rgba(16, 185, 129, 0.12)",
+        borderWidth: 3.5,
+        pointRadius: 5.5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: "#10b981",
+        pointBorderColor: "#ffffff",
+        pointBorderWidth: 2,
+        tension: 0.25,
+        order: 0,
+        spanGaps: false
       }
     ];
 
@@ -1334,18 +1562,64 @@ function renderExecutiveCharts(targetYear) {
           legend: { labels: { color: textColor, font: { size: 11, weight: "600" } } },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`
+              label: (ctx) => {
+                if (ctx.dataset.label === "Net Operating Margin") {
+                  const val = ctx.parsed.y;
+                  if (val === null || val === undefined || isNaN(val)) return null;
+                  const pct = profitMarginData[ctx.dataIndex];
+                  return `${ctx.dataset.label}: ${money(val)}${pct !== null && pct !== undefined ? ` (${pct}%)` : ""}`;
+                }
+                const v = ctx.parsed.y;
+                if (v === null || v === undefined) return null;
+                return `${ctx.dataset.label}: ${money(v)}`;
+              },
+              footer: (items) => {
+                const idx = items[0]?.dataIndex;
+                if (idx !== undefined) {
+                  const div = divExpData[idx] || 0;
+                  const sub = subData[idx] || 0;
+                  if (sub > 0) {
+                    return `Total Gross Expenditure: ${money(div + sub)}`;
+                  }
+                }
+                return "";
+              }
             }
           }
         },
         scales: {
           x: { ticks: { color: textColor, font: { weight: "600" } }, grid: { display: false } },
           y: {
+            position: "left",
+            title: {
+              display: true,
+              text: "Income & Expenditure",
+              color: textColor,
+              font: { size: 10.5, weight: "700" }
+            },
             ticks: {
               color: textColor,
               callback: (v) => formatRupeeMillions(v)
             },
-            grid: { color: gridColor }
+            grid: { color: gridColor },
+            suggestedMin: 0
+          },
+          y1: {
+            position: "right",
+            title: {
+              display: true,
+              text: "Net Margin (Rs.)",
+              color: "#10b981",
+              font: { size: 10.5, weight: "700" }
+            },
+            ticks: {
+              color: "#10b981",
+              font: { weight: "700" },
+              callback: (v) => formatRupeeMillions(v)
+            },
+            grid: { display: false },
+            suggestedMin: 0,
+            suggestedMax: 5000000
           }
         }
       }
@@ -1353,7 +1627,7 @@ function renderExecutiveCharts(targetYear) {
   }
 
   /* ----------------------------------------------------
-     CHART 2: Cash Flow Realization Waterfall
+     CHART 2: Cash Flow, Claims & Realization Waterfall
      ---------------------------------------------------- */
   const ctxCashflow = $("chartCashflow")?.getContext("2d");
   if (ctxCashflow) {
@@ -1364,21 +1638,21 @@ function renderExecutiveCharts(targetYear) {
         labels: monthLabels,
         datasets: [
           {
-            label: "Money Received",
+            label: "Money Received (Cash In)",
             data: mrData,
             backgroundColor: "#10b981",
             borderRadius: 5
           },
           {
-            label: "Total Gross Expenditure",
-            data: grossExpData,
-            backgroundColor: "#ef4444",
+            label: isNet ? "Division Net Exp (In-House)" : "Total Gross Expenditure",
+            data: isNet ? divExpData : grossExpData,
+            backgroundColor: isNet ? "#b91c1c" : "#ef4444",
             borderRadius: 5
           },
           {
             label: "Outstanding Claims",
             data: outData,
-            backgroundColor: "#f97316",
+            backgroundColor: "#f59e0b",
             borderRadius: 5
           }
         ]
@@ -1391,7 +1665,18 @@ function renderExecutiveCharts(targetYear) {
           legend: { labels: { color: textColor, font: { size: 11, weight: "600" } } },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`
+              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`,
+              footer: (items) => {
+                const idx = items[0]?.dataIndex;
+                if (idx !== undefined) {
+                  const mr = mrData[idx] || 0;
+                  const exp = (isNet ? divExpData[idx] : grossExpData[idx]) || 0;
+                  const netCash = mr - exp;
+                  const sign = netCash >= 0 ? "🟢 Net Cash Surplus: " : "🔴 Net Cash Deficit: ";
+                  return `${sign}${money(Math.abs(netCash))}`;
+                }
+                return "";
+              }
             }
           }
         },
@@ -1410,53 +1695,126 @@ function renderExecutiveCharts(targetYear) {
   }
 
   /* ----------------------------------------------------
-     CHART 3: Working Group Portfolio Share & Revenue
+     CHART 3: Top 5–8 Client Revenue / Portfolio Exposure
      ---------------------------------------------------- */
   const ctxGroup = $("chartGroupDistribution")?.getContext("2d");
   if (ctxGroup) {
-    const groupTotals = {};
-    const groupWipTotals = {};
-    state.projects.forEach(p => {
-      const g = p["Working Group"] || "Unassigned";
-      const est = estimateValue(p);
-      groupTotals[g] = (groupTotals[g] || 0) + (est > 0 ? est : 1);
+    if (chartInstances.group) chartInstances.group.destroy();
 
-      const r = getWipRow(projectCode(p), m);
-      const wp = workingProgressValue(r);
-      groupWipTotals[g] = (groupWipTotals[g] || 0) + wp;
+    // Aggregate project volume & count by Client
+    const clientAgg = {};
+    let totalPortfolioVal = 0;
+
+    (state.projects || []).forEach(p => {
+      if (selectedGroup) {
+        const pGrp = String(p["Working Group"] || "").toLowerCase();
+        if (pGrp !== selectedGroup.toLowerCase() && !pGrp.includes(selectedGroup.toLowerCase())) return;
+      }
+      let clientName = safe(p["Client"]).trim() || "Unspecified / General";
+      // Normalize common variants
+      if (/^RDA\b/i.test(clientName)) clientName = "RDA";
+      else if (/^UDA\b/i.test(clientName)) clientName = "UDA";
+      else if (/^NWSDB\b|Water Board/i.test(clientName)) clientName = "NWSDB (Water Board)";
+      else if (/^CEB\b|Electricity/i.test(clientName)) clientName = "CEB";
+      else if (/Central Expressway|CEP/i.test(clientName)) clientName = "Central Expressway";
+      else if (/Railways|CGR/i.test(clientName)) clientName = "Sri Lanka Railways";
+
+      const val = estimateValue(p) || 0;
+      totalPortfolioVal += val;
+
+      if (!clientAgg[clientName]) {
+        clientAgg[clientName] = { client: clientName, value: 0, count: 0 };
+      }
+      clientAgg[clientName].value += val;
+      clientAgg[clientName].count += 1;
     });
 
-    const groupLabels = Object.keys(groupTotals);
-    const groupValues = Object.values(groupTotals);
-    const donutColors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4", "#64748b"];
+    const sortedClients = Object.values(clientAgg).sort((a, b) => b.value - a.value);
+    const topLimit = 7;
+    const topClients = sortedClients.slice(0, topLimit);
+    const remaining = sortedClients.slice(topLimit);
 
-    if (chartInstances.group) chartInstances.group.destroy();
+    if (remaining.length > 0) {
+      const remVal = remaining.reduce((sum, c) => sum + c.value, 0);
+      const remCount = remaining.reduce((sum, c) => sum + c.count, 0);
+      topClients.push({
+        client: `Other Clients (${remaining.length})`,
+        value: remVal,
+        count: remCount
+      });
+    }
+
+    const clientLabels = topClients.map(c => c.client);
+    const clientValues = topClients.map(c => c.value);
+    const clientCounts = topClients.map(c => c.count);
+
+    // Modern color palette for top client bars
+    const clientPalette = [
+      "#0284c7", // Sky blue
+      "#3b82f6", // Blue
+      "#6366f1", // Indigo
+      "#8b5cf6", // Violet
+      "#0d9488", // Teal
+      "#10b981", // Emerald
+      "#f59e0b", // Amber
+      "#94a3b8"  // Slate (Others)
+    ];
+
     chartInstances.group = new Chart(ctxGroup, {
-      type: "doughnut",
+      type: "bar",
       data: {
-        labels: groupLabels,
+        labels: clientLabels,
         datasets: [
           {
-            data: groupValues,
-            backgroundColor: donutColors.slice(0, groupLabels.length),
-            borderWidth: 2,
-            borderColor: isDark ? "#1e293b" : "#ffffff"
+            label: "Contract Volume (Rs.)",
+            data: clientValues,
+            backgroundColor: clientPalette.slice(0, clientLabels.length),
+            borderRadius: 6,
+            borderSkipped: false
           }
         ]
       },
       options: {
+        indexAxis: "y", // Horizontal Bar Chart
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "right", labels: { color: textColor, font: { size: 11, weight: "600" } } },
+          legend: { display: false },
           tooltip: {
             callbacks: {
               label: (ctx) => {
-                const gName = ctx.label;
-                const wipVal = groupWipTotals[gName] || 0;
-                return ` ${gName}: ${formatRupeeMillions(ctx.parsed)} Est • Month WIP: ${formatRupeeMillions(wipVal)}`;
+                const val = ctx.parsed.x || 0;
+                const sharePct = totalPortfolioVal > 0 ? ((val / totalPortfolioVal) * 100).toFixed(1) : "0.0";
+                const pCount = clientCounts[ctx.dataIndex] || 1;
+                return [
+                  `Total Volume: ${money(val)}`,
+                  `Projects: ${pCount} active / registered`,
+                  `Portfolio Share: ${sharePct}%`
+                ];
               }
             }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColor,
+              callback: (v) => formatRupeeMillions(v)
+            },
+            grid: { color: gridColor },
+            title: {
+              display: true,
+              text: "Committed Contract Volume (Rs.)",
+              color: textColor,
+              font: { size: 10.5, weight: "600" }
+            }
+          },
+          y: {
+            ticks: {
+              color: textColor,
+              font: { weight: "600", size: 11 }
+            },
+            grid: { display: false }
           }
         }
       }
@@ -1509,7 +1867,8 @@ function renderExecutiveCharts(targetYear) {
               label: (ctx) => {
                 if (ctx.datasetIndex === 0) return "5% Safety Threshold (Red Alert if Below)";
                 const v = ctx.parsed.y;
-                return `Margin: ${v.toFixed(1)}% ${v < 0 ? '🔻 (Operating Deficit)' : (v < 5 ? '⚠️ (<5% Alert)' : '✓')}`;
+                if (v === null || v === undefined || isNaN(v)) return null;
+                return `Margin: ${v.toFixed(2)}% ${v < 0 ? '🔻 (Operating Deficit)' : (v < 5 ? '⚠️ (<5% Alert)' : '✓')}`;
               }
             }
           }
@@ -1519,7 +1878,11 @@ function renderExecutiveCharts(targetYear) {
           y: {
             ticks: {
               color: textColor,
-              callback: (v) => `${v}%`
+              callback: (v) => {
+                if (v === null || v === undefined || isNaN(v)) return "";
+                const num = Number(v);
+                return `${Number(num.toFixed(2))}%`;
+              }
             },
             grid: { color: gridColor }
           }
@@ -1567,16 +1930,16 @@ function renderProjects() {
 
   $("projectTable").innerHTML = `
     <thead>
-      <tr>
-        <th style="cursor:pointer;" onclick="setProjectSort('code_asc')" title="Sort by Code">Code ${sortMode.startsWith("code") ? (sortMode.endsWith("asc") ? "▲" : "▼") : ""}</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('year_desc')" title="Sort by Registered Year">Year ${sortMode.startsWith("year") ? (sortMode.endsWith("desc") ? "▼" : "▲") : ""}</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('client_asc')" title="Sort by Client">Client ${sortMode.startsWith("client") ? "▲" : ""}</th>
-        <th>Description</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('group_asc')" title="Sort by Working Group">Working Group ${sortMode.startsWith("group") ? "▲" : ""}</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('scientist_asc')" title="Sort by Scientist">Scientist ${sortMode.startsWith("scientist") ? "▲" : ""}</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('status_asc')" title="Sort by Status">Status ${sortMode.startsWith("status") ? "▲" : ""}</th>
-        <th style="cursor:pointer;" onclick="setProjectSort('est_desc')" title="Sort by Estimate">Estimate (Rs.) ${sortMode.startsWith("est") ? (sortMode.endsWith("desc") ? "▼" : "▲") : ""}</th>
-        <th>Actions</th>
+      <tr style="height:32px;">
+        <th class="col-code" style="cursor:pointer;width:72px;" onclick="setProjectSort('code_asc')" title="Sort by Code">Code ${sortMode.startsWith("code") ? (sortMode.endsWith("asc") ? "▲" : "▼") : ""}</th>
+        <th style="cursor:pointer;width:48px;text-align:center;" onclick="setProjectSort('year_desc')" title="Sort by Registered Year">Year ${sortMode.startsWith("year") ? (sortMode.endsWith("desc") ? "▼" : "▲") : ""}</th>
+        <th style="cursor:pointer;width:140px;max-width:170px;" onclick="setProjectSort('client_asc')" title="Sort by Client">Client ${sortMode.startsWith("client") ? "▲" : ""}</th>
+        <th style="min-width:200px;max-width:320px;">Description & Scope</th>
+        <th style="cursor:pointer;width:75px;text-align:center;" onclick="setProjectSort('group_asc')" title="Sort by Working Group">Group ${sortMode.startsWith("group") ? "▲" : ""}</th>
+        <th style="cursor:pointer;width:120px;max-width:140px;" onclick="setProjectSort('scientist_asc')" title="Sort by Scientist">Staff Assigned ${sortMode.startsWith("scientist") ? "▲" : ""}</th>
+        <th style="cursor:pointer;width:95px;text-align:center;" onclick="setProjectSort('status_asc')" title="Sort by Status">Status ${sortMode.startsWith("status") ? "▲" : ""}</th>
+        <th style="cursor:pointer;width:100px;text-align:right;" onclick="setProjectSort('est_desc')" title="Sort by Estimate">Estimate (Rs.) ${sortMode.startsWith("est") ? (sortMode.endsWith("desc") ? "▼" : "▲") : ""}</th>
+        <th class="col-actions" style="width:60px;text-align:center;">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -1585,33 +1948,41 @@ function renderProjects() {
         const uAt = p["Updated At"] || p.updatedAt || "";
         const st = status(p);
         const pYear = registeredYear(p);
-        const stBadgeClass = st.toLowerCase().includes("complete") ? "completed" : (st.toLowerCase().includes("progress") ? "in-progress" : "pipeline");
+        const stBadgeClass = statusBadgeClass(st);
+        const estVal = p["Initial Estimate"] ?? p["Estimate (Without Tax)"];
         return `
         <tr data-id="${safe(projectId(p))}">
-          <td class="code"><b>${safe(projectCode(p))}</b></td>
-          <td><span class="badge secondary" style="font-size:11px;font-weight:700;">${safe(pYear)}</span></td>
-          <td><b>${safe(p["Client"])}</b></td>
-          <td style="font-size:12px;max-width:320px;">
-            ${safe(p["Description"])}
-            ${uBy ? `<div style="font-size:10px;color:var(--text-muted);margin-top:2px;">✍️ ${safe(uBy)}${uAt ? ' · ' + safe(String(uAt).slice(0, 10)) : ''}</div>` : ''}
+          <td class="code col-code" style="font-size:11px;">
+            <a href="javascript:void(0)" onclick="openProjectDossier('${safe(projectId(p))}')" style="color:var(--primary);text-decoration:underline;font-weight:800;" title="Click to open 360° Project Dossier">${safe(projectCode(p))}</a>
           </td>
-          <td><span class="badge">${safe(p["Working Group"])}</span></td>
-          <td style="max-width:180px;">
+          <td style="text-align:center;"><span class="badge secondary" style="font-size:9.5px;padding:1px 5px;font-weight:700;">${safe(pYear)}</span></td>
+          <td style="max-width:170px;">
+            <div style="font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${safe(p["Client"])}">${safe(p["Client"])}</div>
+          </td>
+          <td style="max-width:320px;">
+            <div style="color:var(--text-secondary);font-size:10.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;" title="${safe(p["Description"])}">${safe(p["Description"])}</div>
+            ${uBy ? `<div style="font-size:8.5px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Updated by ${safe(uBy)}">✍️ ${safe(uBy)}${uAt ? ' · ' + safe(String(uAt).slice(0, 10)) : ''}</div>` : ''}
+          </td>
+          <td style="text-align:center;"><span class="badge" style="font-size:9.5px;padding:1px 6px;">${safe(p["Working Group"])}</span></td>
+          <td style="max-width:140px;font-size:10px;">
             ${staffBadge(scientist(p), "🔬")}
-            ${projectLeader(p) ? `<div style="margin-top:3px;font-size:11px;">${staffBadge(projectLeader(p), "👔")}</div>` : ''}
+            ${projectLeader(p) ? `<div style="margin-top:2px;">${staffBadge(projectLeader(p), "👔")}</div>` : ''}
           </td>
-          <td>
+          <td style="text-align:center;">
             ${isViewer ? `
-              <span class="badge ${stBadgeClass}" style="font-size:11px;padding:3px 8px;">${safe(st)}</span>
+              <span class="badge ${stBadgeClass}" style="font-size:10px;padding:2px 6px;">${safe(st)}</span>
             ` : `
-              <select class="inline-select" onchange="updateProjectStatusInline('${safe(projectId(p))}', this.value)">
+              <select class="inline-select" style="height:22px;padding:1px 4px;font-size:10.5px;border-radius:4px;" onchange="updateProjectStatusInline('${safe(projectId(p))}', this.value)">
                 ${statuses.map(s => `<option value="${safe(s)}" ${s === st ? 'selected' : ''}>${safe(s)}</option>`).join("")}
               </select>
             `}
           </td>
-          <td><b>${money(p["Initial Estimate"] ?? p["Estimate (Without Tax)"])}</b></td>
-          <td>
-            <button class="ghost" style="padding:4px 8px;font-size:11px;" onclick="editProject('${safe(projectId(p))}')">${isViewer ? '👁️ View' : '✏️ Edit'}</button>
+          <td style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:11px;">
+            <b>${money(estVal)}</b>
+          </td>
+          <td class="col-actions" style="text-align:center;white-space:nowrap;">
+            <button class="ghost" style="padding:2px 6px;font-size:10.5px;height:22px;border-radius:4px;margin-right:2px;" onclick="openProjectDossier('${safe(projectId(p))}')" title="Open 360° Project Dossier">📋 Dossier</button>
+            <button class="ghost" style="padding:2px 6px;font-size:10.5px;height:22px;border-radius:4px;" onclick="editProject('${safe(projectId(p))}')">${isViewer ? '👁️' : '✏️ Edit'}</button>
           </td>
         </tr>
       `;}).join("")}
@@ -1695,7 +2066,12 @@ function renderKanban() {
         <div class="kanban-cards">
           ${projs.map(p => `
             <div class="kanban-card" draggable="${!isViewer}" ondragstart="${isViewer ? '' : `handleDragStart(event, '${safe(projectId(p))}')`}" onclick="editProject('${safe(projectId(p))}')" style="cursor:${isViewer ? 'pointer' : 'grab'};">
-              <div class="kanban-card-code">${safe(projectCode(p))}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <div class="kanban-card-code" style="margin:0;">
+                  <a href="javascript:void(0)" onclick="event.stopPropagation(); openProjectDossier('${safe(projectId(p))}');" style="color:var(--primary);text-decoration:underline;font-weight:800;" title="Open 360° Project Dossier">${safe(projectCode(p))}</a>
+                </div>
+                <button type="button" class="ghost" style="padding:1px 5px;font-size:9.5px;height:18px;" onclick="event.stopPropagation(); openProjectDossier('${safe(projectId(p))}');" title="View Dossier">📋</button>
+              </div>
               <div class="kanban-card-client">${safe(p["Client"])}</div>
               <div class="kanban-card-desc">${safe(p["Description"])}</div>
               <div class="kanban-card-footer">
@@ -1749,6 +2125,7 @@ function handleDrop(e, targetStatus) {
 
 /* MONTHLY WIP & PROGRESS MATRIX (CARDS VS TABLE VIEW) */
 function recalcFinanceSummary() {
+  const m = $("wipMonth")?.value || state.month;
   const exp = parseNum($("summaryExp")?.value);
   const subcontract = parseNum($("summarySubcontract")?.value);
   const divExp = exp - subcontract;
@@ -1756,14 +2133,47 @@ function recalcFinanceSummary() {
   const out = parseNum($("summaryOut")?.value);
   const inter = parseNum($("summaryInter")?.value);
 
-  // Sum all working progress inputs from the active view container only
-  const activeScope = (state.matrixViewMode === "cards" ? $("matrixCardList") : $("wipTable")) || document;
-  let totalWp = 0;
-  activeScope.querySelectorAll("[data-wip-wp]").forEach(el => {
-    totalWp += parseNum(el.value);
+  // Capture any live user input edits from the rendered DOM table
+  const liveInputs = new Map();
+  document.querySelectorAll("input[data-wip-wp]").forEach(el => {
+    const key = el.getAttribute("data-wip-wp");
+    if (key) liveInputs.set(norm(key), parseNum(el.value));
   });
 
-  const income = totalWp > 0 ? totalWp : (mr + out);
+  // Calculate division-wide Working Progress across all projects for month m
+  let totalWp = 0;
+  state.projects.forEach(p => {
+    const key = norm(projectId(p) || projectCode(p));
+    if (liveInputs.has(key)) {
+      totalWp += liveInputs.get(key);
+    } else {
+      const r = getWipRow(p, m);
+      if (r) totalWp += workingProgressValue(r);
+    }
+  });
+
+  // Also catch any standalone WIP entries not matching state.projects
+  const matchedCodes = new Set(state.projects.map(p => norm(projectCode(p))));
+  state.wip.forEach(w => {
+    if (reportingMonth(w) === m) {
+      const c = norm(w["Project Code"] ?? w.projectCode ?? w["Project ID"]);
+      if (c && !matchedCodes.has(c)) {
+        if (liveInputs.has(c)) {
+          totalWp += liveInputs.get(c);
+        } else {
+          totalWp += workingProgressValue(w);
+        }
+      }
+    }
+  });
+
+  // If live sum is 0 but official sheet summary has recorded working progress, use official summary
+  const divFin = getDivisionFinance(m);
+  if (totalWp === 0 && divFin.workingProgress > 0) {
+    totalWp = divFin.workingProgress;
+  }
+
+  const income = totalWp + mr + out;
   const profit = income - exp - inter;
   const profitPct = income > 0 ? (profit / income) * 100 : 0;
   const isDeficit = profit < 0;
@@ -1779,12 +2189,12 @@ function recalcFinanceSummary() {
   const badge = $("summaryProfitBadge");
   if (badge) {
     if (isDeficit) {
-      badge.textContent = `(${Math.abs(profitPct).toFixed(1)}% Operating Deficit)`;
+      badge.textContent = `(${Math.abs(profitPct).toFixed(2)}% Operating Deficit)`;
       badge.style.background = "#fee2e2";
       badge.style.color = "#b91c1c";
       badge.style.border = "1px solid #fca5a5";
     } else {
-      badge.textContent = `${profitPct.toFixed(1)}% Profit Margin`;
+      badge.textContent = `${profitPct.toFixed(2)}% Profit Margin`;
       badge.style.background = "#ecfdf5";
       badge.style.color = "#047857";
       badge.style.border = "1px solid #a7f3d0";
@@ -1893,6 +2303,8 @@ function renderWip() {
   if (!container) return;
 
   const mode = state.matrixViewMode || "table";
+  $("matrixViewCards")?.classList.toggle("active", mode === "cards");
+  $("matrixViewTable")?.classList.toggle("active", mode === "table");
   if (container) container.style.display = mode === "cards" ? "flex" : "none";
   if (tableWrap) tableWrap.style.display = mode === "table" ? "block" : "none";
 
@@ -1904,11 +2316,27 @@ function renderWip() {
 
   let active = state.projects.filter(p => {
     const st = status(p).toLowerCase().trim();
+    const w = currentWip(p, m);
+    const hasMonthWip = Boolean(w && w.hasMonthData && w.financial > 0);
+
+    // 0. My Projects & Pending WIP Filters
+    if (filterMyWipActive && !isUserAssignedToProject(p, state.user)) {
+      return false;
+    }
+    if (filterMyPendingWipActive) {
+      if (!isUserAssignedToProject(p, state.user)) return false;
+      if (st === "completed") return false;
+      const hasPh = w && w.physical !== null && w.physical !== undefined && w.physical > 0;
+      const hasFin = w && w.financial !== null && w.financial !== undefined && w.financial > 0;
+      if (hasPh && hasFin) return false; // Not pending
+    }
+
     // Support WIP filter status selection
     if (wipFilter === "completed") {
-      if (st !== "completed") return false;
+      if (st !== "completed" && !hasMonthWip) return false;
     } else if (wipFilter !== "all") {
-      if (st === "completed") return false;
+      // If a project has active progress in this specific month, it was active during this month!
+      if (st === "completed" && !hasMonthWip) return false;
     }
 
     // 1. Text Search Filter (includes code, client, description, and scientist)
@@ -1942,11 +2370,38 @@ function renderWip() {
 
     // 4. WIP Status Filter (with progress vs zero progress)
     if (wipFilter === "with_wip" || wipFilter === "zero_wip") {
-      const w = currentWip(projectCode(p), m);
       if (wipFilter === "with_wip" && !(w.hasMonthData && w.financial > 0)) return false;
       if (wipFilter === "zero_wip" && (w.hasMonthData && w.financial > 0)) return false;
     }
     return true;
+  });
+
+  // Ensure any standalone WIP entries for month m not yet in active are included
+  const activeCodes = new Set(active.map(p => norm(projectCode(p))));
+  state.wip.forEach(w => {
+    if (reportingMonth(w) === m) {
+      const c = norm(w["Project Code"] ?? w.projectCode ?? w["Project ID"]);
+      const val = workingProgressValue(w);
+      if (c && val > 0 && !activeCodes.has(c)) {
+        const foundP = state.projects.find(p => norm(projectCode(p)) === c || norm(projectId(p)) === c);
+        // If filtering by My Projects or Missing, verify assignment
+        if (filterMyWipActive && (!foundP || !isUserAssignedToProject(foundP, state.user))) return;
+        if (filterMyPendingWipActive) return; // Already has WIP value > 0
+        if (foundP) {
+          active.push(foundP);
+        } else {
+          active.push({
+            "Project Code": w["Project Code"] || w["Project ID"],
+            "Project ID": w["Project ID"] || w["Project Code"],
+            "Description": w["Remarks"] || "Active Project",
+            "Client": "RDA",
+            "Working Group": "Landslide Studies",
+            "Status": "In Progress"
+          });
+        }
+        activeCodes.add(c);
+      }
+    }
   });
 
   // Sort Active Projects
@@ -1979,6 +2434,9 @@ function renderWip() {
     return;
   }
 
+  const repYear = Number((m || "2026").split("-")[0]) || new Date().getFullYear();
+  const priorYear = repYear - 1;
+
   // 1. Render Ultra-Modern Zero-Scroll Cards View
   container.innerHTML = active.map(p => {
     const code = projectCode(p);
@@ -1986,6 +2444,8 @@ function renderWip() {
     const w = currentWip(code, m);
     const estNoTax = estimateValue(p);
     const adv = advanceValue(p, m);
+    const basePrior = baselinePriorCumulative(p);
+    const currentYearPrev = currentYearPrevCumulativeValue(p, m);
     const prevCum = prevCumulativeValue(p, m);
     const totCum = prevCum + (w.hasMonthData ? w.financial : 0);
     const estPct = estNoTax > 0 ? ((totCum / estNoTax) * 100).toFixed(0) : 0;
@@ -1999,7 +2459,12 @@ function renderWip() {
             <span class="matrix-group-chip">${safe(p["Working Group"] || "GED")}</span>
             <span class="matrix-eng-chip">${staffBadge(scientist(p), "🔬")}</span>
             ${projectLeader(p) ? `<span class="matrix-eng-chip" style="background:#fef3c7;color:#92400e;border-color:#fde68a;">${staffBadge(projectLeader(p), "👑")}</span>` : ''}
-            <span class="badge in-progress" style="font-size:10px;padding:2px 7px;">${safe(status(p))}</span>
+            <select class="wip-status-select ${statusBadgeClass(status(p))}" onchange="updateProjectStatusInline('${safe(projectId(p))}', this.value)" title="Change project lifecycle status">
+              ${(state.lookups.statuses || []).map(stOpt => `<option value="${safe(stOpt)}" ${stOpt === status(p) ? 'selected' : ''}>${safe(stOpt)}</option>`).join("")}
+            </select>
+            <button type="button" class="btn-delegate-wip" onclick="openTeamHandoffModal('${safe(projectCode(p))}')" title="Delegate monthly progress update to a team member">
+              📨 Delegate WIP Update
+            </button>
           </div>
           <div class="matrix-card-title">
             <span class="matrix-client-name">${safe(p["Client"])}</span>
@@ -2017,11 +2482,15 @@ function renderWip() {
               <span class="val">${estNoTax ? money(estNoTax) : '-'}</span>
             </div>
             <div class="matrix-metric-row">
+              <span class="lbl">Cum. up to ${priorYear}:</span>
+              <span class="val" style="color:#b45309;font-weight:700;">${basePrior > 0 ? money(basePrior) : 'Rs. 0.00'}</span>
+            </div>
+            <div class="matrix-metric-row">
               <span class="lbl">Advance (w/o tax):</span>
               <input data-wip-adv="${safe(key)}" type="text" inputmode="decimal" value="${adv ? formatInputCurrency(adv, 2) : ''}" placeholder="0.00" oninput="formatCurrencyInputLive(this); recalcProjectRow('${safe(key)}', this)" onblur="formatCurrencyInputBlur(this)">
             </div>
             <div class="matrix-metric-row">
-              <span class="lbl">Prev. Cumulative:</span>
+              <span class="lbl">Prev. Cum. (${repYear}):</span>
               <span class="val" data-wip-prev="${safe(key)}" data-val="${prevCum}">${prevCum ? money(prevCum) : 'Rs. 0.00'}</span>
             </div>
           </div>
@@ -2072,7 +2541,7 @@ function renderWip() {
               </div>
               <span class="badge completed" id="estBadge_${safe(key)}" style="font-size:11px;font-weight:700;">${estPct}% of Est</span>
             </div>
-            <div style="display:flex;gap:6px;align-items:center;">
+            <div class="matrix-remarks-row" style="display:flex;gap:6px;align-items:center;">
               <input class="matrix-remarks-input" data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Monthly progress remarks, claim notes, invoice status..." style="flex:1;" oninput="recalcProjectRow('${safe(key)}', this)">
               <button class="primary btn-save-row" id="btnSaveCard_${safe(key)}" style="padding:6px 12px;font-size:11.5px;font-weight:700;border-radius:4px;flex-shrink:0;background:var(--primary);color:#fff;cursor:pointer;white-space:nowrap;" onclick="saveWip('${safe(key)}')" title="Save progress for this project only">💾 Save</button>
             </div>
@@ -2083,21 +2552,22 @@ function renderWip() {
     `;
   }).join("");
 
-  // 2. Render Compact Spreadsheet Table View
+  // 2. Render Compact Spreadsheet Table View with Sticky Action Column
   $("wipTable").innerHTML = `
     <thead>
       <tr style="background:var(--bg-surface-subtle);">
-        <th style="padding:7px 8px;text-align:left;font-size:11px;width:80px;white-space:nowrap;">No / Code</th>
-        <th style="padding:7px 8px;text-align:left;font-size:11px;min-width:200px;">Client & Scope</th>
-        <th style="padding:7px 8px;text-align:left;font-size:11px;width:110px;white-space:nowrap;">Assigned Staff</th>
-        <th style="padding:7px 8px;text-align:right;font-size:11px;width:95px;white-space:nowrap;">Estimate (w/o tax)</th>
-        <th style="padding:7px 8px;text-align:right;font-size:11px;width:85px;white-space:nowrap;">Advance (w/o tax)</th>
-        <th style="padding:7px 8px;text-align:right;font-size:11px;width:85px;white-space:nowrap;">Prev. Cum.</th>
-        <th style="padding:7px 8px;text-align:right;font-size:11px;width:100px;color:#0284c7;white-space:nowrap;">Selected Month</th>
-        <th style="padding:7px 8px;text-align:center;font-size:11px;width:55px;white-space:nowrap;">Phys %</th>
-        <th style="padding:7px 8px;text-align:right;font-size:11px;width:95px;color:#10b981;white-space:nowrap;">Total Cum.</th>
-        <th style="padding:7px 8px;text-align:left;font-size:11px;min-width:120px;">Remarks & Notes</th>
-        <th style="padding:7px 8px;text-align:center;font-size:11px;width:75px;white-space:nowrap;">Action</th>
+        <th class="col-sticky-code" style="padding:6px 6px;text-align:left;font-size:10.5px;width:70px;white-space:nowrap;position:sticky;left:0;background:var(--bg-surface-subtle);z-index:3;box-shadow:3px 0 6px rgba(0,0,0,0.12);border-right:1px solid var(--border-color);">No / Code</th>
+        <th style="padding:6px 6px;text-align:left;font-size:10.5px;min-width:160px;max-width:210px;">Client & Scope</th>
+        <th style="padding:6px 6px;text-align:left;font-size:10.5px;width:95px;max-width:120px;white-space:nowrap;">Assigned Staff</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:85px;white-space:nowrap;">Estimate (w/o tax)</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:85px;white-space:nowrap;color:#b45309;" title="Baseline progress billed up to ${priorYear}">Cum. to ${priorYear}</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:75px;white-space:nowrap;">Advance (w/o tax)</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:75px;white-space:nowrap;" title="Cumulative progress billed in ${repYear} before this month">Prev. ${repYear}</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:90px;color:#0284c7;white-space:nowrap;">Selected Month</th>
+        <th style="padding:6px 6px;text-align:center;font-size:10.5px;width:45px;white-space:nowrap;">Phys %</th>
+        <th style="padding:6px 6px;text-align:right;font-size:10.5px;width:85px;color:#10b981;white-space:nowrap;">Total Cum.</th>
+        <th style="padding:6px 6px;text-align:left;font-size:10.5px;min-width:100px;max-width:140px;">Remarks & Notes</th>
+        <th class="col-sticky-action" style="padding:6px 8px;text-align:center;font-size:10.5px;width:110px;white-space:nowrap;position:sticky;right:0;background:var(--bg-surface-subtle);z-index:3;box-shadow:-3px 0 6px rgba(0,0,0,0.18);border-left:1px solid var(--border-color);">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -2107,41 +2577,54 @@ function renderWip() {
         const w = currentWip(p, m);
         const estNoTax = estimateValue(p);
         const adv = advanceValue(p, m);
+        const basePrior = baselinePriorCumulative(p);
+        const currentYearPrev = currentYearPrevCumulativeValue(p, m);
         const prevCum = prevCumulativeValue(p, m);
         const totCum = prevCum + (w.hasMonthData ? w.financial : 0);
 
-        return `<tr style="border-bottom:1px solid var(--border-color-subtle);height:38px;">
-          <td class="code" style="padding:5px 8px;font-size:11.5px;white-space:nowrap;"><b>${safe(code)}</b></td>
-          <td style="padding:5px 8px;font-size:11.5px;max-width:280px;">
-            <div style="font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${safe(p["Client"])}</div>
-            <div style="color:var(--text-muted);font-size:10.5px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;" title="${safe(p["Description"])}">${safe(p["Description"])}</div>
+        return `<tr style="border-bottom:1px solid var(--border-color-subtle);height:36px;">
+          <td class="code col-sticky-code" style="padding:4px 6px;font-size:11px;white-space:nowrap;position:sticky;left:0;background:var(--bg-surface);z-index:2;box-shadow:3px 0 6px rgba(0,0,0,0.08);border-right:1px solid var(--border-color-subtle);"><b>${safe(code)}</b></td>
+          <td style="padding:4px 6px;font-size:11px;max-width:210px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
+              <div style="font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${safe(p["Client"])}</div>
+              <select class="wip-status-select ${statusBadgeClass(status(p))}" style="font-size:9.5px;padding:1px 4px;height:20px;max-width:115px;" onchange="updateProjectStatusInline('${safe(projectId(p))}', this.value)" title="Change project status">
+                ${(state.lookups.statuses || []).map(stOpt => `<option value="${safe(stOpt)}" ${stOpt === status(p) ? 'selected' : ''}>${safe(stOpt)}</option>`).join("")}
+              </select>
+            </div>
+            <div style="color:var(--text-muted);font-size:10px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px;" title="${safe(p["Description"])}">${safe(p["Description"])}</div>
           </td>
-          <td style="padding:5px 8px;font-size:11px;max-width:180px;">
+          <td style="padding:4px 6px;font-size:10.5px;max-width:120px;">
             ${staffBadge(scientist(p), "🔬")}
             ${projectLeader(p) ? `<div style="margin-top:2px;">${staffBadge(projectLeader(p), "👑")}</div>` : ''}
           </td>
-          <td style="padding:5px 8px;text-align:right;font-size:11.5px;white-space:nowrap;">${estNoTax ? money(estNoTax) : '-'}</td>
-          <td style="padding:5px 8px;text-align:right;">
-            <input data-wip-adv="${safe(key)}" type="text" inputmode="decimal" value="${adv ? formatInputCurrency(adv, 2) : ''}" style="width:78px;height:26px;text-align:right;padding:2px 5px;font-size:11px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0.00" oninput="formatCurrencyInputLive(this); recalcProjectRow('${safe(key)}', this)" onblur="formatCurrencyInputBlur(this)">
+          <td style="padding:4px 6px;text-align:right;font-size:11px;white-space:nowrap;">${estNoTax ? money(estNoTax) : '-'}</td>
+          <td style="padding:4px 6px;text-align:right;font-size:10.5px;white-space:nowrap;color:#b45309;font-weight:600;">
+            ${basePrior > 0 ? money(basePrior) : '<span style="color:var(--text-muted);">0.00</span>'}
           </td>
-          <td style="padding:5px 8px;text-align:right;font-size:11px;white-space:nowrap;">
-            <span data-wip-prev="${safe(key)}" data-val="${prevCum}">${prevCum ? money(prevCum) : 'Rs. 0.00'}</span>
+          <td style="padding:4px 6px;text-align:right;">
+            <input data-wip-adv="${safe(key)}" type="text" inputmode="decimal" value="${adv ? formatInputCurrency(adv, 2) : ''}" style="width:70px;height:24px;text-align:right;padding:1px 4px;font-size:10.5px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0.00" oninput="formatCurrencyInputLive(this); recalcProjectRow('${safe(key)}', this)" onblur="formatCurrencyInputBlur(this)">
           </td>
-          <td style="padding:5px 8px;text-align:right;">
-            <input data-wip-wp="${safe(key)}" type="text" inputmode="decimal" value="${w.hasMonthData && w.financial ? formatInputCurrency(w.financial, 2) : ''}" style="width:90px;height:26px;text-align:right;font-weight:700;color:#0284c7;padding:2px 5px;font-size:11.5px;border-radius:4px;border:1px solid rgba(2,132,199,0.4);" placeholder="0.00" oninput="formatCurrencyInputLive(this); recalcProjectRow('${safe(key)}', this)" onblur="formatCurrencyInputBlur(this)">
+          <td style="padding:4px 6px;text-align:right;font-size:10.5px;white-space:nowrap;">
+            <span data-wip-prev="${safe(key)}" data-val="${prevCum}">${currentYearPrev > 0 ? money(currentYearPrev) : '<span style="color:var(--text-muted);">0.00</span>'}</span>
           </td>
-          <td style="padding:5px 8px;text-align:center;">
-            <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${w.hasMonthData && w.physical ? (w.physical * 100) : ''}" style="width:48px;height:26px;text-align:center;padding:2px 3px;font-size:11px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0%" oninput="updateProgressBar('${safe(key)}', this)">
+          <td style="padding:4px 6px;text-align:right;">
+            <input data-wip-wp="${safe(key)}" type="text" inputmode="decimal" value="${w.hasMonthData && w.financial ? formatInputCurrency(w.financial, 2) : ''}" style="width:85px;height:24px;text-align:right;font-weight:700;color:#0284c7;padding:1px 4px;font-size:11px;border-radius:4px;border:1px solid rgba(2,132,199,0.4);" placeholder="0.00" oninput="formatCurrencyInputLive(this); recalcProjectRow('${safe(key)}', this)" onblur="formatCurrencyInputBlur(this)">
           </td>
-          <td style="padding:5px 8px;text-align:right;font-size:11.5px;white-space:nowrap;">
+          <td style="padding:4px 6px;text-align:center;">
+            <input data-wip-p="${safe(key)}" type="number" step="0.01" min="0" max="100" value="${w.hasMonthData && w.physical ? (w.physical * 100) : ''}" style="width:40px;height:24px;text-align:center;padding:1px 2px;font-size:10.5px;border-radius:4px;border:1px solid var(--border-color);" placeholder="0%" oninput="updateProgressBar('${safe(key)}', this)">
+          </td>
+          <td style="padding:4px 6px;text-align:right;font-size:11px;white-space:nowrap;">
             <b data-wip-total="${safe(key)}" style="color:#10b981;">${money(totCum)}</b>
           </td>
-          <td style="padding:5px 8px;">
-            <input data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Notes..." style="width:100%;height:26px;padding:2px 6px;font-size:11px;border-radius:4px;border:1px solid var(--border-color);" oninput="recalcProjectRow('${safe(key)}', this)">
-            ${w.updatedBy ? `<div style="font-size:9px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Updated by ${safe(w.updatedBy)}">✍️ ${safe(w.updatedBy)}</div>` : ''}
+          <td style="padding:4px 6px;max-width:140px;">
+            <input data-wip-r="${safe(key)}" value="${safe(w.remarks || '')}" placeholder="Notes..." style="width:100%;height:24px;padding:1px 5px;font-size:10.5px;border-radius:4px;border:1px solid var(--border-color);" oninput="recalcProjectRow('${safe(key)}', this)">
+            ${w.updatedBy ? `<div style="font-size:8.5px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="Updated by ${safe(w.updatedBy)}">✍️ ${safe(w.updatedBy)}</div>` : ''}
           </td>
-          <td style="padding:5px 8px;text-align:center;white-space:nowrap;">
-            <button class="primary btn-save-row" id="btnSaveRow_${safe(key)}" style="padding:3px 8px;font-size:11px;font-weight:700;height:26px;border-radius:4px;background:#2563eb;color:#fff;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:3px;" onclick="saveWip('${safe(key)}')" title="Save progress for this project only">💾 Save</button>
+          <td class="col-sticky-action" style="padding:4px 6px;text-align:center;white-space:nowrap;position:sticky;right:0;background:var(--bg-surface);z-index:2;box-shadow:-3px 0 6px rgba(0,0,0,0.18);border-left:1px solid var(--border-color-subtle);">
+            <div style="display:inline-flex;align-items:center;gap:4px;">
+              <button class="primary btn-save-row" id="btnSaveRow_${safe(key)}" style="padding:3px 8px;font-size:11px;font-weight:700;height:26px;border-radius:4px;background:#2563eb;color:#fff;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:3px;" onclick="saveWip('${safe(key)}')" title="Save progress for this project only">💾</button>
+              <button class="btn-delegate-wip table-btn" onclick="openTeamHandoffModal('${safe(projectCode(p))}')" title="Delegate WIP update to colleague / team member">📨 Delegate</button>
+            </div>
           </td>
         </tr>`;
       }).join("")}
@@ -2165,12 +2648,44 @@ async function saveFinanceSummary() {
   const out = parseNum($("summaryOut")?.value);
   const inter = parseNum($("summaryInter")?.value);
 
-  let totalWp = 0;
-  document.querySelectorAll("[data-wip-wp]").forEach(el => {
-    totalWp += parseNum(el.value);
+  // Collect live user input edits with deduplication by project key (prevents double counting between cards & table views)
+  const liveInputs = new Map();
+  document.querySelectorAll("input[data-wip-wp]").forEach(el => {
+    const key = el.getAttribute("data-wip-wp");
+    if (key) liveInputs.set(norm(key), parseNum(el.value));
   });
 
-  const income = totalWp > 0 ? totalWp : (mr + out);
+  let totalWp = 0;
+  state.projects.forEach(p => {
+    const key = norm(projectId(p) || projectCode(p));
+    if (liveInputs.has(key)) {
+      totalWp += liveInputs.get(key);
+    } else {
+      const r = getWipRow(p, m);
+      if (r) totalWp += workingProgressValue(r);
+    }
+  });
+
+  const matchedCodes = new Set(state.projects.map(p => norm(projectCode(p))));
+  state.wip.forEach(w => {
+    if (reportingMonth(w) === m) {
+      const c = norm(w["Project Code"] ?? w.projectCode ?? w["Project ID"]);
+      if (c && !matchedCodes.has(c)) {
+        if (liveInputs.has(c)) {
+          totalWp += liveInputs.get(c);
+        } else {
+          totalWp += workingProgressValue(w);
+        }
+      }
+    }
+  });
+
+  const divFin = getDivisionFinance(m);
+  if (totalWp === 0 && divFin.workingProgress > 0) {
+    totalWp = divFin.workingProgress;
+  }
+
+  const income = totalWp + mr + out;
   const profit = income - exp - inter;
   const profitPct = income > 0 ? (profit / income) * 100 : 0;
 
@@ -2230,7 +2745,6 @@ async function saveFinanceSummary() {
 
 async function saveWip(singleProjectKey = null) {
   const m = $("wipMonth")?.value || state.month;
-  const active = state.projects.filter(p => status(p) !== "Completed");
   const btn = $("saveWipBtn");
   if (btn && !singleProjectKey) {
     btn.disabled = true;
@@ -2273,8 +2787,15 @@ async function saveWip(singleProjectKey = null) {
     };
 
     const targets = singleProjectKey 
-      ? active.filter(p => (projectId(p) === singleProjectKey || projectCode(p) === singleProjectKey))
-      : active;
+      ? (state.projects.filter(p => (norm(projectId(p)) === norm(singleProjectKey) || norm(projectCode(p)) === norm(singleProjectKey))).length 
+          ? state.projects.filter(p => (norm(projectId(p)) === norm(singleProjectKey) || norm(projectCode(p)) === norm(singleProjectKey)))
+          : [{ "Project Code": singleProjectKey, "Project ID": singleProjectKey }])
+      : state.projects.filter(p => {
+          const st = status(p).toLowerCase().trim();
+          const w = currentWip(p, m);
+          const hasMonthWip = Boolean(w && w.hasMonthData && w.financial > 0);
+          return st !== "completed" || hasMonthWip;
+        });
 
     targets.forEach(p => {
       const code = projectCode(p);
@@ -2350,17 +2871,27 @@ async function saveWip(singleProjectKey = null) {
       } catch(e){}
     }
 
-    // 4. Send ONLY the changed records to Central Database
+    // 4. Send ONLY the changed records to Central Database (Google Sheets MONTHLY_WIP)
     await apiPost("saveMonthlyWIP", { records: changedRecords });
     logSystemAction("WIP_SAVE", m, `Submitted progress records for ${changedRecords.length} project(s)`);
     showToast(`✓ Saved and synchronized ${changedRecords.length} project record(s)!`);
 
-    // 5. Automatically recalculate & background-sync Division Monthly Financial Summary
+    // 5. Automatically recalculate & background-sync Division Monthly Financial Summary (Google Sheets MONTHLY_FINANCE_SUMMARY)
     try {
       let totalWp = 0;
-      state.projects.filter(p => status(p) !== "Completed").forEach(p => {
+      state.projects.forEach(p => {
         const w = currentWip(p, m);
         if (w && w.hasMonthData) totalWp += (w.financial || 0);
+      });
+
+      const matchedCodes = new Set(state.projects.map(p => norm(projectCode(p))));
+      state.wip.forEach(w => {
+        if (reportingMonth(w) === m) {
+          const c = norm(w["Project Code"] ?? w.projectCode ?? w["Project ID"]);
+          if (c && !matchedCodes.has(c)) {
+            totalWp += workingProgressValue(w);
+          }
+        }
       });
 
       const divFin = getDivisionFinance(m);
@@ -2370,7 +2901,7 @@ async function saveWip(singleProjectKey = null) {
       const mr = divFin.moneyReceived || 0;
       const out = divFin.outstanding || 0;
       const inter = divFin.interdivisional || 0;
-      const income = totalWp > 0 ? totalWp : (mr + out);
+      const income = totalWp + mr + out;
       const profit = income - exp - inter;
       const profitPct = income > 0 ? (profit / income) * 100 : 0;
 
@@ -2386,6 +2917,7 @@ async function saveWip(singleProjectKey = null) {
         income,
         profit,
         profitPct: Number(profitPct.toFixed(2)),
+        userRole: state.user?.role || "Admin",
         updatedBy: userLabel,
         updatedAt: nowIso
       };
@@ -2393,7 +2925,11 @@ async function saveWip(singleProjectKey = null) {
       const existingIdx = state.financeSummary.findIndex(x => reportingMonth(x) === m);
       if (existingIdx >= 0) state.financeSummary[existingIdx] = finPayload;
       else state.financeSummary.push(finPayload);
+
+      // Immediately refresh top cards and indicators on screen
+      recalcFinanceSummary();
       renderProfitabilitySection();
+      renderAlerts();
 
       // Background sync to Central Database
       apiPost("saveFinanceSummary", finPayload).catch(e => console.warn("Auto-sync finance summary warning:", e));
@@ -2737,6 +3273,425 @@ function exportFinanceCSV() {
 }
 window.exportFinanceCSV = exportFinanceCSV;
 
+/* =========================================================================
+   PROJECT 360° / DOSSIER DASHBOARD ENGINE
+   ========================================================================= */
+
+state.selectedDossierProjectCode = "";
+const dossierChartInstances = { trajectory: null, donut: null };
+
+function populateDossierSelector(preferredCode = "") {
+  const sel = $("dossierProjectSelect");
+  if (!sel) return;
+
+  const projects = state.projects || [];
+  if (!projects.length) {
+    sel.innerHTML = `<option value="">No projects available</option>`;
+    return;
+  }
+
+  // Sort projects alphabetically by code
+  const sorted = projects.slice().sort((a, b) => 
+    projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' })
+  );
+
+  const activeCode = preferredCode || state.selectedDossierProjectCode || projectCode(sorted[0]);
+  state.selectedDossierProjectCode = activeCode;
+
+  sel.innerHTML = `<option value="">Select a project to view 360° Dossier...</option>` + sorted.map(p => {
+    const c = projectCode(p);
+    const client = p["Client"] || "Client";
+    const sc = staffDisplayName(scientist(p)) || scientist(p) || "";
+    const label = `${c} · ${client}${sc ? ' (' + sc + ')' : ''}`;
+    return `<option value="${safe(c)}" ${c === activeCode ? 'selected' : ''}>${safe(label)}</option>`;
+  }).join("");
+}
+
+function openProjectDossier(projectCodeOrId) {
+  if (!projectCodeOrId) return;
+  const p = state.projects.find(x => projectCode(x) === projectCodeOrId || projectId(x) === projectCodeOrId);
+  const code = p ? projectCode(p) : projectCodeOrId;
+  state.selectedDossierProjectCode = code;
+  switchTab("dossier");
+  populateDossierSelector(code);
+  renderProjectDossier(code);
+}
+window.openProjectDossier = openProjectDossier;
+
+function navigateDossier(direction) {
+  const projects = (state.projects || []).slice().sort((a, b) => 
+    projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' })
+  );
+  if (!projects.length) return;
+
+  let currIdx = projects.findIndex(p => projectCode(p) === state.selectedDossierProjectCode);
+  if (currIdx < 0) currIdx = 0;
+
+  let newIdx = currIdx + direction;
+  if (newIdx < 0) newIdx = projects.length - 1;
+  if (newIdx >= projects.length) newIdx = 0;
+
+  const nextCode = projectCode(projects[newIdx]);
+  const sel = $("dossierProjectSelect");
+  if (sel) sel.value = nextCode;
+  renderProjectDossier(nextCode);
+}
+window.navigateDossier = navigateDossier;
+
+function editSelectedDossierProject() {
+  const code = state.selectedDossierProjectCode;
+  if (!code) {
+    showToast("No project selected to edit.", true);
+    return;
+  }
+  const p = state.projects.find(x => projectCode(x) === code || projectId(x) === code);
+  if (p) {
+    editProject(projectId(p));
+  } else {
+    showToast("Project not found in register.", true);
+  }
+}
+window.editSelectedDossierProject = editSelectedDossierProject;
+
+function printProjectDossier() {
+  window.print();
+}
+window.printProjectDossier = printProjectDossier;
+
+function renderProjectDossier(targetCodeOrId) {
+  if (!targetCodeOrId) {
+    targetCodeOrId = $("dossierProjectSelect")?.value || state.selectedDossierProjectCode;
+  }
+  if (!targetCodeOrId && state.projects.length > 0) {
+    targetCodeOrId = projectCode(state.projects[0]);
+  }
+  if (!targetCodeOrId) return;
+
+  const p = state.projects.find(x => projectCode(x) === targetCodeOrId || projectId(x) === targetCodeOrId);
+  if (!p) {
+    if ($("dossierCode")) $("dossierCode").textContent = "Project Not Found";
+    return;
+  }
+
+  state.selectedDossierProjectCode = projectCode(p);
+  const code = projectCode(p);
+  const estVal = estimateValue(p);
+  const advVal = advanceValue(p);
+  const pYear = registeredYear(p);
+  const st = status(p);
+  const wg = p["Working Group"] || "General";
+  const stBadgeClass = statusBadgeClass(st);
+
+  // 1. Update Header Card
+  if ($("dossierCode")) $("dossierCode").textContent = code;
+  if ($("dossierClient")) $("dossierClient").textContent = p["Client"] || "Unnamed Client";
+  if ($("dossierDesc")) $("dossierDesc").textContent = p["Description"] || "No description provided.";
+  
+  if ($("dossierStatusBadge")) {
+    $("dossierStatusBadge").className = `badge ${stBadgeClass}`;
+    $("dossierStatusBadge").textContent = st;
+  }
+  if ($("dossierGroupBadge")) $("dossierGroupBadge").textContent = `Group: ${wg}`;
+  if ($("dossierYearBadge")) $("dossierYearBadge").textContent = `Year ${pYear}`;
+
+  if ($("dossierScientists")) {
+    $("dossierScientists").innerHTML = staffBadges(scientist(p), "🔬");
+  }
+  if ($("dossierLeaderWrap")) {
+    const ldr = projectLeader(p);
+    $("dossierLeaderWrap").innerHTML = ldr ? `Leader: ${staffBadge(ldr, "👔")}` : "";
+  }
+
+  // 2. Extract 12-Month Progress Records for 2026
+  const currentRepYear = (state.month || "2026-06").split("-")[0] || "2026";
+  const months = getMonthsForYear(currentRepYear);
+  const baselinePrior = baselinePriorCumulative(p);
+
+  let runningCum = baselinePrior;
+  const monthlyData = [];
+  let latestPhysicalPct = 0;
+  let hasRecordedMonths = 0;
+
+  months.forEach(mObj => {
+    const mKey = mObj.key;
+    const r = getWipRow(code, mKey);
+    const mProgress = r ? workingProgressValue(r) : 0;
+    const mPhys = r ? physicalValue(r) : null;
+    const remarks = r ? (r["Remarks"] || r.remarks || "") : "";
+
+    if (r && (mProgress > 0 || mPhys !== null || remarks)) {
+      hasRecordedMonths++;
+    }
+
+    if (mPhys !== null && mPhys !== undefined && !isNaN(mPhys)) {
+      latestPhysicalPct = Math.round(mPhys * 100);
+    }
+
+    runningCum += mProgress;
+
+    monthlyData.push({
+      key: mKey,
+      label: mObj.label,
+      progress: mProgress,
+      cumProgress: runningCum,
+      physicalPct: (mPhys !== null && mPhys !== undefined) ? Math.round(mPhys * 100) : null,
+      remarks: remarks,
+      hasData: Boolean(r && (mProgress > 0 || mPhys !== null))
+    });
+  });
+
+  const totalCumulativeBilled = runningCum;
+  const unbilledBacklog = Math.max(0, estVal - totalCumulativeBilled);
+  const financialPct = estVal > 0 ? ((totalCumulativeBilled / estVal) * 100) : 0;
+  const billingLag = latestPhysicalPct - financialPct;
+
+  // 3. Render Top 6 KPI Cards
+  const kpiEl = $("dossierKpiCards");
+  if (kpiEl) {
+    let lagBadge = `<span style="color:#059669;font-weight:700;">✅ Aligned</span>`;
+    if (billingLag >= 25) {
+      lagBadge = `<span style="color:#dc2626;font-weight:700;">⚠️ Lagging (${billingLag.toFixed(0)}% Gap)</span>`;
+    } else if (financialPct > 100) {
+      lagBadge = `<span style="color:#7c3aed;font-weight:700;">⭐ Over-Delivered</span>`;
+    }
+
+    kpiEl.innerHTML = `
+      <div class="card" style="border-left:4px solid var(--primary);">
+        <div class="label" style="font-size:11px;font-weight:700;">1. Contract Estimate</div>
+        <div class="value" style="font-size:18px;color:var(--primary);">${money(estVal)}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Baseline Budget</div>
+      </div>
+      <div class="card" style="border-left:4px solid #10b981;">
+        <div class="label" style="font-size:11px;font-weight:700;">2. Cumulative Billed</div>
+        <div class="value" style="font-size:18px;color:#10b981;">${money(totalCumulativeBilled)}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Prior: ${money(baselinePrior)}</div>
+      </div>
+      <div class="card" style="border-left:4px solid #2563eb;">
+        <div class="label" style="font-size:11px;font-weight:700;">3. Unbilled Backlog</div>
+        <div class="value" style="font-size:18px;color:#2563eb;">${money(unbilledBacklog)}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Remaining Delivery</div>
+      </div>
+      <div class="card" style="border-left:4px solid #f59e0b;">
+        <div class="label" style="font-size:11px;font-weight:700;">4. Mobilization Advance</div>
+        <div class="value" style="font-size:18px;color:#d97706;">${money(advVal)}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Advance Paid Upfront</div>
+      </div>
+      <div class="card" style="border-left:4px solid #7c3aed;">
+        <div class="label" style="font-size:11px;font-weight:700;">5. Progress Completion</div>
+        <div class="value" style="font-size:18px;color:#7c3aed;">
+          ${latestPhysicalPct}% <span style="font-size:12px;color:var(--text-secondary);">Phys</span> · ${financialPct.toFixed(0)}% <span style="font-size:12px;color:var(--text-secondary);">Fin</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Work vs. Invoiced</div>
+      </div>
+      <div class="card" style="border-left:4px solid ${billingLag >= 25 ? '#ef4444' : '#10b981'};">
+        <div class="label" style="font-size:11px;font-weight:700;">6. Delivery Alignment</div>
+        <div class="value" style="font-size:16px;margin-top:2px;">${lagBadge}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Execution Health</div>
+      </div>
+    `;
+  }
+
+  // 4. Render Health Alert Banner if applicable
+  const healthEl = $("dossierHealthBanner");
+  if (healthEl) {
+    if (billingLag >= 25 && estVal > 0) {
+      healthEl.style.display = "block";
+      healthEl.className = "alert red";
+      healthEl.innerHTML = `⚠️ <b>Significant Billing Lag Alert:</b> This project is reported at <b>${latestPhysicalPct}% physical completion</b>, but only <b>${financialPct.toFixed(1)}% (${money(totalCumulativeBilled)})</b> has been billed financially. Recommended action: Submit outstanding progress claims to close the ${money(estVal * (billingLag / 100))} unbilled gap.`;
+    } else if (financialPct >= 100 && st !== "Completed") {
+      healthEl.style.display = "block";
+      healthEl.className = "alert green";
+      healthEl.innerHTML = `✅ <b>Contract Realization Completed:</b> 100% of the initial estimate has been billed (${money(totalCumulativeBilled)}). Project is financially delivered and ready for formal completion.`;
+    } else {
+      healthEl.style.display = "none";
+    }
+  }
+
+  // 5. Render 12-Month Progress Table
+  if ($("dossierWipCountBadge")) $("dossierWipCountBadge").textContent = `${hasRecordedMonths} Months Active in ${currentRepYear}`;
+  const tbody = $("dossierMonthlyTbody");
+  if (tbody) {
+    tbody.innerHTML = monthlyData.map(mRow => {
+      const physText = mRow.physicalPct !== null ? `${mRow.physicalPct}%` : `—`;
+      const isCurrentMonth = mRow.key === (state.month || "2026-06");
+      const rowBg = isCurrentMonth ? "background:var(--bg-surface-subtle);font-weight:600;" : "";
+
+      return `
+        <tr style="${rowBg}border-bottom:1px solid var(--border-color-subtle);">
+          <td>
+            <b>${safe(mRow.label)} ${currentRepYear}</b>
+            ${isCurrentMonth ? `<span class="badge in-progress" style="font-size:9px;margin-left:4px;padding:1px 4px;">Active</span>` : ''}
+          </td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums;color:${mRow.progress > 0 ? 'var(--primary)' : 'var(--text-muted)'};">
+            ${mRow.progress > 0 ? money(mRow.progress) : '0.00'}
+          </td>
+          <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--text-primary);">
+            ${money(mRow.cumProgress)}
+          </td>
+          <td style="text-align:center;">
+            ${mRow.physicalPct !== null ? `<span class="badge secondary" style="font-size:10px;padding:2px 6px;">${physText}</span>` : `<span style="color:var(--text-muted);">—</span>`}
+          </td>
+          <td style="font-size:11.5px;color:var(--text-secondary);">
+            ${safe(mRow.remarks || "—")}
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  // 6. Render Charts
+  renderDossierCharts(p, monthlyData, estVal, totalCumulativeBilled, unbilledBacklog, latestPhysicalPct, financialPct);
+}
+window.renderProjectDossier = renderProjectDossier;
+
+function renderDossierCharts(project, monthlyData, estVal, totalBilled, unbilled, physicalPct, financialPct) {
+  if (typeof Chart === "undefined") {
+    setTimeout(() => renderDossierCharts(project, monthlyData, estVal, totalBilled, unbilled, physicalPct, financialPct), 150);
+    return;
+  }
+
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const textColor = isDark ? "#e2e8f0" : "#334155";
+  const gridColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.06)";
+
+  const labels = monthlyData.map(x => x.label);
+  const monthlyProgressVals = monthlyData.map(x => x.progress);
+  const cumulativeVals = monthlyData.map(x => x.cumProgress);
+
+  // CHART 1: Monthly Progress (Bars) + Cumulative Trajectory (Line)
+  const ctxTraj = $("chartDossierTrajectory")?.getContext("2d");
+  if (ctxTraj) {
+    if (dossierChartInstances.trajectory) dossierChartInstances.trajectory.destroy();
+
+    dossierChartInstances.trajectory = new Chart(ctxTraj, {
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            type: "bar",
+            label: "Monthly Progress Billed (Rs.)",
+            data: monthlyProgressVals,
+            backgroundColor: "#0284c7",
+            borderRadius: 4,
+            order: 2
+          },
+          {
+            type: "line",
+            label: "Cumulative Total (Rs.)",
+            data: cumulativeVals,
+            borderColor: "#10b981",
+            backgroundColor: "rgba(16, 185, 129, 0.1)",
+            borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: "#10b981",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            tension: 0.2,
+            fill: true,
+            order: 1
+          },
+          {
+            type: "line",
+            label: "Contract Estimate Baseline",
+            data: labels.map(() => estVal),
+            borderColor: "#ef4444",
+            borderDash: [5, 5],
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false,
+            order: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { labels: { color: textColor, font: { size: 11, weight: "600" } } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.dataset.label}: ${money(ctx.parsed.y)}`
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { color: textColor, font: { weight: "600" } }, grid: { display: false } },
+          y: {
+            ticks: {
+              color: textColor,
+              callback: (v) => formatRupeeMillions(v)
+            },
+            grid: { color: gridColor },
+            suggestedMin: 0
+          }
+        }
+      }
+    });
+  }
+
+  // CHART 2: Contract Budget Utilization Donut
+  const ctxDonut = $("chartDossierDonut")?.getContext("2d");
+  if (ctxDonut) {
+    if (dossierChartInstances.donut) dossierChartInstances.donut.destroy();
+
+    const donutData = estVal > 0 
+      ? [Math.min(estVal, totalBilled), unbilled]
+      : [totalBilled || 1, 0];
+
+    dossierChartInstances.donut = new Chart(ctxDonut, {
+      type: "doughnut",
+      data: {
+        labels: ["Billed Revenue", "Unbilled Balance"],
+        datasets: [
+          {
+            data: donutData,
+            backgroundColor: ["#10b981", isDark ? "#334155" : "#e2e8f0"],
+            borderWidth: 2,
+            borderColor: isDark ? "#1e293b" : "#ffffff"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "bottom", labels: { color: textColor, font: { size: 11, weight: "600" } } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => ` ${ctx.label}: ${money(ctx.parsed)}`
+            }
+          }
+        },
+        cutout: "70%"
+      }
+    });
+  }
+
+  // Update Donut Gauge Stats Breakdown
+  const statsEl = $("dossierGaugeStats");
+  if (statsEl) {
+    statsEl.innerHTML = `
+      <div class="dossier-gauge-row">
+        <span><b>Physical Work Completion</b></span>
+        <span style="font-weight:800;color:var(--primary);">${physicalPct}%</span>
+      </div>
+      <div class="dossier-gauge-row">
+        <span><b>Financial Invoicing Rate</b></span>
+        <span style="font-weight:800;color:#10b981;">${financialPct.toFixed(1)}%</span>
+      </div>
+      <div class="dossier-gauge-row">
+        <span><b>Total Contract Baseline</b></span>
+        <span style="font-weight:700;color:var(--text-primary);">${money(estVal)}</span>
+      </div>
+      <div class="dossier-gauge-row">
+        <span><b>Unbilled Contract Balance</b></span>
+        <span style="font-weight:700;color:#2563eb;">${money(unbilled)}</span>
+      </div>
+    `;
+  }
+}
+
 function openAboutDialog() {
   const dlg = $("aboutDialog");
   if (dlg) {
@@ -2759,8 +3714,13 @@ function openNew() {
   if ($("fYear")) $("fYear").value = new Date().getFullYear();
   renderEngineerChecklist([]);
   
+  const currentRepYear = Number((state.month || "2026").split("-")[0]) || new Date().getFullYear();
+  const priorYear = currentRepYear - 1;
+  if ($("fPriorCumulativeLabel")) $("fPriorCumulativeLabel").textContent = `Total Cumulative up to ${priorYear} (Rs.)`;
+  if ($("fPriorCumulative")) $("fPriorCumulative").value = "";
+
   // Re-enable form inputs in case previous view was read-only
-  ["fCode", "fYear", "fClient", "fDesc", "fGroup", "fEstimate", "fAdvance", "fStatus"].forEach(id => {
+  ["fCode", "fYear", "fClient", "fDesc", "fGroup", "fEstimate", "fPriorCumulative", "fAdvance", "fStatus"].forEach(id => {
     if ($(id)) $(id).disabled = false;
   });
   if ($("saveProjectBtn")) {
@@ -2789,6 +3749,11 @@ function editProject(id) {
   $("fClient").value = safe(p["Client"]);
   $("fDesc").value = safe(p["Description"]);
 
+  const currentRepYear = Number((state.month || "2026").split("-")[0]) || new Date().getFullYear();
+  const priorYear = currentRepYear - 1;
+  if ($("fPriorCumulativeLabel")) $("fPriorCumulativeLabel").textContent = `Total Cumulative up to ${priorYear} (Rs.)`;
+  if ($("fPriorCumulative")) $("fPriorCumulative").value = formatInputCurrency(baselinePriorCumulative(p), 2);
+
   // Set Working Group Leader from Leader options
   const grpVal = safe(p["Working Group"] || projectLeader(p)).trim();
   if ($("fGroup")) {
@@ -2816,7 +3781,7 @@ function editProject(id) {
   $("fStatus").value = status(p);
 
   // Form field state (Read-Only for Viewer vs Editable for Editors/Admins)
-  ["fCode", "fYear", "fClient", "fDesc", "fGroup", "fEstimate", "fAdvance", "fStatus"].forEach(fId => {
+  ["fCode", "fYear", "fClient", "fDesc", "fGroup", "fEstimate", "fPriorCumulative", "fAdvance", "fStatus"].forEach(fId => {
     if ($(fId)) $(fId).disabled = isViewer;
   });
 
@@ -2863,8 +3828,12 @@ async function saveProject(e) {
   const yearVal = $("fYear")?.value?.trim() || String(new Date().getFullYear());
   const engineerVal = $("fEngineer")?.value || "";
   const groupVal = $("fGroup")?.value || "";
+  const priorCumVal = parseNum($("fPriorCumulative")?.value || 0);
   const userLabel = getCurrentUserDisplayName();
   const nowIso = new Date().toISOString();
+
+  const currentRepYear = Number((state.month || "2026").split("-")[0]) || new Date().getFullYear();
+  const priorYear = currentRepYear - 1;
 
   const project = {
     "Project Code": codeVal,
@@ -2875,6 +3844,8 @@ async function saveProject(e) {
     "Working Group": groupVal,
     "Responsible Engineer": engineerVal,
     "Initial Estimate": parseNum($("fEstimate").value),
+    "Total Cumulative up to 2025": priorCumVal,
+    [`Total Cumulative up to ${priorYear}`]: priorCumVal,
     "Advance Amount": parseNum($("fAdvance").value),
     "Status": stVal,
     "Updated By": userLabel,
@@ -3022,7 +3993,8 @@ function exportWipA3Pdf() {
   const divFin = getDivisionFinance(m);
   const activeProjects = (state.projects || []).filter(p => {
     const st = status(p).toLowerCase().trim();
-    return st !== "completed";
+    const w = currentWip(p, m);
+    return st !== "completed" || (w && (w.hasMonthData || w.financial > 0));
   }).sort((a, b) => projectCode(a).localeCompare(projectCode(b), undefined, { numeric: true, sensitivity: 'base' }));
 
   const fmt = n => {
@@ -3036,10 +4008,10 @@ function exportWipA3Pdf() {
   };
 
   let totalEstNoTax = 0;
-  let totalBase2025 = 0;
-  let totalAdv2026 = 0;
+  let totalBasePrior = 0;
+  let totalAdv = 0;
   let totalMonthProgress = 0;
-  let totalCum2026 = 0;
+  let totalCumYear = 0;
   let totalCumulative = 0;
 
   const rowsHtml = activeProjects.map(p => {
@@ -3047,19 +4019,20 @@ function exportWipA3Pdf() {
     const desc = p["Description"] || "";
     const client = p["Client"] || "";
     const estNoTax = estimateValue(p);
-    const adv2026 = advanceValue(p, m);
+    const adv = advanceValue(p, m);
     const advDate = p["Advance Date"] || p["Advance Received Date"] || "";
     const w = currentWip(p, m);
+    const basePrior = baselinePriorCumulative(p);
     const prevCum = prevCumulativeValue(p, m);
     const monthProg = w.hasMonthData ? w.financial : 0;
     const totCum = prevCum + monthProg;
-    const cumYear = (w.hasMonthData ? w.financial : 0);
+    const cumYear = (totCum - basePrior);
 
     totalEstNoTax += (estNoTax || 0);
-    totalBase2025 += (prevCum || 0);
-    totalAdv2026 += (adv2026 || 0);
+    totalBasePrior += (basePrior || 0);
+    totalAdv += (adv || 0);
     totalMonthProgress += (monthProg || 0);
-    totalCum2026 += (cumYear || 0);
+    totalCumYear += (cumYear || 0);
     totalCumulative += (totCum || 0);
 
     const sc = scientist(p);
@@ -3074,20 +4047,16 @@ function exportWipA3Pdf() {
     return `
       <tr>
         <td class="col-no"><span class="code-pill">${safe(code)}</span></td>
-        <td class="col-desc">
-          <div class="desc-text">${safe(desc)}</div>
-        </td>
+        <td class="col-desc"><div class="desc-text">${safe(desc)}</div></td>
         <td class="col-client"><div class="client-name">${safe(client)}</div></td>
         <td class="col-num">${fmt(estNoTax)}</td>
-        <td class="col-num col-shade-peach">${fmt(prevCum)}</td>
-        <td class="col-num col-shade-blue">${fmt(adv2026)}</td>
+        <td class="col-num col-shade-peach">${fmt(basePrior)}</td>
+        <td class="col-adv col-shade-blue">${fmt(adv)}</td>
         <td class="col-date col-shade-blue">${safe(advDate)}</td>
         <td class="col-num col-shade-blue highlight-month">${fmt(monthProg)}</td>
         <td class="col-num col-shade-blue">${fmt(cumYear)}</td>
-        <td class="col-num col-shade-mint bold-total">${fmt(totCum)}</td>
-        <td class="col-eng">
-          <span class="eng-name">${safe(engStr)}</span>
-        </td>
+        <td class="col-tot col-shade-mint bold-total">${fmt(totCum)}</td>
+        <td class="col-eng"><div class="eng-name">${safe(engStr)}</div></td>
       </tr>
     `;
   }).join("");
@@ -3103,15 +4072,15 @@ function exportWipA3Pdf() {
   <style>
     @page {
       size: A3 landscape;
-      margin: 8mm 10mm;
+      margin: 6mm 8mm;
     }
     * { box-sizing: border-box; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 10px;
+      font-size: 8.5px;
       color: #1e293b;
       margin: 0;
-      padding: 12px;
+      padding: 8px;
       background: #f8fafc;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
@@ -3124,14 +4093,14 @@ function exportWipA3Pdf() {
       align-items: center;
       background: #0f172a;
       color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
     }
     .toolbar-title {
       font-weight: 700;
-      font-size: 13.5px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -3140,10 +4109,10 @@ function exportWipA3Pdf() {
       background: #2563eb;
       color: #fff;
       border: none;
-      padding: 7px 16px;
-      font-size: 12.5px;
+      padding: 6px 14px;
+      font-size: 12px;
       font-weight: 700;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -3162,77 +4131,77 @@ function exportWipA3Pdf() {
 
     .report-sheet {
       background: #fff;
-      border-radius: 8px;
-      padding: 16px 20px;
+      border-radius: 6px;
+      padding: 10px 14px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       border: 1px solid #e2e8f0;
     }
 
-    /* EXECUTIVE HEADER LAYOUT */
+    /* EXECUTIVE HEADER LAYOUT - COMPACT & BALANCED */
     .report-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
-      gap: 24px;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 16px;
       border-bottom: 2px solid #0f172a;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     }
     .header-titles {
       flex: 1;
     }
     .org-subtitle {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.6px;
       color: #64748b;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
     .header-titles h1 {
       margin: 0;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       color: #0f172a;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.2px;
     }
     .header-titles h2 {
-      margin: 4px 0 0;
-      font-size: 12.5px;
+      margin: 2px 0 0;
+      font-size: 11.5px;
       font-weight: 600;
       color: #0284c7;
     }
 
-    /* MODERN DIVISION FINANCIAL SUMMARY BOX */
+    /* MODERN COMPACT DIVISION FINANCIAL SUMMARY BOX */
     .summary-card {
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 5px;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
     .summary-box {
       border-collapse: collapse;
-      font-size: 10px;
+      font-size: 8.5px;
     }
     .summary-box td {
       border: 1px solid #e2e8f0;
-      padding: 3.5px 9px;
+      padding: 2.5px 7px;
       white-space: nowrap;
     }
     .summary-box td.label {
       font-weight: 600;
       background: #f8fafc;
       color: #475569;
-      font-size: 9.5px;
+      font-size: 8.5px;
     }
     .summary-box td.val {
       text-align: right;
       font-variant-numeric: tabular-nums;
       font-weight: 700;
       color: #0f172a;
-      min-width: 100px;
-      font-size: 10px;
+      min-width: 90px;
+      font-size: 8.5px;
     }
     .summary-box td.highlight-wp {
       background: #f0f9ff;
@@ -3245,23 +4214,23 @@ function exportWipA3Pdf() {
       font-weight: 800;
     }
 
-    /* MODERN A3 DATA MATRIX TABLE */
+    /* MODERN A3 DATA MATRIX TABLE - COMPACT WITH GENEROUS CONTENT SPACE */
     table.data-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      font-size: 9.5px;
+      font-size: 8.5px;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border-radius: 5px;
       overflow: hidden;
     }
     table.data-table th, table.data-table td {
       border-right: 1px solid #e2e8f0;
       border-bottom: 1px solid #e2e8f0;
-      padding: 4px 6px;
+      padding: 2.5px 4.5px;
       vertical-align: middle;
-      line-height: 1.3;
+      line-height: 1.25;
     }
     table.data-table th:last-child, table.data-table td:last-child {
       border-right: none;
@@ -3271,15 +4240,16 @@ function exportWipA3Pdf() {
       color: #f8fafc;
       font-weight: 700;
       text-align: center;
-      font-size: 9px;
-      letter-spacing: 0.1px;
-      padding: 5px 6px;
+      font-size: 8.5px;
+      letter-spacing: 0.05px;
+      padding: 3.5px 4px;
     }
     table.data-table thead tr:first-child th {
-      border-bottom: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
     table.data-table tbody tr {
       background: #fff;
+      height: 20px;
     }
     table.data-table tbody tr:nth-child(even) {
       background: #f8fafc;
@@ -3288,46 +4258,51 @@ function exportWipA3Pdf() {
       background: #f1f5f9;
     }
 
-    /* SPECIFIC COLUMN WIDTHS & STYLING */
-    .col-no { width: 68px; text-align: center; white-space: nowrap; }
-    .col-desc { width: 275px; }
-    .col-client { width: 110px; }
-    .col-num { width: 102px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .col-date { width: 75px; text-align: center; font-size: 9px; white-space: nowrap; }
-    .col-eng { width: 165px; font-size: 9px; }
+    /* SPECIFIC COLUMN WIDTHS & STYLING (GIVE SPACE WHERE NEEDED!) */
+    .col-w-no, .col-no { width: 3.5% !important; max-width: 3.5% !important; text-align: center; white-space: nowrap; }
+    .col-w-desc, .col-desc { width: 33.0% !important; max-width: 33.0% !important; text-align: left; }
+    .col-w-client, .col-client { width: 12.0% !important; max-width: 12.0% !important; text-align: left; }
+    .col-w-num, .col-num { width: 6.2% !important; max-width: 6.2% !important; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .col-w-adv, .col-adv { width: 5.4% !important; max-width: 5.4% !important; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .col-w-date, .col-date { width: 4.2% !important; max-width: 4.2% !important; text-align: center; font-size: 8px; white-space: nowrap; }
+    .col-w-tot, .col-tot { width: 6.8% !important; max-width: 6.8% !important; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .col-w-eng, .col-eng { width: 10.3% !important; max-width: 10.3% !important; text-align: left; font-size: 8px; }
 
     .code-pill {
       font-weight: 800;
       color: #0f172a;
       background: #e2e8f0;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 9.5px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 8.5px;
       display: inline-block;
+      font-family: monospace;
     }
     .desc-text {
-      font-size: 9px;
-      color: #334155;
-      line-height: 1.3;
+      font-size: 8.5px;
+      color: #1e293b;
+      line-height: 1.25;
       word-break: break-word;
     }
     .client-name {
       font-weight: 600;
       color: #0f172a;
-      font-size: 9.5px;
+      font-size: 8.5px;
+      line-height: 1.25;
       word-break: break-word;
     }
     .eng-name {
-      font-size: 9px;
+      font-size: 8.5px;
       color: #334155;
       font-weight: 500;
+      line-height: 1.25;
       word-break: break-word;
     }
 
     /* MODERN SECTION SHADING */
-    .col-shade-peach { background: rgba(254, 243, 199, 0.4) !important; color: #78350f; font-weight: 600; }
-    .col-shade-blue { background: rgba(239, 246, 255, 0.6) !important; color: #1e3a8a; }
-    .col-shade-mint { background: rgba(236, 253, 245, 0.7) !important; color: #064e3b; }
+    .col-shade-peach { background: rgba(254, 243, 199, 0.45) !important; color: #78350f; font-weight: 600; }
+    .col-shade-blue { background: rgba(239, 246, 255, 0.65) !important; color: #1e3a8a; }
+    .col-shade-mint { background: rgba(236, 253, 245, 0.75) !important; color: #064e3b; }
     
     th.th-peach { background: #78350f !important; color: #fff !important; }
     th.th-blue { background: #1e3a8a !important; color: #fff !important; }
@@ -3345,9 +4320,9 @@ function exportWipA3Pdf() {
       border-top: 2px solid #0f172a;
       border-bottom: none;
       font-weight: 800;
-      font-size: 9.5px;
+      font-size: 8.5px;
       color: #fff;
-      padding: 6px;
+      padding: 4px 5px;
     }
     table.data-table tfoot td.col-shade-peach { background: #92400e !important; color: #fff !important; }
     table.data-table tfoot td.col-shade-blue { background: #1e40af !important; color: #fff !important; }
@@ -3409,7 +4384,7 @@ function exportWipA3Pdf() {
             <td colspan="2" rowspan="4" style="background:#f8fafc;vertical-align:middle;text-align:center;padding:6px;">
               <div style="font-size:9.5px;color:#64748b;font-weight:600;">Monthly Performance</div>
               <div style="font-size:15px;font-weight:800;color:${divFin.profit < 0 ? '#dc2626' : '#15803d'};margin-top:2px;">
-                ${divFin.profit < 0 ? `(${Math.abs(divFin.profitPct || 0).toFixed(1)}% Deficit)` : `${(divFin.profitPct || 0).toFixed(1)}% Margin`}
+                ${divFin.profit < 0 ? `(${Math.abs(divFin.profitPct || 0).toFixed(2)}% Deficit)` : `${(divFin.profitPct || 0).toFixed(2)}% Margin`}
               </div>
             </td>
           </tr>
@@ -3419,7 +4394,7 @@ function exportWipA3Pdf() {
           </tr>
           <tr>
             <td class="label">Project Income</td>
-            <td class="val">${fmtAlways(divFin.projectIncome || (divFin.income - divFin.moneyReceived))}</td>
+            <td class="val">${fmtAlways(divFin.projectIncome || (divFin.subcontractPayment > 0 ? (divFin.income - divFin.subcontractPayment) : (divFin.income - (divFin.moneyReceived || 0))))}</td>
           </tr>
           <tr>
             <td class="label highlight-profit">${divFin.profit < 0 ? 'Net Deficit' : 'Net Profit'}</td>
@@ -3430,22 +4405,35 @@ function exportWipA3Pdf() {
     </div>
 
     <table class="data-table" id="a3PrintTable">
+      <colgroup>
+        <col class="col-w-no">
+        <col class="col-w-desc">
+        <col class="col-w-client">
+        <col class="col-w-num">
+        <col class="col-w-num">
+        <col class="col-w-adv">
+        <col class="col-w-date">
+        <col class="col-w-num">
+        <col class="col-w-num">
+        <col class="col-w-tot">
+        <col class="col-w-eng">
+      </colgroup>
       <thead>
         <tr>
-          <th rowspan="2">No</th>
-          <th rowspan="2">Description</th>
-          <th rowspan="2">Client</th>
-          <th rowspan="2">Estimate (Without Tax)</th>
-          <th rowspan="2" class="th-peach">Total Cumulative up to ${prevYear}</th>
-          <th colspan="2" class="th-blue">Advance received (${year})</th>
-          <th rowspan="2" class="th-blue">${safe(monthName)}</th>
-          <th rowspan="2" class="th-blue">Cumulative ${year}</th>
-          <th rowspan="2" class="th-mint">Total Cumulative up to ${year}</th>
-          <th rowspan="2">Project Engineer</th>
+          <th rowspan="2" class="col-w-no" style="width:3.5%;">No</th>
+          <th rowspan="2" class="col-w-desc" style="width:33.0%;text-align:left;padding-left:8px;">Project Name / Description &amp; Scope</th>
+          <th rowspan="2" class="col-w-client" style="width:12.0%;text-align:left;padding-left:6px;">Client</th>
+          <th rowspan="2" class="col-w-num" style="width:6.2%;">Estimate<br><span style="font-weight:400;font-size:7.5px;">(Without Tax)</span></th>
+          <th rowspan="2" class="col-w-num th-peach" style="width:6.2%;">Total Cum.<br><span style="font-weight:400;font-size:7.5px;">to ${prevYear}</span></th>
+          <th colspan="2" class="th-blue" style="width:9.6%;">Advance Received (${year})</th>
+          <th rowspan="2" class="col-w-num th-blue" style="width:6.2%;">${safe(monthName)}</th>
+          <th rowspan="2" class="col-w-num th-blue" style="width:6.2%;">Cumulative<br><span style="font-weight:400;font-size:7.5px;">${year}</span></th>
+          <th rowspan="2" class="col-w-tot th-mint" style="width:6.8%;">Total Cum.<br><span style="font-weight:400;font-size:7.5px;">to ${year}</span></th>
+          <th rowspan="2" class="col-w-eng" style="width:10.3%;text-align:left;padding-left:6px;">Project Engineer</th>
         </tr>
         <tr>
-          <th class="th-blue">(Without Tax)</th>
-          <th class="th-blue">Date</th>
+          <th class="col-w-adv th-blue" style="width:5.4%;font-size:7.5px;">(w/o Tax)</th>
+          <th class="col-w-date th-blue" style="width:4.2%;font-size:7.5px;">Date</th>
         </tr>
       </thead>
       <tbody>
@@ -3453,15 +4441,15 @@ function exportWipA3Pdf() {
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3" style="text-align:center;font-weight:800;">TOTALS</td>
+          <td colspan="3" style="text-align:center;font-weight:800;letter-spacing:0.5px;">TOTALS</td>
           <td class="col-num">${fmtAlways(totalEstNoTax)}</td>
-          <td class="col-num col-shade-peach">${fmtAlways(totalBase2025)}</td>
-          <td class="col-num col-shade-blue">${fmtAlways(totalAdv2026)}</td>
+          <td class="col-num col-shade-peach">${fmtAlways(totalBasePrior)}</td>
+          <td class="col-adv col-shade-blue">${fmtAlways(totalAdv)}</td>
           <td class="col-date col-shade-blue">-</td>
           <td class="col-num col-shade-blue highlight-month">${fmtAlways(totalMonthProgress)}</td>
-          <td class="col-num col-shade-blue">${fmtAlways(totalCum2026)}</td>
-          <td class="col-num col-shade-mint bold-total">${fmtAlways(totalCumulative)}</td>
-          <td></td>
+          <td class="col-num col-shade-blue">${fmtAlways(totalCumYear)}</td>
+          <td class="col-tot col-shade-mint bold-total">${fmtAlways(totalCumulative)}</td>
+          <td class="col-eng"></td>
         </tr>
       </tfoot>
     </table>
@@ -3562,6 +4550,10 @@ function switchTab(viewId) {
   });
   try {
     if (viewId === "dashboard") renderExecutiveCharts();
+    else if (viewId === "dossier") {
+      populateDossierSelector();
+      renderProjectDossier();
+    }
     else if (viewId === "projects") { if (state.viewMode === "kanban") renderKanban(); else renderProjects(); }
     else if (viewId === "wip") renderWip();
     else if (viewId === "finance") renderFinance();
@@ -3970,6 +4962,8 @@ function applyRolePermissions() {
   });
 
   renderMonthLockBanner();
+  updateEditorReminders();
+  updateTeamMessagesBadge();
 }
 
 /* =========================================================================
@@ -4193,6 +5187,450 @@ function updateApprovalBadge() {
     badge2.textContent = pending;
   }
 }
+
+/* =========================================================================
+   SCIENTIST & EDITOR REMINDERS / MY PROJECTS WORKFLOW
+   ========================================================================= */
+
+function updateEditorReminders() {
+  const user = state.user;
+  const remBtn = $("editorRemindersBtn");
+  const remBadge = $("editorRemindersBadge");
+  const myWipBtn = $("myWipToggleBtn");
+  const myWipBadge = $("myWipCountBadge");
+  const pendingBtn = $("myPendingWipBtn");
+  const pendingCount = $("myPendingWipCount");
+
+  if (!user) {
+    if (remBtn) remBtn.style.display = "none";
+    if (myWipBadge) myWipBadge.style.display = "none";
+    if (pendingBtn) pendingBtn.style.display = "none";
+    return;
+  }
+
+  const role = user.role || "Viewer";
+  const isEligible = role === "Editor" || role === "Manager" || role === "Admin";
+  if (remBtn) remBtn.style.display = isEligible ? "inline-flex" : "none";
+
+  const targetMonth = $("wipMonth")?.value || state.month || "2026-06";
+  const myProjs = getMyAssignedProjects();
+  const pendingProjs = getMyPendingWipProjects(targetMonth);
+
+  // Update WIP matrix button badges
+  if (myWipBadge) {
+    myWipBadge.textContent = myProjs.length;
+    myWipBadge.style.display = myProjs.length > 0 ? "inline-block" : "none";
+  }
+  const myProjectsBadge = $("myProjectsCountBadge");
+  if (myProjectsBadge) {
+    myProjectsBadge.textContent = myProjs.length;
+    myProjectsBadge.style.display = myProjs.length > 0 ? "inline-block" : "none";
+  }
+
+  // Ensure button texts reflect active state
+  const myProjectsTxt = $("myProjectsBtnText");
+  if (myProjectsTxt) {
+    myProjectsTxt.textContent = filterMyProjectsActive ? "🌐 All Projects" : "👤 My Projects";
+  }
+  const myWipTxt = $("myWipBtnText");
+  if (myWipTxt) {
+    myWipTxt.textContent = filterMyWipActive ? "🌐 All Projects" : "👤 My Projects";
+  }
+
+  if (pendingBtn && pendingCount) {
+    pendingCount.textContent = pendingProjs.length;
+    pendingBtn.style.display = pendingProjs.length > 0 ? "inline-flex" : "none";
+  }
+
+  // Update Top Navbar Reminders badge
+  if (remBadge) {
+    remBadge.textContent = pendingProjs.length;
+    remBadge.style.display = pendingProjs.length > 0 ? "inline-block" : "none";
+  }
+}
+window.updateEditorReminders = updateEditorReminders;
+
+function openEditorRemindersModal() {
+  const dialog = $("editorRemindersDialog");
+  if (!dialog) return;
+
+  if (!state.user) {
+    showToast("Please sign in or select a profile first.", true);
+    openAuthDialog("login");
+    return;
+  }
+
+  const targetMonth = $("wipMonth")?.value || state.month || "2026-06";
+  const user = state.user;
+  const myProjs = getMyAssignedProjects();
+  const pendingProjs = getMyPendingWipProjects(targetMonth);
+
+  const banner = $("editorRemindersBanner");
+  if (banner) {
+    if (pendingProjs.length === 0) {
+      banner.innerHTML = `
+        <div style="background:#ecfdf5;border:1px solid #10b981;border-radius:6px;padding:12px 16px;color:#065f46;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">🎉</span>
+          <div>
+            <b>All monthly progress up to date!</b>
+            <div style="font-size:11.5px;margin-top:2px;">All ${myProjs.length} assigned project(s) have recorded progress for month <b>${targetMonth}</b>.</div>
+          </div>
+        </div>
+      `;
+    } else {
+      banner.innerHTML = `
+        <div style="background:#fef2f2;border:1px solid #f87171;border-radius:6px;padding:12px 16px;color:#991b1b;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">⚠️</span>
+          <div>
+            <b>${pendingProjs.length} project(s) require your progress update for ${targetMonth}</b>
+            <div style="font-size:11.5px;margin-top:2px;">Please input monthly billing progress and physical completion percentage.</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  const tbody = $("editorRemindersTbody");
+  if (tbody) {
+    if (myProjs.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:24px;color:var(--text-muted);">No projects currently assigned to your staff profile (${user.shortName || user.fullName || user.epf}).</td></tr>`;
+    } else {
+      tbody.innerHTML = myProjs.map(p => {
+        const code = projectCode(p);
+        const st = status(p).toLowerCase().trim();
+        const w = currentWip(p, targetMonth);
+        const hasPh = w && w.physical !== null && w.physical !== undefined && w.physical > 0;
+        const hasFin = w && w.financial !== null && w.financial !== undefined && w.financial > 0;
+        const isPending = st !== "completed" && !(hasPh && hasFin);
+
+        return `
+          <tr style="border-bottom:1px solid var(--border-color-subtle);background:${isPending ? '#fff7ed' : 'transparent'};">
+            <td style="padding:8px 10px;">
+              <b>${safe(code)}</b>
+              <div style="font-size:10px;color:var(--text-muted);">${safe(p["Working Group"] || "")}</div>
+            </td>
+            <td style="padding:8px 10px;">
+              <div style="font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;">${safe(p["Client"])}</div>
+              <div style="font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;" title="${safe(p["Description"])}">${safe(p["Description"])}</div>
+            </td>
+            <td style="padding:8px 10px;">
+              ${isPending ? `
+                <span class="badge" style="background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5;font-size:10px;padding:2px 6px;">⚠️ Missing Update</span>
+              ` : `
+                <span class="badge completed" style="font-size:10px;padding:2px 6px;">✅ Updated (Rs. ${moneyShort(w.financial)}, ${(w.physical * 100).toFixed(0)}%)</span>
+              `}
+            </td>
+            <td style="padding:8px 10px;text-align:center;">
+              <button type="button" class="primary" onclick="jumpToWipProject('${safe(code)}')" style="padding:4px 10px;font-size:11px;font-weight:700;border-radius:4px;white-space:nowrap;">✏️ Update WIP</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
+  dialog.showModal();
+}
+window.openEditorRemindersModal = openEditorRemindersModal;
+
+function jumpToWipProject(code) {
+  $("editorRemindersDialog")?.close();
+  switchTab("wip");
+
+  // Ensure filters don't hide it
+  if (filterMyPendingWipActive) {
+    filterMyPendingWipActive = false;
+    $("myPendingWipBtn")?.classList.remove("active");
+  }
+  if ($("matrixSearch")) $("matrixSearch").value = code;
+  renderWip();
+
+  // Highlight and focus row/card
+  setTimeout(() => {
+    const input = document.querySelector(`input[data-wip-wp="${code}"]`);
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: "smooth", block: "center" });
+      const parentCard = input.closest(".matrix-card-modern") || input.closest("tr");
+      if (parentCard) {
+        parentCard.style.outline = "2px solid #0284c7";
+        parentCard.style.transition = "outline 0.3s ease";
+        setTimeout(() => { parentCard.style.outline = ""; }, 2500);
+      }
+    }
+  }, 120);
+}
+window.jumpToWipProject = jumpToWipProject;
+
+/* =========================================================================
+   TEAM DELEGATION & REAL-TIME HANDOFF NOTIFICATIONS
+   ========================================================================= */
+
+// In-memory notifications (Transient: Not stored in local browser cache)
+state.teamNotifications = state.teamNotifications || [];
+
+function updateTeamMessagesBadge() {
+  const user = state.user;
+  const msgBtn = $("teamMessagesBtn");
+  const msgBadge = $("teamMessagesBadge");
+  if (!msgBtn) return;
+
+  if (!user) {
+    msgBtn.style.display = "none";
+    return;
+  }
+
+  msgBtn.style.display = "inline-flex";
+
+  const userEpf = String(user.epf || "").trim().toLowerCase();
+  const userName = String(user.fullName || user.shortName || user.email || "").trim().toLowerCase();
+  const userShort = String(user.shortName || "").trim().toLowerCase();
+
+  // Find active, unread/pending action requests assigned to this user
+  const myPending = (state.teamNotifications || []).filter(n => {
+    if (n.status === "Done" || n.status === "Completed") return false;
+    const toEpf = String(n.toEpf || "").trim().toLowerCase();
+    const toName = String(n.toName || "").trim().toLowerCase();
+    if (userEpf && toEpf && userEpf === toEpf) return true;
+    if (userShort && toName && (toName.includes(userShort) || userShort.includes(toName))) return true;
+    if (userName && toName && (toName.includes(userName) || userName.includes(toName))) return true;
+    return false;
+  });
+
+  if (msgBadge) {
+    if (myPending.length > 0) {
+      msgBadge.textContent = myPending.length;
+      msgBadge.style.display = "inline-block";
+      msgBadge.classList.add("badge-flash"); // Flashing pulse animation
+    } else {
+      msgBadge.style.display = "none";
+      msgBadge.classList.remove("badge-flash");
+    }
+  }
+}
+window.updateTeamMessagesBadge = updateTeamMessagesBadge;
+
+function openTeamHandoffModal(projectCodeStr) {
+  if (!state.user) {
+    showToast("Please sign in to delegate or send project requests.", true);
+    openAuthDialog("login");
+    return;
+  }
+
+  const p = state.projects.find(x => projectCode(x) === projectCodeStr || projectId(x) === projectCodeStr);
+  if (!p) {
+    showToast("Project not found.", true);
+    return;
+  }
+
+  const dialog = $("teamHandoffDialog");
+  if (!dialog) return;
+
+  if ($("handoffProjectCode")) $("handoffProjectCode").value = projectCode(p);
+  if ($("handoffProjectSummary")) {
+    $("handoffProjectSummary").innerHTML = `<b>${safe(projectCode(p))}</b> · ${safe(p["Client"])} <span style="font-weight:400;color:var(--text-secondary);font-size:12px;">(${safe(p["Working Group"] || "GED")})</span>`;
+  }
+
+  // Populate Assignee Select
+  const sel = $("handoffAssigneeSelect");
+  if (sel) {
+    // Collect team members assigned to project first, then all staff
+    const assignedStaff = parseStaffList(scientist(p));
+    const allKnown = state.knownUsers || [];
+    
+    let html = `<option value="">Select recipient scientist / engineer...</option>`;
+    if (assignedStaff.length > 0) {
+      html += `<optgroup label="⭐ Current Project Team">`;
+      assignedStaff.forEach(s => {
+        const u = findStaffByEpfOrName(s);
+        const name = u ? `${u.title ? u.title + ' ' : ''}${u.fullName || u.shortName}` : s;
+        const epf = u ? u.epf : "";
+        html += `<option value="${safe(epf)}|${safe(name)}">${name} ${epf ? `(EPF: ${epf})` : ''}</option>`;
+      });
+      html += `</optgroup>`;
+    }
+
+    html += `<optgroup label="👥 All Division Scientists & Engineers">`;
+    allKnown.filter(u => isStaffEligibleEngineer(u)).forEach(u => {
+      const name = `${u.title ? u.title + ' ' : ''}${u.fullName || u.shortName}`;
+      html += `<option value="${safe(u.epf)}|${safe(name)}">${name} (EPF: ${safe(u.epf || '—')})</option>`;
+    });
+    html += `</optgroup>`;
+    sel.innerHTML = html;
+  }
+
+  dialog.showModal();
+}
+window.openTeamHandoffModal = openTeamHandoffModal;
+
+async function handleTeamHandoffSubmit(e) {
+  e.preventDefault();
+  const code = $("handoffProjectCode")?.value;
+  const assigneeVal = $("handoffAssigneeSelect")?.value;
+  const msg = ($("handoffMessageText")?.value || "").trim();
+
+  if (!code || !assigneeVal || !msg) {
+    showToast("Please fill all required delegation fields.", true);
+    return;
+  }
+
+  const [toEpf, toName] = assigneeVal.split("|");
+  const sender = state.user;
+  const senderName = `${sender.title ? sender.title + ' ' : ''}${sender.fullName || sender.shortName || sender.email}`;
+  const nowIso = new Date().toISOString();
+  const notifId = "NOTIF_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
+
+  const notifObj = {
+    id: notifId,
+    projectCode: code,
+    fromEpf: sender.epf || "",
+    fromName: senderName,
+    toEpf: toEpf || "",
+    toName: toName || "",
+    message: msg,
+    month: $("wipMonth")?.value || state.month || "2026-06",
+    status: "Pending",
+    createdAt: nowIso
+  };
+
+  // Add to transient state
+  state.teamNotifications.unshift(notifObj);
+  updateTeamMessagesBadge();
+
+  $("teamHandoffDialog")?.close();
+  showToast(`📨 Handoff request dispatched to ${toName}!`);
+
+  // Sync directly to Central Database Google Sheets
+  try {
+    await apiPost("createProjectNotification", notifObj);
+    logSystemAction("TEAM_HANDOFF", code, `Sent update handoff request to ${toName}: "${msg.slice(0, 45)}..."`);
+  } catch (err) {
+    console.warn("Real-time notification sync notice:", err.message);
+  }
+}
+window.handleTeamHandoffSubmit = handleTeamHandoffSubmit;
+
+function openTeamMessagesModal() {
+  const dialog = $("teamMessagesDialog");
+  if (!dialog) return;
+
+  if (!state.user) {
+    showToast("Please sign in to view your team requests.", true);
+    openAuthDialog("login");
+    return;
+  }
+
+  const user = state.user;
+  const userEpf = String(user.epf || "").trim().toLowerCase();
+  const userName = String(user.fullName || user.shortName || user.email || "").trim().toLowerCase();
+  const userShort = String(user.shortName || "").trim().toLowerCase();
+
+  const myNotifs = (state.teamNotifications || []).filter(n => {
+    const toEpf = String(n.toEpf || "").trim().toLowerCase();
+    const toName = String(n.toName || "").trim().toLowerCase();
+    if (userEpf && toEpf && userEpf === toEpf) return true;
+    if (userShort && toName && (toName.includes(userShort) || userShort.includes(toName))) return true;
+    if (userName && toName && (toName.includes(userName) || userName.includes(toName))) return true;
+    return false;
+  });
+
+  const pendingCount = myNotifs.filter(n => n.status !== "Done" && n.status !== "Completed").length;
+
+  const banner = $("teamMessagesBanner");
+  if (banner) {
+    if (pendingCount > 0) {
+      banner.innerHTML = `
+        <div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:6px;padding:12px 16px;color:#1e40af;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:22px;">📬</span>
+          <div>
+            <b>You have ${pendingCount} pending project action request(s)</b>
+            <div style="font-size:11.5px;margin-top:2px;">Colleagues have requested your progress input or verification for the projects below.</div>
+          </div>
+        </div>
+      `;
+    } else {
+      banner.innerHTML = `
+        <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:6px;padding:12px 16px;color:#065f46;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:20px;">🎉</span>
+          <div>
+            <b>Inbox clear! No pending handoff requests.</b>
+            <div style="font-size:11.5px;margin-top:2px;">All project action requests have been marked complete.</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  const listEl = $("teamMessagesList");
+  if (listEl) {
+    if (myNotifs.length === 0) {
+      listEl.innerHTML = `<div style="text-align:center;padding:32px;color:var(--text-muted);font-size:13px;border:1px dashed var(--border-color);border-radius:6px;">No action requests have been sent to your account yet.</div>`;
+    } else {
+      listEl.innerHTML = myNotifs.map(n => {
+        const isDone = n.status === "Done" || n.status === "Completed";
+        const dateStr = n.createdAt ? new Date(n.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+        return `
+          <div style="background:${isDone ? 'var(--bg-surface-subtle)' : 'var(--bg-surface)'};border:1px solid ${isDone ? 'var(--border-color-subtle)' : '#93c5fd'};border-radius:6px;padding:12px 16px;box-shadow:${isDone ? 'none' : '0 2px 6px rgba(37,99,235,0.08)'};">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-weight:800;font-size:13.5px;color:var(--primary);">📌 ${safe(n.projectCode)}</span>
+                  <span class="badge ${isDone ? 'completed' : 'in-progress'}" style="font-size:10px;padding:2px 6px;">${isDone ? '✅ Done' : '⚡ Action Required'}</span>
+                  <span style="font-size:11px;color:var(--text-muted);">${safe(n.month || '')}</span>
+                </div>
+                <div style="font-size:11.5px;color:var(--text-secondary);margin-top:4px;">
+                  Requested by <b>${safe(n.fromName)}</b> ${dateStr ? `· <span>${dateStr}</span>` : ''}
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <button type="button" class="primary" onclick="jumpToWipProject('${safe(n.projectCode)}'); $('teamMessagesDialog')?.close();" style="padding:4px 10px;font-size:11px;font-weight:700;border-radius:4px;">✏️ Jump to WIP</button>
+                ${!isDone ? `
+                  <button type="button" class="ghost" onclick="markNotificationDone('${safe(n.id)}')" style="padding:4px 8px;font-size:11px;font-weight:600;color:#059669;border-color:#10b981;">✅ Mark Done</button>
+                ` : ''}
+              </div>
+            </div>
+            <div style="margin-top:8px;padding:8px 12px;background:var(--bg-surface-subtle);border-radius:4px;font-size:12.5px;color:var(--text-primary);border-left:3px solid ${isDone ? 'var(--border-color)' : '#2563eb'};">
+              💬 "${safe(n.message)}"
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  dialog.showModal();
+}
+window.openTeamMessagesModal = openTeamMessagesModal;
+
+async function markNotificationDone(notifId) {
+  const n = (state.teamNotifications || []).find(x => x.id === notifId);
+  if (!n) return;
+  n.status = "Done";
+  n.completedAt = new Date().toISOString();
+  updateTeamMessagesBadge();
+  openTeamMessagesModal(); // refresh view
+  showToast("✓ Action marked as completed!");
+
+  // Background sync
+  apiPost("updateNotificationStatus", { id: notifId, status: "Done" }).catch(console.warn);
+}
+window.markNotificationDone = markNotificationDone;
+
+async function fetchLiveNotifications(manual = false) {
+  if (!state.user) return;
+  try {
+    const res = await apiGet("getProjectNotifications");
+    if (res && Array.isArray(res.notifications)) {
+      state.teamNotifications = res.notifications;
+      updateTeamMessagesBadge();
+      if (manual) showToast("✓ Notifications refreshed from central server.");
+    }
+  } catch (err) {
+    // Silent fail in background
+    if (manual) showToast("Could not reach central notification service.", true);
+  }
+}
+window.fetchLiveNotifications = fetchLiveNotifications;
 
 function openGovernanceCenter() {
   if (!isUserAdminAuthority()) {
@@ -5052,6 +6490,9 @@ window.renderExecutiveDashboard = renderExecutiveDashboard;
 window.handleDiagnosticRoleChange = handleDiagnosticRoleChange;
 window.startDiagnosticSimulation = startDiagnosticSimulation;
 window.exitDiagnosticMode = exitDiagnosticMode;
+window.updateEditorReminders = updateEditorReminders;
+window.openEditorRemindersModal = openEditorRemindersModal;
+window.jumpToWipProject = jumpToWipProject;
 
 // Boot application
 initAuth();
