@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=1.0.2">
+<link rel="stylesheet" href="styles.css?v=1.0.6">
 <!-- Chart.js for High-Performance Modern Interactive Visualizations -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <!-- html2pdf for Direct A3 PDF Generation -->
@@ -57,7 +57,7 @@
       <button class="cmd-hint" id="cmdPaletteTrigger" title="Press Ctrl+K to search anything">
         <span>🔍 Quick search</span> <kbd>Ctrl K</kbd>
       </button>
-      <label class="month-label"><span class="month-label-text">Reporting month</span> <input id="reportMonth" type="month" value="2026-06"></label>
+      <label class="month-label"><span class="month-label-text">Reporting month</span> <input id="reportMonth" type="month"></label>
       <!-- Central Database Connection Status Pill -->
       <div id="sheetsStatusPill" class="sheets-status-pill sheets-status-live" title="Central database connection status">
         <span class="sheets-status-dot" id="sheetsStatusDot"></span>
@@ -115,8 +115,8 @@
         <div style="display:flex;align-items:center;gap:8px;">
           <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em;">Horizon:</span>
           <div class="view-switcher dash-switcher" style="margin:0;">
-            <button type="button" class="view-toggle-btn active" id="dashHorizonMonth" style="min-width:135px;text-align:center;" onclick="setDashHorizon('month')">📅 Selected Month</button>
-            <button type="button" class="view-toggle-btn" id="dashHorizonYtd" style="min-width:135px;text-align:center;" onclick="setDashHorizon('ytd')">📈 Full Year (YTD)</button>
+            <button type="button" class="view-toggle-btn" id="dashHorizonMonth" style="min-width:135px;text-align:center;" onclick="setDashHorizon('month')">📅 Selected Month</button>
+            <button type="button" class="view-toggle-btn active" id="dashHorizonYtd" style="min-width:135px;text-align:center;" onclick="setDashHorizon('ytd')">📈 Full Year (YTD)</button>
           </div>
         </div>
 
@@ -131,14 +131,14 @@
 
       <!-- Right: Filters & Period Badge (Fixed Min-Width to Prevent Layout Shifts) -->
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <select id="dashGroupFilter" onchange="renderExecutiveCharts()" style="min-width:160px;padding:6px 12px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
+        <select id="dashGroupFilter" onchange="handleDashGroupChange(this.value)" style="min-width:160px;padding:6px 12px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
           <option value="">All Working Groups</option>
         </select>
 
         <select id="dashMonthSelect" onchange="handleDashMonthChange(this.value)" style="min-width:120px;padding:6px 12px;font-size:12.5px;font-weight:600;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
         </select>
 
-        <span class="badge in-progress" id="dashPeriodBadge" style="min-width:120px;text-align:center;font-size:12px;padding:5px 12px;display:inline-block;">2026-06</span>
+        <span class="badge in-progress" id="dashPeriodBadge" style="min-width:120px;text-align:center;font-size:12px;padding:5px 12px;display:inline-block;">—</span>
       </div>
     </div>
   </div>
@@ -166,10 +166,13 @@
 
     <!-- Chart 2: Cash Flow & Liquidity Realization Waterfall -->
     <article class="panel">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
         <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">💵 Cash Flow, Claims & Realization</h3>
-          <p style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Money Received vs. Expenditure vs. Outstanding Claims with net realization gap.</p>
+          <h3 id="chart2Title" style="margin:0;font-size:15px;font-weight:700;color:var(--text-primary);">💵 Cash Flow, Claims & Realization Gap</h3>
+          <p id="chart2Subtitle" style="margin:3px 0 0;font-size:12px;color:var(--text-secondary);">Total Claims (Money Received + Outstanding) vs. Expenditure with Net Cash Surplus/Deficit.</p>
+        </div>
+        <div>
+          <span id="chart2RealizationBadge" class="badge completed" style="font-size:12px;padding:4px 10px;font-weight:700;display:none;"></span>
         </div>
       </div>
       <div style="position:relative;height:290px;width:100%;">
@@ -225,10 +228,14 @@
   <!-- Dossier Control Toolbar -->
   <div class="panel" style="margin-bottom:16px;padding:12px 18px;">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <!-- Left: Project Selector & Quick Navigation -->
+      <!-- Left: Project Selector, Search Filter & Quick Navigation -->
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:320px;">
         <span style="font-size:18px;">📋</span>
-        <div style="flex:1;max-width:520px;">
+        <div style="position:relative;width:240px;">
+          <input id="dossierSearchInput" type="text" placeholder="🔍 Search code, client, desc, scientist..." oninput="handleDossierSearch(this.value)" style="width:100%;padding:7px 28px 7px 10px;font-size:12.5px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);" title="Filter projects by Code, Client, Description, or Responsible Scientist">
+          <button type="button" id="dossierSearchClearBtn" onclick="clearDossierSearch()" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);font-size:14px;cursor:pointer;padding:2px 4px;display:none;" title="Clear Search">✕</button>
+        </div>
+        <div style="flex:1;max-width:560px;min-width:240px;">
           <select id="dossierProjectSelect" onchange="renderProjectDossier(this.value)" style="width:100%;padding:7px 12px;font-size:13px;font-weight:700;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-surface);color:var(--text-primary);">
             <option value="">Select a project to view 360° Dossier...</option>
           </select>
@@ -392,7 +399,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <label class="month-label" style="margin:0;font-weight:700;color:var(--text-primary);">
-          Month: <input id="wipMonth" type="month" value="2026-06" onchange="handleWipMonthChange(this.value)" style="background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border-color);padding:6px 10px;border-radius:6px;">
+          Month: <input id="wipMonth" type="month" onchange="handleWipMonthChange(this.value)" style="background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border-color);padding:6px 10px;border-radius:6px;">
         </label>
         <button class="primary" id="saveFinanceSummaryBtn" style="padding:7px 14px;font-size:13px;">💾 Save Division Financials</button>
       </div>
@@ -443,7 +450,7 @@
       <div>
         <div style="display:flex;align-items:center;gap:10px;">
           <h2 style="margin:0;font-size:18px;font-weight:800;">📁 Project Progress Matrix</h2>
-          <span class="badge in-progress" id="matrixMonthBadge" style="font-size:12px;padding:3px 10px;">2026-06</span>
+          <span class="badge in-progress" id="matrixMonthBadge" style="font-size:12px;padding:3px 10px;">—</span>
           <span class="badge" id="matrixCountBadge" style="font-size:12px;padding:3px 10px;background:var(--bg-surface-subtle);color:var(--text-secondary);border:1px solid var(--border-color);">58 Active</span>
         </div>
         <p style="margin:4px 0 0;color:var(--text-secondary);font-size:12px;">Zero horizontal-scroll interface. Enter monthly billing progress and physical % — updates cascade live to division totals.</p>
@@ -1275,6 +1282,6 @@
 <!-- TOAST NOTIFICATION -->
 <div id="toast"></div>
 
-<script src="app.js?v=1.0.2"></script>
+<script src="app.js?v=1.0.12"></script>
 </body>
 </html>
